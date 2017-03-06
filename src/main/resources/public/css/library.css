@@ -1,0 +1,40 @@
+.div-entries {
+    float: left;
+    width: 50%;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.div-results {
+    white-space: pre;
+    clear: both;
+    font-family: monospace;
+}
+
+.button {
+    float: none;
+    width: 25%;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.button-left {
+    float: left;
+    width: 25%;
+    margin-top: 10px;
+    clear: both;
+}
+
+.text {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+}
+
+.readonly {
+    pointer-events: none;
+}
+
+.waiting * {
+    cursor: progress;
+}
