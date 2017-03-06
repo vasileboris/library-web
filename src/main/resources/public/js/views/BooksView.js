@@ -36,6 +36,11 @@
             $('#add-book-div').children('input').each(function(i, el){
                 var property = el.id.replace('add-book-','').replace(/-\w+/,'');
                 var value = $(el).val().trim();
+                if(property === 'authors') {
+                    value = value.split(",").map(function (s) {
+                        return s.trim();
+                    })
+                }
                 bookData[property] = value;
             });
             var book = new bookcase.Book(bookData);

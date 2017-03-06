@@ -4,7 +4,7 @@
 
 <div th:fragment="book">
   <script type="text/template" id="book-template">
-  TITLE : <a href="/edit-book?uuid=<%= uuid %>"><%= title %></a> <a href="/delete-book?uuid=<%= uuid %>"><img src="img/delete.png" alt="delete book" height="10px" width="10px"/></a>
+  TITLE : <a href="/edit-book?uuid=<%= uuid %>"><%= title %></a> <a href="#" class="delete"><img src="img/delete.png" alt="delete book" height="10px" width="10px"/></a>
   ISBN : <%= isbn10 %> / <%= isbn13 %>
   AUTHORS : <%= authors %>
   PAGES : <%= pages %>
