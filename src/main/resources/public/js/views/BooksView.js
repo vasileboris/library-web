@@ -12,10 +12,13 @@
             'click #add-book-button': 'addBook'
         },
 
-        initialize: function(books) {
-            this.collection = new bookcase.Books(books);
-            this.listenTo(this.collection, 'add', this.renderBook);
+        initialize: function() {
+            this.collection = new bookcase.Books();
+            this.collection.fetch({reset: true});
             this.render();
+
+            this.listenTo(this.collection, 'add', this.renderBook);
+            this.listenTo(this.collection, 'reset', this.render);
         },
 
         render: function () {
@@ -43,8 +46,7 @@
                 }
                 bookData[property] = value;
             });
-            var book = new bookcase.Book(bookData);
-            this.collection.add(book);
+            this.collection.create(bookData);
         }
     });
 

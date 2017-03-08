@@ -7,13 +7,10 @@
 
     bookcase.Book = Backbone.Model.extend({
         defaults: {
-            uuid: '',
-            isbn10: '',
-            isbn13: '',
-            title: '',
-            authors: [],
-            pages: 0
-        }
+            uuid: null
+        },
+
+        idAttribute: 'uuid'
     });
 
 })();

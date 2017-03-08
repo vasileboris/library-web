@@ -6,7 +6,8 @@
     }
 
     bookcase.Books = Backbone.Collection.extend({
-        model: bookcase.Book
-    });
+        model: bookcase.Book,
 
+        url: '/users/' + bookcase.user + '/books'
+    });
 })();
