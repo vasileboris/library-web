@@ -33,7 +33,7 @@
             });
             this.$('#books-div').append(bookView.render().el);
         },
-        
+
         addBook: function (e) {
             var bookData = {};
             $('#add-book-div').children('input').each(function(i, el){
@@ -46,7 +46,7 @@
                 }
                 bookData[property] = value;
             });
-            this.collection.create(bookData);
+            this.collection.create(bookData, {wait: true});
         }
     });
 
