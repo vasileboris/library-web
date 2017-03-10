@@ -13,16 +13,16 @@
         },
 
         initialize: function() {
-            this.collection = new bookcase.Books();
-            this.collection.fetch({reset: true});
+            this.books = new bookcase.Books();
+            this.books.fetch({reset: true});
             this.render();
 
-            this.listenTo(this.collection, 'add', this.renderBook);
-            this.listenTo(this.collection, 'reset', this.render);
+            this.listenTo(this.books, 'add', this.renderBook);
+            this.listenTo(this.books, 'reset', this.render);
         },
 
         render: function () {
-            this.collection.each(function (book) {
+            this.books.each(function (book) {
                 this.renderBook(book);
             }, this);
         },
@@ -48,7 +48,7 @@
                 }
                 bookData[property] = value;
             });
-            this.collection.create(bookData, {
+            this.books.create(bookData, {
                 wait: true,
                 success: this.successOnAddBook,
                 error: this.errorOnAddBook
