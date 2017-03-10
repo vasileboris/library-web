@@ -34,7 +34,9 @@
             this.$('#books-div').append(bookView.render().el);
         },
 
-        addBook: function (e) {
+        addBook: function () {
+            $('#message-div').html('');
+
             var bookData = {};
             $('#add-book-div').children('input').each(function(i, el){
                 var property = el.id.replace('add-book-','').replace(/-\w+/,'');
@@ -46,7 +48,24 @@
                 }
                 bookData[property] = value;
             });
-            this.collection.create(bookData, {wait: true});
+            this.collection.create(bookData, {
+                wait: true,
+                success: this.successOnAddBook,
+                error: this.errorOnAddBook
+            });
+        },
+
+        successOnAddBook: function (model, response, options) {
+            $('#add-book-div').children('input').each(function(i, el){
+                $(el).val('');
+            });
+        },
+
+        errorOnAddBook: function (model, response, options) {
+            var messageView = new bookcase.MessageView({
+                model: new bookcase.Message({message: 'Error on adding book: ' + options.xhr.status})
+            });
+            $('#message-div').html(messageView.render().el);
         }
     });
 
