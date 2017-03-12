@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Library application</title>
+    <link rel="stylesheet" type="text/css" href="css/library.css"></link>
+</head>
+<body>
+
+<div id="library-div" class="div-entries">
+</div>
+
+<div th:replace="fragments/Header :: Header"></div>
+<div th:replace="fragments/AddBook :: AddBook"></div>
+<div th:replace="fragments/Footer :: Footer"></div>
+
+<script src="js/lib/jquery-3.1.1.js"></script>
+<script src="js/lib/underscore-1.8.3.js"></script>
+<script src="js/lib/backbone-1.3.3.js"></script>
+<script src="js/User.js"></script>
+<script src="js/models/Message.js"></script>
+<script src="js/views/MessageView.js"></script>
+<script src="js/models/Book.js"></script>
+<script src="js/collections/Books.js"></script>
+<script src="js/views/BookView.js"></script>
+<script src="js/views/BooksView.js"></script>
+<script src="js/views/LibraryView.js"></script>
+<script src="js/Library.js"></script>
+
+</body>
+</html>

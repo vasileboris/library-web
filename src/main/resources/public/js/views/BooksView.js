@@ -15,7 +15,6 @@
         initialize: function() {
             this.books = new bookcase.Books();
             this.books.fetch({reset: true});
-            this.render();
 
             this.listenTo(this.books, 'add', this.renderBook);
             this.listenTo(this.books, 'reset', this.render);

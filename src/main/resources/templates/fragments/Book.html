@@ -2,18 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="book">
+<div th:fragment="Book">
   <script type="text/template" id="book-template">
   TITLE : <a href="/edit-book?uuid=<%= uuid %>"><%= title %></a> <a href="#" class="delete"><img src="img/delete.png" alt="delete book" height="10px" width="10px"/></a>
   ISBN : <%= isbn10 %> / <%= isbn13 %>
   AUTHORS : <%= authors %>
   PAGES : <%= pages %>
   </script>
-
-  <script src="js/models/Book.js"></script>
-  <script src="js/collections/Books.js"></script>
-  <script src="js/views/BookView.js"></script>
-  <script src="js/views/BooksView.js"></script>
 </div>
 
 </body>

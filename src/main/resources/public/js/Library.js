@@ -5,6 +5,5 @@ $(function() {
         window.bookcase = {};
     }
 
-    bookcase.booksView = new bookcase.BooksView();
-
+    new bookcase.LibraryView();
 });
