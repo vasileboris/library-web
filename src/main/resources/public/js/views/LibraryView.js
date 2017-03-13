@@ -1,15 +1,14 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var Backbone = require('js/lib/backbone');
+    var BooksView = require('js/views/BooksView');
 
-    bookcase.LibraryView = Backbone.View.extend({
+    var LibraryView = Backbone.View.extend({
         el: '#library-div',
 
         initialize: function() {
-            this.currentView = new bookcase.BooksView();
+            this.currentView = new BooksView();
             this.render();
         },
 
@@ -19,4 +18,5 @@
 
     });
 
-})();
+    return LibraryView;
+});

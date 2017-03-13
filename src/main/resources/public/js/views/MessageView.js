@@ -1,14 +1,14 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var _ = require('js/lib/underscore');
+    var Backbone = require('js/lib/backbone');
+    var templateHtml = require('text!js/templates/Message.html');
 
-    bookcase.MessageView = Backbone.View.extend({
+    var MessageView = Backbone.View.extend({
         tagName: 'p',
 
-        template: _.template($('#message-template').html()),
+        template: _.template(templateHtml),
 
         render: function () {
             this.$el.html(this.template(this.model.attributes));
@@ -17,4 +17,5 @@
 
     });
 
-})();
+    return MessageView;
+});

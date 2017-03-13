@@ -7,25 +7,13 @@
 </head>
 <body>
 
-<div id="library-div" class="div-entries">
-</div>
-
 <div th:replace="fragments/Header :: Header"></div>
-<div th:replace="fragments/AddBook :: AddBook"></div>
+
+<div id="library-div" class="div-entries"></div>
+
 <div th:replace="fragments/Footer :: Footer"></div>
 
-<script src="js/lib/jquery-3.1.1.js"></script>
-<script src="js/lib/underscore-1.8.3.js"></script>
-<script src="js/lib/backbone-1.3.3.js"></script>
-<script src="js/User.js"></script>
-<script src="js/models/Message.js"></script>
-<script src="js/views/MessageView.js"></script>
-<script src="js/models/Book.js"></script>
-<script src="js/collections/Books.js"></script>
-<script src="js/views/BookView.js"></script>
-<script src="js/views/BooksView.js"></script>
-<script src="js/views/LibraryView.js"></script>
-<script src="js/Library.js"></script>
+<script data-main="js/Library.js" src="js/lib/require.js"></script>
 
 </body>
 </html>

@@ -1,14 +1,14 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var _ = require('js/lib/underscore');
+    var Backbone = require('js/lib/backbone');
+    var templateHtml = require('text!js/templates/Book.html');
 
-    bookcase.BookView = Backbone.View.extend({
+    var BookView = Backbone.View.extend({
         tagName: 'div',
 
-        template: _.template($('#book-template').html()),
+        template: _.template(templateHtml),
 
         events: {
             'click .delete': 'deleteBook'
@@ -30,4 +30,5 @@
 
     });
 
-})();
+    return BookView;
+});

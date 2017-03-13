@@ -1,13 +1,15 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var Backbone = require('js/lib/backbone');
+    var Book = require('js/models/Book');
+    var user = require('js/User');
 
-    bookcase.Books = Backbone.Collection.extend({
-        model: bookcase.Book,
+    var Books = Backbone.Collection.extend({
+        model: Book,
 
-        url: '/users/' + bookcase.user + '/books'
+        url: '/users/' + user.id + '/books'
     });
-})();
+
+    return Books;
+});

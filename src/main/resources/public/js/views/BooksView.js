@@ -1,19 +1,27 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var _ = require('js/lib/underscore');
+    var Backbone = require('js/lib/backbone');
+    var Books = require('js/collections/Books');
+    var BookView = require('js/views/BookView');
+    var Message = require('js/models/Message');
+    var MessageView = require('js/views/MessageView');
+    var templateHtml = require('text!js/templates/Books.html');
 
-    bookcase.BooksView = Backbone.View.extend({
-        el: '#add-book-div',
+    var BooksView = Backbone.View.extend({
+        tagName: 'div',
+
+        className: 'div-entries',
+
+        template: _.template(templateHtml),
 
         events: {
             'click #add-book-button': 'addBook'
         },
 
         initialize: function() {
-            this.books = new bookcase.Books();
+            this.books = Books();
             this.books.fetch({reset: true});
 
             this.listenTo(this.books, 'add', this.renderBook);
@@ -24,10 +32,11 @@
             this.books.each(function (book) {
                 this.renderBook(book);
             }, this);
+            return this;
         },
 
         renderBook: function (book) {
-            var bookView = new bookcase.BookView({
+            var bookView = new BookView({
                 model: book
             });
             this.$('#books-div').append(bookView.render().el);
@@ -61,11 +70,12 @@
         },
 
         errorOnAddBook: function (model, response, options) {
-            var messageView = new bookcase.MessageView({
-                model: new bookcase.Message({message: 'Error on adding book: ' + options.xhr.status})
+            var messageView = new MessageView({
+                model: new Message({message: 'Error on adding book: ' + options.xhr.status})
             });
             $('#message-div').html(messageView.render().el);
         }
     });
 
-})();
+    return BooksView;
+});

@@ -1,9 +1,9 @@
-(function() {
+define(function() {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var user = {
+        id: 'boris'
+    };
 
-    bookcase.user = 'boris';
+    return user;
 })();

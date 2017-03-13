@@ -1,14 +1,13 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var Backbone = require('js/lib/backbone');
 
-    bookcase.Message = Backbone.Model.extend({
+    var Message = Backbone.Model.extend({
         defaults: {
             message: ''
         }
     });
 
-})();
+    return Message;
+});

@@ -1,11 +1,9 @@
-(function() {
+define(function(require) {
     "use strict";
 
-    if(window.bookcase === undefined) {
-        window.bookcase = {};
-    }
+    var Backbone = require('js/lib/backbone');
 
-    bookcase.Book = Backbone.Model.extend({
+    var Book = Backbone.Model.extend({
         defaults: {
             uuid: null
         },
@@ -13,4 +11,5 @@
         idAttribute: 'uuid'
     });
 
-})();
+    return Book;
+});
