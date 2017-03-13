@@ -1,5 +1,3 @@
-'use strict';
-
 // Require.js allows us to configure shortcut alias
 requirejs.config({
     baseUrl: '/js',
@@ -12,6 +10,8 @@ requirejs.config({
 });
 
 define(function(require) {
+    'use strict';
+
     var LibraryView = require('views/LibraryView');
     new LibraryView();
 });
