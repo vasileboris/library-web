@@ -1,7 +1,7 @@
 'use strict';
 
 // Require.js allows us to configure shortcut alias
-require.config({
+requirejs.config({
     baseUrl: '/js',
     paths: {
         text: 'lib/text',
@@ -10,7 +10,9 @@ require.config({
         backbone: 'lib/backbone'
     },
     shim: {
-        backbone: ['jquery', 'underscore']
+        backbone: {
+            deps :['jquery', 'underscore']
+        }
     }});
 
 define(function(require) {
