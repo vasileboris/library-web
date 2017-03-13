@@ -2,30 +2,20 @@
 
 // Require.js allows us to configure shortcut alias
 require.config({
-    // The shim config allows us to configure dependencies for
-    // scripts that do not call define() to register a module
-    shim: {
-        underscore: {
-            exports: '_'
-        },
-        backbone: {
-            deps: [
-                'underscore',
-                'jquery'
-            ],
-            exports: 'Backbone'
-        }
-    },
+    baseUrl: '/js',
     paths: {
-        jquery: 'js/lib/jquery',
-        underscore: 'js/lib/underscore',
-        backbone: 'js/lib/backbone'
-    }
-});
+        text: 'lib/text',
+        jquery: 'lib/jquery',
+        underscore: 'lib/underscore',
+        backbone: 'lib/backbone'
+    },
+    shim: {
+        backbone: ['jquery', 'underscore']
+    }});
 
 define(function(require) {
     'use strict';
 
-    var LibraryView = require('js/views/LibraryView');
+    var LibraryView = require('views/LibraryView');
     new LibraryView();
 });

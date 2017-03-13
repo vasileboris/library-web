@@ -1,7 +1,7 @@
 define(function(require) {
     "use strict";
 
-    var Backbone = require('js/lib/backbone');
+    var Backbone = require('backbone');
 
     var Message = Backbone.Model.extend({
         defaults: {

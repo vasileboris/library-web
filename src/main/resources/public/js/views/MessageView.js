@@ -1,9 +1,9 @@
 define(function(require) {
     "use strict";
 
-    var _ = require('js/lib/underscore');
-    var Backbone = require('js/lib/backbone');
-    var templateHtml = require('text!js/templates/Message.html');
+    var _ = require('underscore');
+    var Backbone = require('backbone');
+    var templateHtml = require('text!templates/Message.html');
 
     var MessageView = Backbone.View.extend({
         tagName: 'p',

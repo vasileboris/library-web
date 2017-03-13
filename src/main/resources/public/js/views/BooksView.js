@@ -1,18 +1,16 @@
 define(function(require) {
     "use strict";
 
-    var _ = require('js/lib/underscore');
-    var Backbone = require('js/lib/backbone');
-    var Books = require('js/collections/Books');
-    var BookView = require('js/views/BookView');
-    var Message = require('js/models/Message');
-    var MessageView = require('js/views/MessageView');
-    var templateHtml = require('text!js/templates/Books.html');
+    var _ = require('underscore');
+    var Backbone = require('backbone');
+    var Books = require('collections/Books');
+    var BookView = require('views/BookView');
+    var Message = require('models/Message');
+    var MessageView = require('views/MessageView');
+    var templateHtml = require('text!templates/Books.html');
 
     var BooksView = Backbone.View.extend({
         tagName: 'div',
-
-        className: 'div-entries',
 
         template: _.template(templateHtml),
 
@@ -21,7 +19,7 @@ define(function(require) {
         },
 
         initialize: function() {
-            this.books = Books();
+            this.books = new Books();
             this.books.fetch({reset: true});
 
             this.listenTo(this.books, 'add', this.renderBook);
@@ -29,6 +27,7 @@ define(function(require) {
         },
 
         render: function () {
+            this.$el.html(this.template());
             this.books.each(function (book) {
                 this.renderBook(book);
             }, this);
@@ -46,7 +45,7 @@ define(function(require) {
             $('#message-div').html('');
 
             var bookData = {};
-            $('#add-book-div').children('input').each(function(i, el){
+            this.$el.children('input').each(function(i, el){
                 var property = el.id.replace('add-book-','').replace(/-\w+/,'');
                 var value = $(el).val().trim();
                 if(property === 'authors') {

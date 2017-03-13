@@ -1,9 +1,9 @@
 define(function(require) {
     "use strict";
 
-    var Backbone = require('js/lib/backbone');
-    var Book = require('js/models/Book');
-    var user = require('js/User');
+    var Backbone = require('backbone');
+    var Book = require('models/Book');
+    var user = require('User');
 
     var Books = Backbone.Collection.extend({
         model: Book,

@@ -1,8 +1,8 @@
 define(function(require) {
     "use strict";
 
-    var Backbone = require('js/lib/backbone');
-    var BooksView = require('js/views/BooksView');
+    var Backbone = require('backbone');
+    var BooksView = require('views/BooksView');
 
     var LibraryView = Backbone.View.extend({
         el: '#library-div',
@@ -13,7 +13,7 @@ define(function(require) {
         },
 
         render: function () {
-            this.$('#library-div').html(this.currentView.render().el);
+            this.$el.html(this.currentView.render().el);
         }
 
     });
