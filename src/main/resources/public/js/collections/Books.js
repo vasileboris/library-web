@@ -1,6 +1,4 @@
 define(function(require) {
-    "use strict";
-
     var Backbone = require('backbone');
     var Book = require('models/Book');
     var user = require('User');

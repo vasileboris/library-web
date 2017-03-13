@@ -1,6 +1,4 @@
 define(function(require) {
-    "use strict";
-
     var Backbone = require('backbone');
     var BooksView = require('views/BooksView');
 

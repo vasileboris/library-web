@@ -9,15 +9,9 @@ requirejs.config({
         underscore: 'lib/underscore',
         backbone: 'lib/backbone'
     },
-    shim: {
-        backbone: {
-            deps :['jquery', 'underscore']
-        }
-    }});
+});
 
 define(function(require) {
-    'use strict';
-
     var LibraryView = require('views/LibraryView');
     new LibraryView();
 });

@@ -1,6 +1,4 @@
 define(function(require) {
-    "use strict";
-
     var _ = require('underscore');
     var Backbone = require('backbone');
     var templateHtml = require('text!templates/Message.html');
