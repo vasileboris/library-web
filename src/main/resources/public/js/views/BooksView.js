@@ -6,7 +6,6 @@ define(function(require) {
     var Books = require('collections/Books');
     var BookView = require('views/BookView');
     var Message = require('models/Message');
-    var MessageView = require('views/MessageView');
     var templateHtml = require('text!templates/Books.html');
 
     var BooksView = Backbone.View.extend({
@@ -42,7 +41,7 @@ define(function(require) {
         },
 
         addBook: function () {
-            $('#message-div').html('');
+            this.$el.children('#message-div').html('');
 
             var bookData = {};
             this.$el.children('input').each(function(i, el){
@@ -55,24 +54,22 @@ define(function(require) {
                 }
                 bookData[property] = value;
             });
+
             this.books.create(bookData, {
                 wait: true,
-                success: this.successOnAddBook,
-                error: this.errorOnAddBook
+                success: _.bind(this.successOnAddBook, this),
+                error: _.bind(this.errorOnAddBook, this)
             });
         },
 
         successOnAddBook: function (model, response, options) {
-            $('#add-book-div').children('input').each(function(i, el){
+            this.$el.children('input').each(function(i, el){
                 $(el).val('');
             });
         },
 
         errorOnAddBook: function (model, response, options) {
-            var messageView = new MessageView({
-                model: new Message({message: 'Error on adding book: ' + options.xhr.status})
-            });
-            $('#message-div').html(messageView.render().el);
+            this.$el.children('#message-div').html('Error on adding book: ' + options.xhr.status);
         }
     });
 
