@@ -7,7 +7,8 @@ define(function(require) {
     var LibraryRouter = Backbone.Router.extend({
         routes: {
             'search-books' : 'searchBooks',
-            'add-books': 'addBooks'
+            'add-books': 'addBooks',
+            'edit-book?uuid=:uuid': 'editBook',
         },
 
         initialize: function () {
@@ -20,6 +21,10 @@ define(function(require) {
 
         addBooks: function () {
             this.libraryView.addBooks();
+        },
+
+        editBook: function (uuid) {
+            this.libraryView.editBook(uuid);
         }
     });
 
