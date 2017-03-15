@@ -12,6 +12,7 @@ requirejs.config({
 define(function(require) {
     'use strict';
 
-    var LibraryView = require('views/LibraryView');
-    new LibraryView();
+    var LibraryRouter = require('routers/LibraryRouter');
+    new LibraryRouter();
+    Backbone.history.start();
 });
