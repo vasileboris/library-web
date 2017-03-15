@@ -19,17 +19,11 @@ define(function(require) {
 
         initialize: function() {
             this.books = new Books();
-            this.books.fetch({reset: true});
-
             this.listenTo(this.books, 'add', this.renderBook);
-            this.listenTo(this.books, 'reset', this.render);
         },
 
         render: function () {
             this.$el.html(this.template());
-            this.books.each(function (book) {
-                this.renderBook(book);
-            }, this);
             return this;
         },
 
@@ -37,7 +31,7 @@ define(function(require) {
             var bookView = new BookView({
                 model: book
             });
-            this.$('#books-div').append(bookView.render().el);
+            this.$('#books-div').html(bookView.render().el);
         },
 
         addBook: function () {
