@@ -40,6 +40,10 @@
     cursor: progress;
 }
 
+.hidden {
+    display: none;
+}
+
 .delete {
 
 }

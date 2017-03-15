@@ -14,7 +14,7 @@ define(function(require) {
         template: _.template(templateHtml),
 
         events: {
-            'click #add-book-button': 'addBook'
+            'click #book-add-button': 'addBook'
         },
 
         initialize: function() {
@@ -41,10 +41,10 @@ define(function(require) {
         },
 
         addBook: function () {
-            this.$el.children('#message-div').html('');
+            this.$el.find('#message-div').html('');
 
             var bookData = {};
-            this.$el.children('input').each(function(i, el){
+            this.$el.find('#book-add-update-div input').each(function(i, el){
                 var property = el.id.replace('book-','').replace(/-\w+/,'');
                 var value = $(el).val().trim();
                 if(property === 'authors') {
@@ -57,19 +57,19 @@ define(function(require) {
 
             this.books.create(bookData, {
                 wait: true,
-                success: _.bind(this.successOnAddBook, this),
+                success: _.bind(this.success, this),
                 error: _.bind(this.errorOnAddBook, this)
             });
         },
 
-        successOnAddBook: function (model, response, options) {
-            this.$el.children('input').each(function(i, el){
+        success: function (model, response, options) {
+            this.$el.find('input').each(function(i, el){
                 $(el).val('');
             });
         },
 
         errorOnAddBook: function (model, response, options) {
-            this.$el.children('#message-div').html('Error on adding book: ' + options.xhr.status);
+            this.$el.find('#message-div').html('Error on adding book: ' + options.xhr.status);
         }
     });
 
