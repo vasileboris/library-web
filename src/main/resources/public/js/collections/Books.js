@@ -8,7 +8,17 @@ define(function(require) {
     var Books = Backbone.Collection.extend({
         model: Book,
 
-        url: '/users/' + user.id + '/books'
+        initialize: function (searchText) {
+            this.searchText = searchText;
+        },
+
+        url: function () {
+            var url = '/users/' + user.id + '/books';
+            if(this.searchText) {
+                url += '?searchText=' + this.searchText;
+            }
+            return url;
+        }
     });
 
     return Books;

@@ -6,7 +6,7 @@ define(function(require) {
     var Books = require('collections/Books');
     var BookView = require('views/BookView');
     var Message = require('models/Message');
-    var templateHtml = require('text!templates/Books.html');
+    var templateHtml = require('text!templates/AddBooks.html');
 
     var BooksView = Backbone.View.extend({
         tagName: 'div',
@@ -44,7 +44,7 @@ define(function(require) {
             this.$el.find('#message-div').html('');
 
             var bookData = {};
-            this.$el.find('#book-add-update-div input').each(function(i, el){
+            this.$el.find('input').each(function(i, el){
                 var property = el.id.replace('book-','').replace(/-\w+/,'');
                 var value = $(el).val().trim();
                 if(property === 'authors') {
