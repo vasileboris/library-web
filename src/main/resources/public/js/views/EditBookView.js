@@ -3,7 +3,7 @@ define(function(require) {
 
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var Books = require('collections/Books');
+    var Book = require('models/Book');
     var Message = require('models/Message');
     var templateHtml = require('text!templates/EditBook.html');
 
@@ -17,12 +17,23 @@ define(function(require) {
         },
 
         initialize: function(uuid) {
-            this.books = new Books();
-            this.model.fetch();
+            this.book = new Book({uuid: uuid});
+            this.book.fetch({
+                success: _.bind(this.successOnInitializeBook, this),
+                error: _.bind(this.errorOnInitializeBook, this)
+            });
+        },
+
+        successOnInitializeBook: function (model, response, options) {
+            this.render();
+        },
+
+        errorOnInitializeBook: function (model, response, options) {
+            this.$el.find('#message-div').html('Error on initializing book: ' + options.xhr.status);
         },
 
         render: function () {
-            this.$el.html(this.template());
+            this.$el.html(this.template(this.book.attributes));
             return this;
         },
 
@@ -42,13 +53,12 @@ define(function(require) {
             });
 
             this.book.save(bookData, {
-                wait: true,
-                success: _.bind(this.success, this),
+                success: _.bind(this.successOnUpdateBook, this),
                 error: _.bind(this.errorOnUpdateBook, this)
             });
         },
 
-        success: function (model, response, options) {
+        successOnUpdateBook: function (model, response, options) {
             this.$el.find('#message-div').html('Book was updated!');
         },
 
