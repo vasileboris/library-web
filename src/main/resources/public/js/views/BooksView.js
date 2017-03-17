@@ -20,6 +20,7 @@ define(function(require) {
         addBooksTemplate: _.template(addBooksHtml),
 
         events: {
+            'click #books-search-link': 'renderSearchBooks',
             'click #books-search-button': 'searchBooks',
             'click #books-add-link': 'renderAddBooks',
             'click #book-add-button': 'addBook'

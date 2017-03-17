@@ -8,10 +8,10 @@ define(function(require) {
         el: '#library-div',
 
         initialize: function() {
-            this.searchBooks();
+            this.manageBooks();
         },
 
-        searchBooks: function () {
+        manageBooks: function () {
             this.currentView = new BooksView();
             this.render();
         },

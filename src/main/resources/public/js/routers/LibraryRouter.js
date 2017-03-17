@@ -6,15 +6,15 @@ define(function(require) {
 
     var LibraryRouter = Backbone.Router.extend({
         routes: {
-            'search-books' : 'searchBooks'
+            'books' : 'manageBooks'
         },
 
         initialize: function () {
             this.libraryView = new LibraryView();
         },
 
-        searchBooks: function () {
-            this.libraryView.searchBooks();
+        manageBooks: function () {
+            this.libraryView.manageBooks();
         }
 
     });
