@@ -6,12 +6,15 @@ define(function(require) {
     var Books = require('collections/Books');
     var BookView = require('views/BookView');
     var Message = require('models/Message');
-    var templateHtml = require('text!templates/SearchBooks.html');
+    var booksHtml = require('text!templates/Books.html');
+    var searchBooksHtml = require('text!templates/SearchBooks.html');
 
     var SearchBooksView = Backbone.View.extend({
         tagName: 'div',
 
-        template: _.template(templateHtml),
+        booksTemplate: _.template(booksHtml),
+
+        searchBooksTemplate: _.template(searchBooksHtml),
 
         events: {
             'click #books-search-button': 'searchBooks'
@@ -22,8 +25,13 @@ define(function(require) {
         },
 
         render: function () {
-            this.$el.html(this.template());
+            this.$el.html(this.booksTemplate());
+            this.renderSearchBooks();
             return this;
+        },
+
+        renderSearchBooks: function () {
+            this.$('#input-div').html(this.searchBooksTemplate());
         },
 
         searchBooks: function() {
