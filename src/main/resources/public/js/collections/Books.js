@@ -18,6 +18,10 @@ define(function(require) {
                 url += '?searchText=' + this.searchText;
             }
             return url;
+        },
+
+        changeSearchText: function (searchText) {
+            this.searchText = searchText;
         }
     });
 

@@ -12,13 +12,6 @@
     margin-bottom: 10px;
 }
 
-.button {
-    float: none;
-    width: 50%;
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-
 .button-left {
     float: left;
     width: 50%;
@@ -30,6 +23,19 @@
     float: left;
     width: 100%;
     margin-bottom: 10px;
+}
+
+.img-big {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.img-small {
+    margin-left: 5px;
+    height: 10px;
+    width: 10px;
 }
 
 .readonly {
