@@ -16,6 +16,11 @@ define(function(require) {
             'click .delete': 'deleteBook'
         },
 
+        initialize: function (book) {
+            this.model = book;
+            this.listenTo(this.model, 'change', this.render);
+        },
+
         render: function () {
             this.$el.html(this.template(this.model.attributes));
             return this;

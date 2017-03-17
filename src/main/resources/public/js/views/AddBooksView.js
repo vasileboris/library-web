@@ -28,9 +28,7 @@ define(function(require) {
         },
 
         renderBook: function (book) {
-            var bookView = new BookView({
-                model: book
-            });
+            var bookView = new BookView(book);
             this.$('#books-div').html(bookView.render().el);
         },
 
