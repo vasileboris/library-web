@@ -9,6 +9,7 @@ define(function(require) {
     var booksHtml = require('text!templates/Books.html');
     var searchBooksHtml = require('text!templates/SearchBooks.html');
     var addBooksHtml = require('text!templates/AddBooks.html');
+    var BookDispatcher = require('events/BookDispatcher');
 
     var BooksView = Backbone.View.extend({
         tagName: 'div',
@@ -23,7 +24,8 @@ define(function(require) {
             'click #books-search-link': 'renderSearchBooks',
             'click #books-search-button': 'searchBooks',
             'click #books-add-link': 'renderAddBooks',
-            'click #book-add-button': 'addBook'
+            'click #book-add-button': 'addBook',
+            'click #book-update-button': 'updateBook'
         },
 
         initialize: function () {
@@ -96,7 +98,37 @@ define(function(require) {
 
         errorOnAddBook: function (model, response, options) {
             this.$el.find('#message-div').html('Error on adding book: ' + options.xhr.status);
+        },
+
+        updateBook: function () {
+            this.$el.find('#message-div').html('');
+
+            var bookData = {};
+            this.$el.find('input').each(function(i, el){
+                var property = el.id.replace('book-','').replace(/-\w+/,'');
+                var value = $(el).val().trim();
+                if(property === 'authors') {
+                    value = value.split(",").map(function (s) {
+                        return s.trim();
+                    })
+                }
+                bookData[property] = value;
+            });
+
+            this.books.save(bookData, {
+                success: _.bind(this.successOnUpdateBook, this),
+                error: _.bind(this.errorOnUpdateBook, this)
+            });
+        },
+
+        successOnUpdateBook: function (model, response, options) {
+            this.$el.find('#message-div').html('Book was updated!');
+        },
+
+        errorOnUpdateBook: function (model, response, options) {
+            this.$el.find('#message-div').html('Error on update book: ' + options.xhr.status);
         }
+
     });
 
     return BooksView;
