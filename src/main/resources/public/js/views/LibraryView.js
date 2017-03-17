@@ -2,9 +2,7 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone');
-    var SearchBooksView = require('views/SearchBooksView');
-    var AddBooksView = require('views/AddBooksView');
-    var EditBookView = require('views/EditBookView');
+    var BooksView = require('views/BooksView');
 
     var LibraryView = Backbone.View.extend({
         el: '#library-div',
@@ -14,17 +12,7 @@ define(function(require) {
         },
 
         searchBooks: function () {
-            this.currentView = new SearchBooksView();
-            this.render();
-        },
-
-        addBooks: function () {
-            this.currentView = new AddBooksView();
-            this.render();
-        },
-
-        editBook: function (uuid) {
-            this.currentView = new EditBookView(uuid);
+            this.currentView = new BooksView();
             this.render();
         },
 
