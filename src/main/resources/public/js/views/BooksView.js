@@ -10,7 +10,7 @@ define(function(require) {
     var searchBooksHtml = require('text!templates/SearchBooks.html');
     var addBooksHtml = require('text!templates/AddBooks.html');
 
-    var SearchBooksView = Backbone.View.extend({
+    var BooksView = Backbone.View.extend({
         tagName: 'div',
 
         booksTemplate: _.template(booksHtml),
@@ -98,5 +98,5 @@ define(function(require) {
         }
     });
 
-    return SearchBooksView;
+    return BooksView;
 });
