@@ -9,7 +9,8 @@ define(function(require) {
         BooksDispatcher = require('events/BooksDispatcher'),
         booksHtml = require('text!templates/Books.html'),
         searchBooksHtml = require('text!templates/SearchBooks.html'),
-        addBooksHtml = require('text!templates/AddBooks.html');
+        addBooksHtml = require('text!templates/AddBooks.html'),
+        editBookHtml = require('text!templates/EditBook.html');
 
     var BooksView = Backbone.View.extend({
         tagName: 'div',
@@ -19,6 +20,8 @@ define(function(require) {
         searchBooksTemplate: _.template(searchBooksHtml),
 
         addBooksTemplate: _.template(addBooksHtml),
+
+        editBookTemplate: _.template(editBookHtml),
 
         events: {
             'click #books-search-link': 'renderSearchBooks',
@@ -30,8 +33,9 @@ define(function(require) {
 
         initialize: function () {
             this.books = new Books();
-            this.listenTo(this.books, 'add', this.renderBook    );
+            this.listenTo(this.books, 'add', this.renderBook);
             this.listenTo(this.books, 'reset', this.renderBooks);
+            this.listenTo(BooksDispatcher, BooksDispatcher.Events.EDIT, this.renderEditBook);
         },
 
         render: function () {
@@ -47,6 +51,10 @@ define(function(require) {
         renderAddBooks: function (event) {
             event.preventDefault();
             this.$('#input-div').html(this.addBooksTemplate());
+        },
+
+        renderEditBook: function (book) {
+            this.$('#input-div').html(this.editBookTemplate(book.attributes));
         },
 
         searchBooks: function() {
@@ -115,7 +123,8 @@ define(function(require) {
                 bookData[property] = value;
             });
 
-            this.books.save(bookData, {
+            var book = this.books.get(bookData.uuid);
+            book.save(bookData, {
                 success: _.bind(this.successOnUpdateBook, this),
                 error: _.bind(this.errorOnUpdateBook, this)
             });

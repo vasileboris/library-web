@@ -3,6 +3,7 @@ define(function(require) {
 
     var _ = require('underscore'),
         Backbone = require('backbone'),
+        BooksDispatcher = require('events/BooksDispatcher'),
         templateHtml = require('text!templates/Book.html');
 
     var BookView = Backbone.View.extend({
@@ -13,7 +14,8 @@ define(function(require) {
         template: _.template(templateHtml),
 
         events: {
-            'click .delete': 'deleteBook'
+            'click .edit-book': 'editBook',
+            'click .delete-book': 'deleteBook'
         },
 
         initialize: function (book) {
@@ -25,13 +27,15 @@ define(function(require) {
             this.$el.html(this.template(this.book.attributes));
             return this;
         },
+
+        editBook: function (e) {
+            e.preventDefault();
+            BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
+        },
         
         deleteBook: function (e) {
-            //Disable link default action
             e.preventDefault();
-            //Delete book
             this.book.destroy();
-            //Delete view
             this.remove();
         }
 
