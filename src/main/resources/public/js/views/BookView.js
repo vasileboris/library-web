@@ -30,13 +30,25 @@ define(function(require) {
 
         editBook: function (e) {
             e.preventDefault();
+            this.$el.find('.message-book').html('');
             BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
         },
         
         deleteBook: function (e) {
             e.preventDefault();
-            this.book.destroy();
+            this.$el.find('.message-book').html('');
+            this.book.destroy({
+                success: _.bind(this.successOnDeleteBook, this),
+                error: _.bind(this.errorOnDeleteBook, this)
+            });
+        },
+
+        successOnDeleteBook: function (model, response, options) {
             this.remove();
+        },
+
+        errorOnDeleteBook: function (model, response, options) {
+            this.$el.find('.message-book').html('Error on delete book: ' + options.xhr.status);
         }
 
     });
