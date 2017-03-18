@@ -45,15 +45,18 @@ define(function(require) {
         },
 
         renderSearchBooks: function () {
+            this.$el.find('#message-div').html('');
             this.$('#input-div').html(this.searchBooksTemplate());
         },
 
         renderAddBooks: function (event) {
             event.preventDefault();
+            this.$el.find('#message-div').html('');
             this.$('#input-div').html(this.addBooksTemplate());
         },
 
         renderEditBook: function (book) {
+            this.$el.find('#message-div').html('');
             this.$('#input-div').html(this.editBookTemplate(book.attributes));
         },
 
