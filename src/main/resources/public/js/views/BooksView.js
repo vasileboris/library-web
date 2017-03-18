@@ -3,9 +3,9 @@ define(function(require) {
 
     var _ = require('underscore'),
         Backbone = require('backbone'),
+        Book = require('models/Book'),
         Books = require('collections/Books'),
         BookView = require('views/BookView'),
-        Message = require('models/Message'),
         BooksDispatcher = require('events/BooksDispatcher'),
         booksHtml = require('text!templates/Books.html'),
         searchBooksHtml = require('text!templates/SearchBooks.html'),
@@ -83,7 +83,9 @@ define(function(require) {
             this.$el.find('#message-div').html('');
 
             var bookData = this.buildBookData(this);
-            this.books.create(bookData, {
+            var book = new Book(bookData);
+            this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
+            this.books.create(book, {
                 wait: true,
                 success: _.bind(this.successOnAddBook, this),
                 error: _.bind(this.errorOnAddBook, this)
@@ -103,10 +105,15 @@ define(function(require) {
 
             var bookData = this.buildBookData(this);
             var book = this.books.get(bookData.uuid);
+            this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
             book.save(bookData, {
                 success: _.bind(this.successOnUpdateBook, this),
                 error: _.bind(this.errorOnUpdateBook, this)
             });
+        },
+
+        errorOnValidateBook: function (model, error) {
+            this.$el.find('#message-div').html(error);
         },
 
         successOnUpdateBook: function (model, response, options) {
@@ -123,9 +130,9 @@ define(function(require) {
                 var property = el.id.replace('book-', '').replace(/-\w+/, '');
                 var value = $(el).val().trim();
                 if (property === 'authors') {
-                    value = value.split(",").map(function (s) {
-                        return s.trim();
-                    })
+                    value = value.split(",")
+                        .map(function (s) { return s.trim(); })
+                        .filter(function (s) { return s !== ''; })
                 }
                 bookData[property] = value;
             });
