@@ -79,18 +79,7 @@ define(function(require) {
         addBook: function () {
             this.$el.find('#message-div').html('');
 
-            var bookData = {};
-            this.$el.find('input').each(function(i, el){
-                var property = el.id.replace('book-','').replace(/-\w+/,'');
-                var value = $(el).val().trim();
-                if(property === 'authors') {
-                    value = value.split(",").map(function (s) {
-                        return s.trim();
-                    })
-                }
-                bookData[property] = value;
-            });
-
+            var bookData = this.buildBookData(this);
             this.books.create(bookData, {
                 wait: true,
                 success: _.bind(this.successOnAddBook, this),
@@ -99,9 +88,7 @@ define(function(require) {
         },
 
         successOnAddBook: function (model, response, options) {
-            this.$el.find('input').each(function(i, el){
-                $(el).val('');
-            });
+            this.renderSearchBooks();
         },
 
         errorOnAddBook: function (model, response, options) {
@@ -111,18 +98,7 @@ define(function(require) {
         updateBook: function () {
             this.$el.find('#message-div').html('');
 
-            var bookData = {};
-            this.$el.find('input').each(function(i, el){
-                var property = el.id.replace('book-','').replace(/-\w+/,'');
-                var value = $(el).val().trim();
-                if(property === 'authors') {
-                    value = value.split(",").map(function (s) {
-                        return s.trim();
-                    })
-                }
-                bookData[property] = value;
-            });
-
+            var bookData = this.buildBookData(this);
             var book = this.books.get(bookData.uuid);
             book.save(bookData, {
                 success: _.bind(this.successOnUpdateBook, this),
@@ -131,11 +107,27 @@ define(function(require) {
         },
 
         successOnUpdateBook: function (model, response, options) {
-            this.$el.find('#message-div').html('Book was updated!');
+            this.renderSearchBooks();
         },
 
         errorOnUpdateBook: function (model, response, options) {
             this.$el.find('#message-div').html('Error on update book: ' + options.xhr.status);
+        },
+
+        buildBookData: function () {
+            var bookData = {};
+            this.$el.find('input').each(function (i, el) {
+                var property = el.id.replace('book-', '').replace(/-\w+/, '');
+                var value = $(el).val().trim();
+                if (property === 'authors') {
+                    value = value.split(",").map(function (s) {
+                        return s.trim();
+                    })
+                }
+                bookData[property] = value;
+            });
+
+            return bookData;
         }
 
     });
