@@ -1,8 +1,8 @@
 define(function(require) {
     'use strict';
 
-    var Backbone = require('backbone');
-    var user = require('User');
+    var Backbone = require('backbone'),
+        user = require('User');
 
     var Book = Backbone.Model.extend({
         defaults: {

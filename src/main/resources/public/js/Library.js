@@ -13,6 +13,6 @@ define(function(require) {
     'use strict';
 
     var LibraryRouter = require('routers/LibraryRouter');
-    var libraryRouter = new LibraryRouter();
+    new LibraryRouter();
     Backbone.history.start();
 });

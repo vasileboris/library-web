@@ -1,12 +1,12 @@
 define(function(require) {
     'use strict';
 
-    var _ = require('underscore');
-    var Backbone = require('backbone');
-    var Books = require('collections/Books');
-    var BookView = require('views/BookView');
-    var Message = require('models/Message');
-    var templateHtml = require('text!templates/SearchBooks.html');
+    var _ = require('underscore'),
+        Backbone = require('backbone'),
+        Books = require('collections/Books'),
+        BookView = require('views/BookView'),
+        Message = require('models/Message'),
+        templateHtml = require('text!templates/SearchBooks.html');
 
     var SearchBooksView = Backbone.View.extend({
         tagName: 'div',

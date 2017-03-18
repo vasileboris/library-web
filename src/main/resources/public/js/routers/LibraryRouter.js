@@ -1,8 +1,8 @@
 define(function(require) {
     'use strict';
 
-    var Backbone = require('backbone');
-    var LibraryView = require('views/LibraryView');
+    var Backbone = require('backbone'),
+        LibraryView = require('views/LibraryView');
 
     var LibraryRouter = Backbone.Router.extend({
         routes: {

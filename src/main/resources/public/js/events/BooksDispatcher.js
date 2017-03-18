@@ -6,12 +6,12 @@ define(function(require) {
 
     var Events = {
         EDIT: 'EDIT'
-    }
+    };
 
-    var BookDispatcher = _.clone(Backbone.Events);
+    var BooksDispatcher = _.clone(Backbone.Events);
 
-    BookDispatcher.Events = Events;
+    BooksDispatcher.Events = Events;
 
-    return BookDispatcher;
+    return BooksDispatcher;
 });
 

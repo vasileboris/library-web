@@ -1,15 +1,15 @@
 define(function(require) {
     'use strict';
 
-    var _ = require('underscore');
-    var Backbone = require('backbone');
-    var Books = require('collections/Books');
-    var BookView = require('views/BookView');
-    var Message = require('models/Message');
-    var booksHtml = require('text!templates/Books.html');
-    var searchBooksHtml = require('text!templates/SearchBooks.html');
-    var addBooksHtml = require('text!templates/AddBooks.html');
-    var BookDispatcher = require('events/BookDispatcher');
+    var _ = require('underscore'),
+        Backbone = require('backbone'),
+        Books = require('collections/Books'),
+        BookView = require('views/BookView'),
+        Message = require('models/Message'),
+        BooksDispatcher = require('events/BooksDispatcher'),
+        booksHtml = require('text!templates/Books.html'),
+        searchBooksHtml = require('text!templates/SearchBooks.html'),
+        addBooksHtml = require('text!templates/AddBooks.html');
 
     var BooksView = Backbone.View.extend({
         tagName: 'div',
@@ -30,7 +30,7 @@ define(function(require) {
 
         initialize: function () {
             this.books = new Books();
-            this.listenTo(this.books, 'add', this.renderBook);
+            this.listenTo(this.books, 'add', this.renderBook    );
             this.listenTo(this.books, 'reset', this.renderBooks);
         },
 
