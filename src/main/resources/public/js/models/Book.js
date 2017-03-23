@@ -5,15 +5,6 @@ define(function(require) {
         user = require('User');
 
     var Book = Backbone.Model.extend({
-        defaults: {
-            uuid: null,
-            isbn10: '',
-            isbn13: '',
-            title: '',
-            authors: [],
-            pages: 0
-        },
-
         idAttribute: 'uuid',
 
         urlRoot: function () {

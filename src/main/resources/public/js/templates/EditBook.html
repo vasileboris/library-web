@@ -1,8 +1,8 @@
-<input type="hidden" id="book-uuid-hidden" value="<%= uuid %>"/>
-<input type="text" id="book-isbn10-text" class="text" placeholder="ISBN 10" value="<%= isbn10 %>"/>
-<input type="text" id="book-isbn13-text" class="text" placeholder="ISBN 13" value="<%= isbn13 %>"/>
-<input type="text" id="book-title-text" class="text" placeholder="Title" value="<%= title %>"/>
-<input type="text" id="book-authors-text" class="text" placeholder="Authors" value="<%= authors %>"/>
-<input type="text" id="book-pages-text" class="text" placeholder="Number of pages" value="<%= pages %>"/>
+<input type="hidden" id="book-uuid-hidden" value="<%= book.uuid %>"/>
+<input type="text" id="book-isbn10-text" class="text" placeholder="ISBN 10" value="<%= book.isbn10 %>"/>
+<input type="text" id="book-isbn13-text" class="text" placeholder="ISBN 13" value="<%= book.isbn13 %>"/>
+<input type="text" id="book-title-text" class="text" placeholder="Title" value="<%= book.title %>"/>
+<input type="text" id="book-authors-text" class="text" placeholder="Authors" value="<%= book.authors %>"/>
+<input type="text" id="book-pages-text" class="text" placeholder="Number of pages" value="<%= book.pages %>"/>
 <button id="book-update-button" class="button-left">Update book</button>
 <a href="#" id="books-search-link"><img src="img/search.png" alt="search book" class="img-big"/></a>

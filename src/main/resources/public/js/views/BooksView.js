@@ -57,7 +57,9 @@ define(function(require) {
 
         renderEditBook: function (book) {
             this.$el.find('#message-div').html('');
-            this.$('#input-div').html(this.editBookTemplate(book.attributes));
+            this.$('#input-div').html(this.editBookTemplate({
+                book: book.attributes
+            }));
         },
 
         searchBooks: function() {

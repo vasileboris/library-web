@@ -24,7 +24,9 @@ define(function(require) {
         },
 
         render: function () {
-            this.$el.html(this.template(this.book.attributes));
+            this.$el.html(this.template({
+                book: this.book.attributes
+            }));
             return this;
         },
 
