@@ -7,6 +7,7 @@ define(function(require) {
         Books = require('collections/Books'),
         BookView = require('views/BookView'),
         BooksDispatcher = require('events/BooksDispatcher'),
+        localizer = require('utils/Localizer'),
         booksHtml = require('text!templates/Books.html'),
         searchBooksHtml = require('text!templates/SearchBooks.html'),
         addBooksHtml = require('text!templates/AddBooks.html'),
@@ -46,7 +47,9 @@ define(function(require) {
 
         renderSearchBooks: function () {
             this.$el.find('#message-div').html('');
-            this.$('#input-div').html(this.searchBooksTemplate());
+            this.$('#input-div').html(this.searchBooksTemplate({
+                localizer: localizer
+            }));
         },
 
         renderAddBooks: function (event) {

@@ -24,7 +24,7 @@ define(function(require) {
         path:'js/bundle/',
         mode:'map',
         checkAvailableLanguages: true,
-        async: true
+        async: false
     });
 
     var LibraryRouter = require('routers/LibraryRouter');
