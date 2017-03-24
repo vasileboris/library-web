@@ -1,9 +1,8 @@
 define(function() {
     'use strict';
 
-    var user = {
+    return {
         id: 'boris'
     };
 
-    return user;
 });
