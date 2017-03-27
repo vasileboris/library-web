@@ -1,13 +1,14 @@
-.div-entries {
+.entries {
     float: left;
     width: 50%;
     clear: both;
     margin-bottom: 10px;
 }
 
-.div-results {
+.results {
     white-space: pre;
     clear: both;
+    width: 50%;
     font-family: monospace;
     margin-bottom: 10px;
 }
@@ -22,6 +23,7 @@
 .text {
     float: left;
     width: 100%;
+    font-family: monospace;
     margin-bottom: 10px;
 }
 
@@ -51,12 +53,17 @@
 }
 
 .edit-book {
-
 }
 .delete-book {
+}
 
+.message {
+    font-family: monospace;
+    color: red;
+    margin-bottom: 10px;
 }
 
 .message-book {
-
+    font-family: monospace;
+    color: red;
 }
