@@ -24,10 +24,11 @@ define(function(require) {
         path:'js/bundle/',
         mode:'map',
         checkAvailableLanguages: true,
-        async: false
+        async: true,
+        callback: function() {
+            var LibraryRouter = require('routers/LibraryRouter');
+            new LibraryRouter();
+            Backbone.history.start();
+        }
     });
-
-    var LibraryRouter = require('routers/LibraryRouter');
-    new LibraryRouter();
-    Backbone.history.start();
 });
