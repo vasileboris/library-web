@@ -55,13 +55,16 @@ define(function(require) {
         renderAddBooks: function (event) {
             event.preventDefault();
             this.$el.find('#message-div').html('');
-            this.$('#input-div').html(this.addBooksTemplate());
+            this.$('#input-div').html(this.addBooksTemplate({
+                localizer: localizer
+            }));
         },
 
         renderEditBook: function (book) {
             this.$el.find('#message-div').html('');
             this.$('#input-div').html(this.editBookTemplate({
-                book: book.attributes
+                book: book.attributes,
+                localizer: localizer
             }));
         },
 
