@@ -4,6 +4,7 @@ define(function(require) {
     var _ = require('underscore'),
         Backbone = require('backbone'),
         BooksDispatcher = require('events/BooksDispatcher'),
+        localizer = require('utils/Localizer'),
         templateHtml = require('text!templates/Book.html');
 
     var BookView = Backbone.View.extend({
@@ -50,7 +51,7 @@ define(function(require) {
         },
 
         errorOnDeleteBook: function (model, response, options) {
-            this.$el.find('.message-book').html('Error on delete book: ' + options.xhr.status);
+            this.$el.find('.message-book').html(localizer.localize('book-delete-error', options.xhr.status));
         }
 
     });

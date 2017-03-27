@@ -105,7 +105,7 @@ define(function(require) {
         },
 
         errorOnAddBook: function (model, response, options) {
-            this.$el.find('#message-div').html('Error on adding book: ' + options.xhr.status);
+            this.$el.find('#message-div').html(localizer.localize('book-add-error', options.xhr.status));
         },
 
         updateBook: function () {
@@ -113,11 +113,15 @@ define(function(require) {
 
             var bookData = this.buildBookData(this);
             var book = this.books.get(bookData.uuid);
-            this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
-            book.save(bookData, {
-                success: _.bind(this.successOnUpdateBook, this),
-                error: _.bind(this.errorOnUpdateBook, this)
-            });
+            if(book) {
+                this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
+                book.save(bookData, {
+                    success: _.bind(this.successOnUpdateBook, this),
+                    error: _.bind(this.errorOnUpdateBook, this)
+                });
+            } else {
+                this.renderSearchBooks();
+            }
         },
 
         errorOnValidateBook: function (model, error) {
@@ -129,7 +133,7 @@ define(function(require) {
         },
 
         errorOnUpdateBook: function (model, response, options) {
-            this.$el.find('#message-div').html('Error on update book: ' + options.xhr.status);
+            this.$el.find('#message-div').html(localizer.localize('book-update-error', options.xhr.status));
         },
 
         buildBookData: function () {
