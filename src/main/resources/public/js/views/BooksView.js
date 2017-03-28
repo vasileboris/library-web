@@ -90,7 +90,7 @@ define(function(require) {
         addBook: function () {
             this.$el.find('#message-div').html('');
 
-            var bookData = this.buildBookData(this);
+            var bookData = this.buildBookData();
             var book = new Book(bookData);
             this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
             this.books.create(book, {
