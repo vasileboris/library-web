@@ -36,7 +36,7 @@ define(function(require) {
             this.$el.find('.message-book').html('');
             BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
         },
-        
+
         deleteBook: function (e) {
             e.preventDefault();
             this.$el.find('.message-book').html('');

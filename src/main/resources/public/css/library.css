@@ -36,8 +36,8 @@
 
 .img-small {
     margin-left: 5px;
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
 }
 
 .readonly {
@@ -54,6 +54,10 @@
 
 .edit-book {
 }
+
+.read-book {
+}
+
 .delete-book {
 }
 

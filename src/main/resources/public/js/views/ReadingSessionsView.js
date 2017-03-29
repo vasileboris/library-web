@@ -5,13 +5,13 @@ define(function(require) {
         Backbone = require('backbone'),
         Book = require('models/Book'),
         localizer = require('utils/Localizer'),
-        readingSessionsBookHtml = require('text!templates/ReadingSessionsBook.html'),
+        readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
         readingSessionsHtml = require('text!templates/ReadingSessions.html');
 
     var ReadingSessionsView = Backbone.View.extend({
         tagName: 'div',
 
-        readingSessionsBookTemplate: _.template(readingSessionsBookHtml),
+        readonlyBookTemplate: _.template(readonlyBookHtml),
 
         readingSessionsTemplate: _.template(readingSessionsHtml),
 
@@ -35,7 +35,7 @@ define(function(require) {
         },
 
         successOnRetrieveBook: function (model, response, options) {
-            this.$('#book-div').html(this.readingSessionsBookTemplate({
+            this.$('#book-div').html(this.readonlyBookTemplate({
                 book: this.book.attributes
             }));
         },
