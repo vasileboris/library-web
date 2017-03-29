@@ -12,6 +12,9 @@ define(function(require) {
 
         initialize: function () {
             this.libraryView = new LibraryView();
+            if('/' === window.location.pathname) {
+                this.manageBooks();
+            }
         },
 
         manageBooks: function () {

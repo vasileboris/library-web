@@ -8,13 +8,6 @@ define(function(require) {
     var LibraryView = Backbone.View.extend({
         el: '#library-div',
 
-        initialize: function() {
-            //Is there a better method to do this?
-            if('/' === window.location.pathname) {
-                this.manageBooks();
-            }
-        },
-
         manageBooks: function () {
             this.currentView = new BooksView();
             this.render();
