@@ -21,14 +21,16 @@ define(function(require) {
     require('i18n');
     jQuery.i18n.properties({
         name:'Messages',
-        path:'js/bundle/',
+        path:'/js/bundle/',
         mode:'map',
         checkAvailableLanguages: true,
         async: true,
         callback: function() {
             var LibraryRouter = require('routers/LibraryRouter');
             new LibraryRouter();
-            Backbone.history.start();
+            Backbone.history.start({
+                pushState: true,
+            });
         }
     });
 });

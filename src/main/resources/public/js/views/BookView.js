@@ -16,6 +16,7 @@ define(function(require) {
 
         events: {
             'click .edit-book': 'editBook',
+            'click .read-book': 'readBook',
             'click .delete-book': 'deleteBook'
         },
 
@@ -35,6 +36,11 @@ define(function(require) {
             e.preventDefault();
             this.$el.find('.message-book').html('');
             BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
+        },
+
+        readBook: function (e) {
+            e.preventDefault();
+            Backbone.history.navigate('/books/' + this.book.get('uuid'), {trigger: true});
         },
 
         deleteBook: function (e) {

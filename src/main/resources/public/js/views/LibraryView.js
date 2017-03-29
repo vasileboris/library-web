@@ -9,7 +9,10 @@ define(function(require) {
         el: '#library-div',
 
         initialize: function() {
-            this.manageBooks();
+            //Is there a better method to do this?
+            if('/' === window.location.pathname) {
+                this.manageBooks();
+            }
         },
 
         manageBooks: function () {
