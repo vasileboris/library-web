@@ -7,7 +7,7 @@ define(function(require) {
     var LibraryRouter = Backbone.Router.extend({
         routes: {
             'books' : 'manageBooks',
-            'books/:bookUuid': 'manageReadingSessions'
+            'books/:bookUuid': 'manageCurrentReadingSession'
         },
 
         initialize: function () {
@@ -21,8 +21,8 @@ define(function(require) {
             this.libraryView.manageBooks();
         },
 
-        manageReadingSessions: function (bookUuid) {
-            this.libraryView.manageReadingSessions(bookUuid);
+        manageCurrentReadingSession: function (bookUuid) {
+            this.libraryView.manageCurrentReadingSession(bookUuid);
         }
 
     });

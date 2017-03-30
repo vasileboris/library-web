@@ -3,7 +3,7 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         BooksView = require('views/BooksView'),
-        ReadingSessionsView = require('views/ReadingSessionsView');
+        CurrentReadingSessionView = require('views/CurrentReadingSessionView');
 
     var LibraryView = Backbone.View.extend({
         el: '#library-div',
@@ -13,8 +13,8 @@ define(function(require) {
             this.render();
         },
 
-        manageReadingSessions: function (bookUuid) {
-            this.currentView = new ReadingSessionsView(bookUuid);
+        manageCurrentReadingSession: function (bookUuid) {
+            this.currentView = new CurrentReadingSessionView(bookUuid);
             this.render();
         },
 

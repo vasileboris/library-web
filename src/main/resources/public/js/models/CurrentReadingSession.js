@@ -8,7 +8,7 @@ define(function(require) {
     var CurrentReadingSession = ReadingSession.extend({
         sync: function(method, model, options) {
             if(method === 'read') {
-                options.url = '/users/' + user.id + '/books/' + this.bookUuid + '/current-reading-session';
+                options.url = '/users/' + user.id + '/books/' + this.get('bookUuid') + '/current-reading-session';
             } else {
                 options.url = this.url();
             }
