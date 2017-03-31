@@ -52,13 +52,13 @@
     display: none;
 }
 
-.edit-book {
+.edit-item {
 }
 
-.read-book {
+.read-item {
 }
 
-.delete-book {
+.delete-item {
 }
 
 .message {
@@ -67,7 +67,7 @@
     margin-bottom: 10px;
 }
 
-.message-book {
+.message-item {
     font-family: monospace;
     color: red;
 }

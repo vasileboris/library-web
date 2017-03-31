@@ -15,9 +15,9 @@ define(function(require) {
         template: _.template(templateHtml),
 
         events: {
-            'click .edit-book': 'editBook',
-            'click .read-book': 'readBook',
-            'click .delete-book': 'deleteBook'
+            'click .edit-item': 'editBook',
+            'click .read-item': 'readBook',
+            'click .delete-item': 'deleteBook'
         },
 
         initialize: function (book) {
@@ -34,7 +34,7 @@ define(function(require) {
 
         editBook: function (e) {
             e.preventDefault();
-            this.$el.find('.message-book').html('');
+            this.$el.find('.message-item').html('');
             BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
         },
 
@@ -45,7 +45,7 @@ define(function(require) {
 
         deleteBook: function (e) {
             e.preventDefault();
-            this.$el.find('.message-book').html('');
+            this.$el.find('.message-item').html('');
             this.book.destroy({
                 success: _.bind(this.successOnDeleteBook, this),
                 error: _.bind(this.errorOnDeleteBook, this)
@@ -57,7 +57,7 @@ define(function(require) {
         },
 
         errorOnDeleteBook: function (model, response, options) {
-            this.$el.find('.message-book').html(localizer.localize('book-delete-error', options.xhr.status));
+            this.$el.find('.message-item').html(localizer.localize('book-delete-error', options.xhr.status));
         }
 
     });
