@@ -7,12 +7,15 @@ define(function(require) {
         CurrentReadingSession = require('models/CurrentReadingSession'),
         localizer = require('utils/Localizer'),
         readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
+        addDateReadingSessionsHtml = require('text!templates/AddDateReadingSessions.html'),
         readingSessionsHtml = require('text!templates/ReadingSessions.html');
 
     var ReadingSessionsView = Backbone.View.extend({
         tagName: 'div',
 
         readonlyBookTemplate: _.template(readonlyBookHtml),
+
+        addDateReadingSessionsTemplate: _.template(addDateReadingSessionsHtml),
 
         readingSessionsTemplate: _.template(readingSessionsHtml),
 
@@ -55,11 +58,13 @@ define(function(require) {
         },
 
         successOnRetrieveCurrentReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html('retrieve - current reading session - SUCCESS');
+            this.$('#input-div').html(this.addDateReadingSessionsTemplate({
+                localizer: localizer
+            }));
         },
 
         errorOnRetrieveCurrentReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html('retrieve - current reading session - ERROR: ' + options.xhr.status);
+            this.$el.find('#message-div').html(localizer.localize('reading-session-retrieve-error', options.xhr.status));
         }
 
     });

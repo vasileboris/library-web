@@ -2,6 +2,7 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
+        localizer = require('utils/Localizer'),
         user = require('User');
 
     var Book = Backbone.Model.extend({
@@ -13,19 +14,19 @@ define(function(require) {
         
         validate: function (bookData) {
             if(bookData.isbn10 + bookData.isbn13 === '') {
-                return 'ISBN 10 or ISBN 13 must be filled!'
+                return localizer.localize('book-isbn-validation');
             }
 
             if(bookData.title === '') {
-                return 'Title must be specified!'
+                return localizer.localize('book-title-validation');
             }
 
             if(bookData.authors.length === 0) {
-                return 'At least one author needs to be specified!'
+                return localizer.localize('book-authors-validation');
             }
 
             if(!('' + bookData.pages).match(/^\d+$/) || bookData.pages < 1) {
-                return 'Number of pages must an integer number greater than 1!'
+                return localizer.localize('book-pages-validation');
             }
         }
 
