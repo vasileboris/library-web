@@ -1,7 +1,8 @@
 define(function(require) {
     'use strict';
 
-    var Backbone = require('backbone'),
+    var _ = require('underscore'),
+        Backbone = require('backbone'),
         ReadingSession = require('models/ReadingSession'),
         user = require('User');
 
@@ -14,6 +15,29 @@ define(function(require) {
             }
 
             Backbone.sync.apply(this, arguments);
+        },
+
+        fetchAndCreateIfMissing: function(options) {
+            var success = options && _.isFunction(options.success) ? options.success : function () {};
+            var error = options && _.isFunction(options.error) ? options.error : function () {};
+
+            var errorOnFetch = function (model, response, options) {
+                if(404 === options.xhr.status) {
+                    this.save({}, {
+                        wait: true,
+                        success: success,
+                        error: error
+                    });
+                } else {
+                    error(model, response, options);
+                }
+            };
+
+            this.fetch({
+                wait: true,
+                success: success,
+                error: _.bind(errorOnFetch, this)
+            });
         }
     });
 

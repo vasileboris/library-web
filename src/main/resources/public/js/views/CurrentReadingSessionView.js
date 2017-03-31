@@ -48,8 +48,7 @@ define(function(require) {
 
         retrieveCurrentReadingSession: function () {
             this.currentReadingSession = new CurrentReadingSession({bookUuid: this.bookUuid});
-            this.currentReadingSession.fetch({
-                wait: true,
+            this.currentReadingSession.fetchAndCreateIfMissing({
                 success: _.bind(this.successOnRetrieveCurrentReadingSession, this),
                 error: _.bind(this.errorOnRetrieveCurrentReadingSession, this)
             });
@@ -60,24 +59,9 @@ define(function(require) {
         },
 
         errorOnRetrieveCurrentReadingSession: function (model, response, options) {
-            if(404 === options.xhr.status) {
-                this.currentReadingSession.save({}, {
-                    wait: true,
-                    success: _.bind(this.successOnCreateCurrentReadingSession, this),
-                    error: _.bind(this.errorOnCreateCurrentReadingSession, this)
-                });
-            } else {
-                this.$el.find('#message-div').html('retrieve - current reading session - ERROR: ' + options.xhr.status);
-            }
-        },
+            this.$el.find('#message-div').html('retrieve - current reading session - ERROR: ' + options.xhr.status);
+        }
 
-        successOnCreateCurrentReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html('create - current reading session - SUCCESS');
-        },
-
-        errorOnCreateCurrentReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html('create - current reading session - ERROR: ' + options.xhr.status);
-        },
     });
 
     return ReadingSessionsView;
