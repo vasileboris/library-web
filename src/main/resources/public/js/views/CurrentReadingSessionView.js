@@ -5,6 +5,7 @@ define(function(require) {
         Backbone = require('backbone'),
         Book = require('models/Book'),
         CurrentReadingSession = require('models/CurrentReadingSession'),
+        DateReadingSession = require('models/DateReadingSession'),
         DateReadingSessions = require('collections/DateReadingSessions'),
         DateReadingSessionView = require('views/DateReadingSessionView'),
         DateReadingSessionsDispatcher = require('events/DateReadingSessionsDispatcher'),
@@ -21,6 +22,10 @@ define(function(require) {
         addDateReadingSessionsTemplate: _.template(addDateReadingSessionsHtml),
 
         currentReadingSessionTemplate: _.template(currentReadingSessionHtml),
+
+        events: {
+            'click #date-reading-session-add-button': 'addDateReadingSession'
+        },
 
         initialize: function (bookUuid) {
             this.bookUuid = bookUuid;
@@ -80,6 +85,7 @@ define(function(require) {
             this.dateReadingSessions.each(function (dateReadingSession) {
                 this.renderDateReadingSession(dateReadingSession);
             }, this);
+            this.listenTo(this.dateReadingSessions, 'add', this.renderDateReadingSession);
         },
 
         renderDateReadingSession: function (dateReadingSession) {
@@ -89,7 +95,41 @@ define(function(require) {
 
         errorOnRetrieveDateReadingSessions: function (model, response, options) {
             this.$el.find('#message-div').html(localizer.localize('date-reading-sessions-retrieve-error', options.xhr.status));
-        }
+        },
+
+        addDateReadingSession: function () {
+            this.$el.find('#message-div').html('');
+
+            var dateReadingSessionData = this.buildDateReadingSessionData();
+            var dateReadingSession = new DateReadingSession(dateReadingSessionData);
+            dateReadingSession.isNew = function () {
+                return true;
+            };
+            this.listenTo(dateReadingSession, "invalid", _.bind(this.errorOnValidateDateReadingSession, this));
+            this.dateReadingSessions.create(dateReadingSession, {
+                wait: true,
+                error: _.bind(this.errorOnAddDateReadingSession, this)
+            });
+        },
+
+        buildDateReadingSessionData: function () {
+            var dateReadingSessionData = {};
+            this.$el.find('input').each(function (i, el) {
+                var property = el.id.replace('date-reading-session-', '').replace(/-\w+/, '');
+                var value = $(el).val().trim();
+                dateReadingSessionData[property] = value;
+            });
+
+            return dateReadingSessionData;
+        },
+
+        errorOnValidateDateReadingSession: function (model, error) {
+            this.$el.find('#message-div').html(error);
+        },
+
+        errorOnAddDateReadingSession: function (model, response, options) {
+            this.$el.find('#message-div').html(localizer.localize('date-reading-session-add-error', options.xhr.status));
+        },
 
     });
 
