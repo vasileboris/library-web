@@ -14,9 +14,10 @@ define(function(require) {
         },
 
         url: function () {
-            return '/users/'
+            var url = '/users/'
                 + user.id + '/books/'
-                + this.bookUuid + '/reading-sessions/' + this.uuid;
+                + this.bookUuid + '/reading-sessions/' + this.uuid + '/date-reading-sessions';
+            return url;
         }
     });
 
