@@ -81,16 +81,20 @@ define(function(require) {
             this.$el.find('#message-div').html(localizer.localize('reading-session-retrieve-error', options.xhr.status));
         },
 
-        successOnRetrieveDateReadingSessions: function (model, response, options) {
+        renderDateReadingSessions: function () {
+            this.$('#reading-sessions-div').html('');
             this.dateReadingSessions.each(function (dateReadingSession) {
                 this.renderDateReadingSession(dateReadingSession);
             }, this);
-            this.listenTo(this.dateReadingSessions, 'add', this.renderDateReadingSession);
         },
 
         renderDateReadingSession: function (dateReadingSession) {
             var dateReadingSessionView = new DateReadingSessionView(dateReadingSession);
             this.$('#reading-sessions-div').append(dateReadingSessionView.render().el);
+        },
+
+        successOnRetrieveDateReadingSessions: function (model, response, options) {
+            this.renderDateReadingSessions();
         },
 
         errorOnRetrieveDateReadingSessions: function (model, response, options) {
@@ -108,6 +112,7 @@ define(function(require) {
             this.listenTo(dateReadingSession, "invalid", _.bind(this.errorOnValidateDateReadingSession, this));
             this.dateReadingSessions.create(dateReadingSession, {
                 wait: true,
+                success: _.bind(this.successOnAddDateReadingSession, this),
                 error: _.bind(this.errorOnAddDateReadingSession, this)
             });
         },
@@ -125,6 +130,10 @@ define(function(require) {
 
         errorOnValidateDateReadingSession: function (model, error) {
             this.$el.find('#message-div').html(error);
+        },
+
+        successOnAddDateReadingSession: function (model, response, options) {
+            this.renderDateReadingSessions();
         },
 
         errorOnAddDateReadingSession: function (model, response, options) {

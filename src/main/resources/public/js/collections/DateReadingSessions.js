@@ -17,6 +17,10 @@ define(function(require) {
             return '/users/'
                 + user.id + '/books/'
                 + this.bookUuid + '/reading-sessions/' + this.uuid + '/date-reading-sessions';
+        },
+
+        comparator: function (drs1, drs2) {
+            return drs2.get('date').localeCompare(drs1.get('date'));
         }
     });
 
