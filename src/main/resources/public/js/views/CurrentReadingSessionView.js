@@ -12,6 +12,7 @@ define(function(require) {
         localizer = require('utils/Localizer'),
         readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
         addDateReadingSessionsHtml = require('text!templates/AddDateReadingSessions.html'),
+        editDateReadingSessionHtml = require('text!templates/EditDateReadingSession.html'),
         currentReadingSessionHtml = require('text!templates/CurrentReadingSession.html');
 
     var ReadingSessionsView = Backbone.View.extend({
@@ -21,10 +22,13 @@ define(function(require) {
 
         addDateReadingSessionsTemplate: _.template(addDateReadingSessionsHtml),
 
+        editDateReadingSessionTemplate: _.template(editDateReadingSessionHtml),
+
         currentReadingSessionTemplate: _.template(currentReadingSessionHtml),
 
         events: {
-            'click #date-reading-session-add-button': 'addDateReadingSession'
+            'click #date-reading-session-add-button': 'addDateReadingSession',
+            'click #date-reading-session-update-button': 'updateDateReadingSession'
         },
 
         idToProperty: {
@@ -72,15 +76,20 @@ define(function(require) {
         },
 
         successOnRetrieveCurrentReadingSession: function (model, response, options) {
-            this.$('#input-div').html(this.addDateReadingSessionsTemplate({
-                localizer: localizer
-            }));
+            this.renderAddDateReadingSessions();
             this.dateReadingSessions = new DateReadingSessions(this.bookUuid, this.currentReadingSession.get('uuid'));
             this.dateReadingSessions.fetch({
                 wait: true,
                 success: _.bind(this.successOnRetrieveDateReadingSessions, this),
                 error: _.bind(this.errorOnRetrieveDateReadingSessions, this)
             });
+            this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.EDIT, this.renderEditDateReadingSession);
+        },
+
+        renderAddDateReadingSessions: function () {
+            this.$('#input-div').html(this.addDateReadingSessionsTemplate({
+                localizer: localizer
+            }));
         },
 
         errorOnRetrieveCurrentReadingSession: function (model, response, options) {
@@ -140,17 +149,45 @@ define(function(require) {
         },
 
         successOnAddDateReadingSession: function (model, response, options) {
-            this.clearDateReadingSessionInput();
+            this.renderAddDateReadingSessions();
             this.renderDateReadingSessions();
-        },
-
-        clearDateReadingSessionInput: function () {
-            this.$el.find('input').val('');
         },
 
         errorOnAddDateReadingSession: function (model, response, options) {
             this.$el.find('#message-div').html(localizer.localize('date-reading-session-add-error', options.xhr.status));
         },
+
+        renderEditDateReadingSession: function (dateReadingSession) {
+            this.$el.find('#message-div').html('');
+            this.$('#input-div').html(this.editDateReadingSessionTemplate({
+                dateReadingSession: dateReadingSession.attributes,
+                localizer: localizer
+            }));
+        },
+
+        updateDateReadingSession: function () {
+            this.$el.find('#message-div').html('');
+
+            var dateReadingSessionData = this.buildDateReadingSessionData();
+            var dateReadingSession = this.dateReadingSessions.get(dateReadingSessionData.date);
+            if(dateReadingSession) {
+                this.listenTo(dateReadingSession, "invalid", _.bind(this.errorOnValidateDateReadingSession, this));
+                dateReadingSession.save(dateReadingSessionData, {
+                    success: _.bind(this.successOnUpdateDateReadingSession, this),
+                    error: _.bind(this.errorOnUpdateDateReadingSession, this)
+                });
+            } else {
+                this.renderAddDateReadingSessions();
+            }
+        },
+
+        successOnUpdateDateReadingSession: function (model, response, options) {
+            this.renderAddDateReadingSessions();
+        },
+
+        errorOnUpdateDateReadingSession: function (model, response, options) {
+            this.$el.find('#message-div').html(localizer.localize('date-reading-session-update-error', options.xhr.status));
+        }
 
     });
 
