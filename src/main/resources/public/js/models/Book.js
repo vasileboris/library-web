@@ -25,7 +25,8 @@ define(function(require) {
                 return localizer.localize('book-authors-validation');
             }
 
-            if(!('' + bookData.pages).match(/^\d+$/) || bookData.pages < 1) {
+            var pagesRegexp = /^\d+$/;
+            if(!pagesRegexp.test(bookData.pages) || bookData.pages < 1) {
                 return localizer.localize('book-pages-validation');
             }
         }

@@ -139,7 +139,7 @@ define(function(require) {
         buildBookData: function () {
             var bookData = {};
             this.$el.find('input').each(function (i, el) {
-                var property = el.id.replace('book-', '').replace(/-\w+/, '');
+                var property = el.id.replace('book-', '').replace(/-\w+$/, '');
                 var value = $(el).val().trim();
                 if (property === 'authors') {
                     value = value.split(",")

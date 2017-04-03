@@ -27,6 +27,12 @@ define(function(require) {
             'click #date-reading-session-add-button': 'addDateReadingSession'
         },
 
+        idToProperty: {
+            'date-reading-session-date-text': 'date',
+            'date-reading-session-last-read-page-text': 'lastReadPage',
+            'date-reading-session-bookmark-text': 'bookmark'
+        },
+
         initialize: function (bookUuid) {
             this.bookUuid = bookUuid;
         },
@@ -119,8 +125,9 @@ define(function(require) {
 
         buildDateReadingSessionData: function () {
             var dateReadingSessionData = {};
+            var idToProperty = this.idToProperty;
             this.$el.find('input').each(function (i, el) {
-                var property = el.id.replace('date-reading-session-', '').replace(/-\w+/, '');
+                var property = idToProperty[el.id];
                 var value = $(el).val().trim();
                 dateReadingSessionData[property] = value;
             });
@@ -133,7 +140,12 @@ define(function(require) {
         },
 
         successOnAddDateReadingSession: function (model, response, options) {
+            this.clearDateReadingSessionInput();
             this.renderDateReadingSessions();
+        },
+
+        clearDateReadingSessionInput: function () {
+            this.$el.find('input').val('');
         },
 
         errorOnAddDateReadingSession: function (model, response, options) {
