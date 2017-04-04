@@ -6,11 +6,13 @@ define(function(require) {
         Book = require('models/Book'),
         CurrentReadingSession = require('models/CurrentReadingSession'),
         DateReadingSession = require('models/DateReadingSession'),
+        ReadingSessionProgress = require('models/ReadingSessionProgress'),
         DateReadingSessions = require('collections/DateReadingSessions'),
         DateReadingSessionView = require('views/DateReadingSessionView'),
         DateReadingSessionsDispatcher = require('events/DateReadingSessionsDispatcher'),
         localizer = require('utils/Localizer'),
         readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
+        readingSessionProgressHtml = require('text!templates/ReadingSessionProgress.html'),
         addDateReadingSessionsHtml = require('text!templates/AddDateReadingSessions.html'),
         editDateReadingSessionHtml = require('text!templates/EditDateReadingSession.html'),
         currentReadingSessionHtml = require('text!templates/CurrentReadingSession.html');
@@ -19,6 +21,8 @@ define(function(require) {
         tagName: 'div',
 
         readonlyBookTemplate: _.template(readonlyBookHtml),
+
+        readingSessionProgressTemplate: _.template(readingSessionProgressHtml),
 
         addDateReadingSessionsTemplate: _.template(addDateReadingSessionsHtml),
 
@@ -51,7 +55,6 @@ define(function(require) {
         retrieveBook: function () {
             this.book = new Book({uuid: this.bookUuid});
             this.book.fetch({
-                wait: true,
                 success: _.bind(this.successOnRetrieveBook, this),
                 error: _.bind(this.errorOnRetrieveBook, this)
             });
@@ -79,11 +82,30 @@ define(function(require) {
             this.renderAddDateReadingSessions();
             this.dateReadingSessions = new DateReadingSessions(this.bookUuid, this.currentReadingSession.get('uuid'));
             this.dateReadingSessions.fetch({
-                wait: true,
                 success: _.bind(this.successOnRetrieveDateReadingSessions, this),
                 error: _.bind(this.errorOnRetrieveDateReadingSessions, this)
             });
+            this.listenTo(this.dateReadingSessions, 'add', this.retrieveReadingSessionProgress);
+            this.listenTo(this.dateReadingSessions, 'remove', this.retrieveReadingSessionProgress);
             this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.EDIT, this.renderEditDateReadingSession);
+        },
+
+        retrieveReadingSessionProgress: function () {
+            this.readingSessionProgress = new ReadingSessionProgress(this.bookUuid, this.currentReadingSession.get('uuid'));
+            this.readingSessionProgress.fetch({
+                success: _.bind(this.successOnRetrieveReadingSessionProgress, this),
+                error: _.bind(this.errorOnRetrieveReadingSessionProgress, this)
+            });
+        },
+
+        successOnRetrieveReadingSessionProgress: function (model, response, options) {
+            this.$('#progress-div').html(this.readingSessionProgressTemplate({
+                readingSessionProgress: this.readingSessionProgress.attributes
+            }));
+        },
+
+        errorOnRetrieveReadingSessionProgress: function (model, response, options) {
+            this.$('#progress-div').html('');
         },
 
         renderAddDateReadingSessions: function () {
@@ -121,9 +143,7 @@ define(function(require) {
 
             var dateReadingSessionData = this.buildDateReadingSessionData();
             var dateReadingSession = new DateReadingSession(dateReadingSessionData);
-            dateReadingSession.isNew = function () {
-                return true;
-            };
+            dateReadingSession.isNewDateReadingSession = true;
             this.listenTo(dateReadingSession, "invalid", _.bind(this.errorOnValidateDateReadingSession, this));
             this.dateReadingSessions.create(dateReadingSession, {
                 wait: true,
@@ -149,6 +169,7 @@ define(function(require) {
         },
 
         successOnAddDateReadingSession: function (model, response, options) {
+            delete model.isNewDateReadingSession;
             this.renderAddDateReadingSessions();
             this.renderDateReadingSessions();
         },

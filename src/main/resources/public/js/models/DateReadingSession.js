@@ -7,6 +7,13 @@ define(function(require) {
     var DateReadingSession = Backbone.Model.extend({
         idAttribute: 'date',
 
+        isNew: function () {
+            if(this.isNewDateReadingSession) {
+                return true;
+            }
+            return Backbone.Model.prototype.isNew.apply(this, arguments);
+        },
+
         validate: function (dateReadingSessionData) {
             var dateRegexp = /^\d{4}-\d{2}-\d{2}$/;
             if(!dateRegexp.test(dateReadingSessionData.date)) {
