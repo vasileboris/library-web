@@ -5,7 +5,8 @@ define(function(require) {
         Backbone = require('backbone');
 
     var Events = {
-        EDIT: 'EDIT'
+        EDIT: 'EDIT',
+        UPDATED: 'UPDATED'
     };
 
     var DateReadingSessionsDispatcher = _.clone(Backbone.Events);

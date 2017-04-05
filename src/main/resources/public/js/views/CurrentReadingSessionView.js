@@ -85,9 +85,8 @@ define(function(require) {
                 success: _.bind(this.successOnRetrieveDateReadingSessions, this),
                 error: _.bind(this.errorOnRetrieveDateReadingSessions, this)
             });
-            this.listenTo(this.dateReadingSessions, 'add', this.retrieveReadingSessionProgress);
-            this.listenTo(this.dateReadingSessions, 'remove', this.retrieveReadingSessionProgress);
             this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.EDIT, this.renderEditDateReadingSession);
+            this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.UPDATED, this.retrieveReadingSessionProgress);
         },
 
         retrieveReadingSessionProgress: function () {
@@ -132,6 +131,7 @@ define(function(require) {
 
         successOnRetrieveDateReadingSessions: function (model, response, options) {
             this.renderDateReadingSessions();
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.UPDATED);
         },
 
         errorOnRetrieveDateReadingSessions: function (model, response, options) {
@@ -172,6 +172,7 @@ define(function(require) {
             delete model.isNewDateReadingSession;
             this.renderAddDateReadingSessions();
             this.renderDateReadingSessions();
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.UPDATED);
         },
 
         errorOnAddDateReadingSession: function (model, response, options) {
@@ -204,6 +205,7 @@ define(function(require) {
 
         successOnUpdateDateReadingSession: function (model, response, options) {
             this.renderAddDateReadingSessions();
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.UPDATED);
         },
 
         errorOnUpdateDateReadingSession: function (model, response, options) {

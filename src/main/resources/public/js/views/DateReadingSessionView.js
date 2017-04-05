@@ -47,6 +47,7 @@ define(function(require) {
         },
 
         successOnDeleteDateReadingSession: function (model, response, options) {
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.UPDATED);
             this.remove();
         },
 
