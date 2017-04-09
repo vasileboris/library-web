@@ -2,6 +2,7 @@ define(function(require) {
     'use strict';
 
     var _ = require('underscore'),
+        $ = require('jquery'),
         Backbone = require('backbone'),
         Book = require('models/Book'),
         Books = require('collections/Books'),
@@ -70,12 +71,15 @@ define(function(require) {
 
         searchBooks: function() {
             var searchText = this.$el.find('#books-search-text').val().trim();
+            $('body').addClass('waiting');
+            this.$('#books-div').html('');
             this.books.changeSearchText(searchText);
             this.books.fetch({reset: true});
         },
 
         renderBooks: function () {
             this.$('#books-div').html('');
+            $('body').removeClass('waiting');
             this.books.each(function (book) {
                 this.renderBook(book);
             }, this);
