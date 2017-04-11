@@ -10,7 +10,7 @@ define(function(require) {
     var BookView = Backbone.View.extend({
         tagName: 'div',
 
-        className: 'div-results',
+        className: 'result',
 
         template: _.template(templateHtml),
 
@@ -27,7 +27,8 @@ define(function(require) {
 
         render: function () {
             this.$el.html(this.template({
-                book: this.book.attributes
+                book: this.book.attributes,
+                localizer: localizer
             }));
             return this;
         },

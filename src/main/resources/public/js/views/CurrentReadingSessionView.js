@@ -62,7 +62,8 @@ define(function(require) {
 
         successOnRetrieveBook: function (model, response, options) {
             this.$('#book-div').html(this.readonlyBookTemplate({
-                book: this.book.attributes
+                book: this.book.attributes,
+                localizer: localizer
             }));
         },
 
@@ -99,7 +100,8 @@ define(function(require) {
 
         successOnRetrieveReadingSessionProgress: function (model, response, options) {
             this.$('#progress-div').html(this.readingSessionProgressTemplate({
-                readingSessionProgress: this.readingSessionProgress.attributes
+                readingSessionProgress: this.readingSessionProgress.attributes,
+                localizer: localizer
             }));
         },
 

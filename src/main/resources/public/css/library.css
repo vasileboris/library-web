@@ -1,15 +1,10 @@
-.entries {
-    float: left;
-    width: 50%;
-    clear: both;
-    margin-bottom: 10px;
+body {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 16px;
 }
 
-.results {
-    white-space: pre;
-    clear: both;
+.entries {
     width: 50%;
-    font-family: monospace;
     margin-bottom: 10px;
 }
 
@@ -23,8 +18,20 @@
 .text {
     float: left;
     width: 100%;
-    font-family: monospace;
     margin-bottom: 10px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.results {
+}
+
+.result {
+    margin-bottom: 10px;
+}
+
+.title {
+    font-weight: bold;
 }
 
 .img-big {
@@ -62,12 +69,10 @@
 }
 
 .message {
-    font-family: monospace;
     color: red;
     margin-bottom: 10px;
 }
 
 .message-item {
-    font-family: monospace;
     color: red;
 }

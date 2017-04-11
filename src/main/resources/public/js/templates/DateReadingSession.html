@@ -1,5 +1,9 @@
 <div class="message-item"></div>
 <a href="#" class="edit-item"><img src="/img/edit.png" alt="edit reading session" class="img-small"/></a> <a href="#" class="delete-item"><img src="/img/delete.png" alt="delete item" class="img-small"/></a>
-DATE           : <%= dateReadingSession.date %>
-LAST READ PAGE : <%= dateReadingSession.lastReadPage %>
-BOOKMARK       : <%= dateReadingSession.bookmark %>
+<div>
+  <%= localizer.localize('date-reading-session-last-read-page-label') %> <%= dateReadingSession.lastReadPage %>
+  <%= localizer.localize('date-reading-session-last-read-date-label') %> <%= dateReadingSession.date %>
+</div>
+<div>
+  <%= dateReadingSession.bookmark ? localizer.localize('date-reading-session-bookmark-label') + ' "' + dateReadingSession.bookmark + '"' : '' %>
+</div>
