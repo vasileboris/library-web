@@ -1,6 +1,14 @@
-STATUS                   : <%= readingSessionProgress.readPercentage %>&#37;
-AVERAGES PAGES / DAY     : <%= readingSessionProgress.averagePagesPerDay %>
-PAGES LEFT               : <%= readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage %>
-ESTIMATED READ DAYS LEFT : <%= readingSessionProgress.estimatedReadDaysLeft %>
-ESTIMATED DAYS LEFT      : <%= readingSessionProgress.estimatedDaysLeft %>
-ESTIMATED FINISH DATE    : <%= readingSessionProgress.estimatedFinishDate %>
+<div class="result">
+  <div>
+    <%= localizer.localize('reading-session-progress-status-label') %> <%= readingSessionProgress.readPercentage %>&#37;,
+    <%= readingSessionProgress.averagePagesPerDay %> <%= localizer.localize('reading-session-progress-average-pages-label') %>
+  </div>
+  <div>
+    <%= readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage %> <%= localizer.localize('reading-session-progress-estimated-pages-left-label') %>
+    <%= localizer.localize('reading-session-progress-estimated-read-days-left-label', readingSessionProgress.estimatedReadDaysLeft) %> /
+    <%= localizer.localize('reading-session-progress-estimated-days-left-label', readingSessionProgress.estimatedDaysLeft) %>
+  </div>
+  <div>
+    <%= localizer.localize('reading-session-progress-estimated-finish-date-label', readingSessionProgress.estimatedFinishDate) %>
+  </div>
+</div>

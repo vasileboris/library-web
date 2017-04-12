@@ -8,15 +8,13 @@ body {
     margin-bottom: 10px;
 }
 
-.button-left {
-    float: left;
+.button {
     width: 50%;
     margin-bottom: 10px;
-    clear: both;
+    vertical-align: top;
 }
 
 .text {
-    float: left;
     width: 100%;
     margin-bottom: 10px;
     font-family: inherit;
@@ -36,7 +34,6 @@ body {
 
 .img-big {
     margin-left: 10px;
-    margin-bottom: 10px;
     height: 20px;
     width: 20px;
 }
