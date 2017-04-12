@@ -19,12 +19,19 @@ body {
     width: 50%;
     margin-bottom: 10px;
     vertical-align: top;
+    color: white;
+    background-color: #4788c7;
+    height: 40px;
+    font-size: 16px;
+    border-style: none;
+    border-radius: 10px;
+    outline: none;
 }
 
 .img-big {
     margin-left: 10px;
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
 }
 
 .readonly {
@@ -62,6 +69,11 @@ body {
 
 .result {
     margin-bottom: 10px;
+}
+
+.details {
+    font-weight: bold;
+    color: #ff0072;
 }
 
 .title {

@@ -1,14 +1,14 @@
 <div class="result">
   <div>
-    <%= localizer.localize('reading-session-progress-status-label') %> <%= readingSessionProgress.readPercentage %>&#37;,
-    <%= readingSessionProgress.averagePagesPerDay %> <%= localizer.localize('reading-session-progress-average-pages-label') %>
+    <%= localizer.localize('reading-session-progress-status-label') %> <span class="details"><%= readingSessionProgress.readPercentage %>&#37;</span>,
+    <span class="details"><%= readingSessionProgress.averagePagesPerDay %></span> <%= localizer.localize('reading-session-progress-average-pages-label') %>
   </div>
   <div>
-    <%= readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage %> <%= localizer.localize('reading-session-progress-estimated-pages-left-label') %>
-    <%= localizer.localize('reading-session-progress-estimated-read-days-left-label', readingSessionProgress.estimatedReadDaysLeft) %> /
-    <%= localizer.localize('reading-session-progress-estimated-days-left-label', readingSessionProgress.estimatedDaysLeft) %>
+    <span class="details"><%= readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage %></span> <%= localizer.localize('reading-session-progress-estimated-pages-left-label') %>
+    <span class="details"><%= readingSessionProgress.estimatedReadDaysLeft %></span> <%= localizer.localize('reading-session-progress-estimated-read-days-left-label') %> /
+    <span class="details"><%= readingSessionProgress.estimatedDaysLeft %></span> <%= localizer.localize('reading-session-progress-estimated-days-left-label') %>
   </div>
   <div>
-    <%= localizer.localize('reading-session-progress-estimated-finish-date-label', readingSessionProgress.estimatedFinishDate) %>
+    <%= localizer.localize('reading-session-progress-estimated-finish-date-label') %> <span class="details"><%= readingSessionProgress.estimatedFinishDate %></span>
   </div>
 </div>
