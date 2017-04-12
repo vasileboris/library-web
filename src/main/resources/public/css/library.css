@@ -8,12 +8,6 @@ body {
     margin-bottom: 10px;
 }
 
-.button {
-    width: 50%;
-    margin-bottom: 10px;
-    vertical-align: top;
-}
-
 .text {
     width: 100%;
     margin-bottom: 10px;
@@ -21,15 +15,10 @@ body {
     font-size: inherit;
 }
 
-.results {
-}
-
-.result {
+.button {
+    width: 50%;
     margin-bottom: 10px;
-}
-
-.title {
-    font-weight: bold;
+    vertical-align: top;
 }
 
 .img-big {
@@ -38,18 +27,8 @@ body {
     width: 20px;
 }
 
-.img-small {
-    margin-left: 5px;
-    height: 20px;
-    width: 20px;
-}
-
 .readonly {
     pointer-events: none;
-}
-
-.waiting {
-    cursor: progress;
 }
 
 .hidden {
@@ -72,4 +51,25 @@ body {
 
 .message-item {
     color: red;
+}
+
+.waiting {
+    cursor: progress;
+}
+
+.results {
+}
+
+.result {
+    margin-bottom: 10px;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.img-small {
+    margin-left: 5px;
+    height: 20px;
+    width: 20px;
 }
