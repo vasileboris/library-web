@@ -5,7 +5,7 @@ define(function(require) {
         Backbone = require('backbone'),
         templateHtml = require('text!templates/Header.html');
 
-    var MenuView = Backbone.View.extend({
+    var HeaderView = Backbone.View.extend({
         el: '#menu-div',
 
         template: _.template(templateHtml),
@@ -26,5 +26,5 @@ define(function(require) {
 
     });
 
-    return MenuView;
+    return HeaderView;
 });

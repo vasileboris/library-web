@@ -7,6 +7,22 @@ body {
     width: 50%;
 }
 
+.menu {
+    display: inline;
+    margin-right: 10px;
+}
+
+.menu-title {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+.img-title {
+    vertical-align: middle;
+}
+
 .entries {
     width: 50%;
     margin-bottom: 10px;
