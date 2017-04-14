@@ -2,6 +2,7 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
+        MenuView = require('views/MenuView'),
         LibraryView = require('views/LibraryView');
 
     var LibraryRouter = Backbone.Router.extend({
@@ -11,6 +12,9 @@ define(function(require) {
         },
 
         initialize: function () {
+            this.menuView = new MenuView();
+            this.menuView.render();
+
             this.libraryView = new LibraryView();
             if('/' === window.location.pathname) {
                 this.manageBooks();

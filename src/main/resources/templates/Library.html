@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <title>Library application</title>
@@ -8,11 +7,9 @@
 <body>
 
 <div class="app">
-    <div th:replace="fragments/Header :: Header"></div>
+    <div id="menu-div"></div>
 
     <div id="library-div"></div>
-
-    <div th:replace="fragments/Footer :: Footer"></div>
 </div>
 <script data-main="/js/Library.js" src="/js/lib/require.js"></script>
 

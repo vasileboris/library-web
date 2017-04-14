@@ -31,6 +31,7 @@ define(function(require) {
         currentReadingSessionTemplate: _.template(currentReadingSessionHtml),
 
         events: {
+            'click #date-reading-session-cancel-edit-link': 'renderAddDateReadingSessions',
             'click #date-reading-session-add-button': 'addDateReadingSession',
             'click #date-reading-session-update-button': 'updateDateReadingSession'
         },
