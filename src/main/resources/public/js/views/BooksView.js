@@ -26,6 +26,7 @@ define(function(require) {
         editBookTemplate: _.template(editBookHtml),
 
         events: {
+            'click #book-cancel-add-link': 'renderSearchBooks',
             'click #book-cancel-edit-link': 'renderSearchBooks',
             'click #books-search-button': 'searchBooks',
             'click #books-add-link': 'renderAddBooks',
