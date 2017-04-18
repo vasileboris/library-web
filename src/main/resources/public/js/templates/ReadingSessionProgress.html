@@ -1,14 +1,14 @@
-<div class="result">
+<div class="result-single">
   <div>
-    <%= localizer.localize('reading-session-progress-status-label') %> <span class="details"><%= readingSessionProgress.readPercentage %>&#37;</span>,
-    <span class="details"><%= readingSessionProgress.averagePagesPerDay %></span> <%= localizer.localize('reading-session-progress-average-pages-label') %>
+    <%= localizer.localize('reading-session-progress-status-label') %> <span class="result-important"><%= readingSessionProgress.readPercentage %>&#37;</span>,
+    <span class="result-important"><%= readingSessionProgress.averagePagesPerDay %></span> <%= localizer.localize('reading-session-progress-average-pages-label') %>
   </div>
   <div>
-    <span class="details"><%= readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage %></span> <%= localizer.localize('reading-session-progress-estimated-pages-left-label') %>
-    <span class="details"><%= readingSessionProgress.estimatedReadDaysLeft %></span> <%= localizer.localize('reading-session-progress-estimated-read-days-left-label') %> /
-    <span class="details"><%= readingSessionProgress.estimatedDaysLeft %></span> <%= localizer.localize('reading-session-progress-estimated-days-left-label') %>
+    <span class="result-important"><%= readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage %></span> <%= localizer.localize('reading-session-progress-estimated-pages-left-label') %>
+    <span class="result-important"><%= readingSessionProgress.estimatedReadDaysLeft %></span> <%= localizer.localize('reading-session-progress-estimated-read-days-left-label') %> /
+    <span class="result-important"><%= readingSessionProgress.estimatedDaysLeft %></span> <%= localizer.localize('reading-session-progress-estimated-days-left-label') %>
   </div>
   <div>
-    <%= localizer.localize('reading-session-progress-estimated-finish-date-label') %> <span class="details"><%= readingSessionProgress.estimatedFinishDate %></span>
+    <%= localizer.localize('reading-session-progress-estimated-finish-date-label') %> <span class="result-important "><%= readingSessionProgress.estimatedFinishDate %></span>
   </div>
 </div>

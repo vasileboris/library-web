@@ -4,18 +4,22 @@ body {
 }
 
 .app {
-    width: 50%;
+    max-width: 1024px;
+    min-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
 }
 
-.menu {
+ul.menu {
     display: inline;
-    margin-right: 10px;
+    list-style-type: none;
 }
 
 .menu-title {
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-size: 24px;
+    font-size: 18px;
     vertical-align: middle;
 }
 
@@ -24,28 +28,30 @@ body {
 }
 
 .entries {
-    width: 50%;
+    width: 300px;
     margin-bottom: 10px;
 }
 
 .text {
-    width: 100%;
+    width: 300px;
+    height: 40px;
     margin-bottom: 10px;
     font-family: inherit;
     font-size: inherit;
 }
 
 .button {
-    width: 50%;
+    /* Check why when width is 250px, image is on the next line */
+    width: 245px;
+    height: 40px;
+    border-radius: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
     vertical-align: top;
     color: white;
     background-color: #4788c7;
-    height: 40px;
     font-size: 16px;
     border-style: none;
-    border-radius: 10px;
     outline: none;
 }
 
@@ -72,7 +78,7 @@ body {
 }
 
 .message {
-    width: 50%;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
     color: red;
@@ -90,15 +96,22 @@ body {
 }
 
 .results {
+    width: 100%;
+    overflow: auto;
+}
+
+.result, .result-single {
+    float: left;
+    width: 300px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .result {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    height: 120px;
 }
 
-.details {
+.result-important {
     font-weight: bold;
     color: #ff0072;
 }
