@@ -4,11 +4,15 @@ body {
 }
 
 .app {
-    max-width: 1024px;
-    min-width: 320px;
+    max-width: 960px;
+    min-width: 480px;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
+}
+
+.header {
+    width: 100%;
+    margin: 10px;
 }
 
 ul.menu {
@@ -28,12 +32,16 @@ ul.menu {
 }
 
 .entries {
-    width: 300px;
-    margin-bottom: 10px;
+    width: 100%;
+}
+
+.entry {
+    width: 460px;
+    margin: 10px;
 }
 
 .text {
-    width: 300px;
+    width: 460px;
     height: 40px;
     margin-bottom: 10px;
     font-family: inherit;
@@ -42,7 +50,7 @@ ul.menu {
 
 .button {
     /* Check why when width is 250px, image is on the next line */
-    width: 245px;
+    width: 180px;
     height: 40px;
     border-radius: 10px;
     margin-right: 10px;
@@ -78,14 +86,12 @@ ul.menu {
 }
 
 .message {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 460px;
+    margin: 10px;
     color: red;
 }
 
 .message-item {
-    width: 100%;
     margin-top: 5px;
     margin-bottom: 5px;
     color: red;
@@ -97,6 +103,7 @@ ul.menu {
 
 .results {
     width: 100%;
+    /* This was added to avoid the problem of parents of floated elements */
     overflow: auto;
 }
 
@@ -105,6 +112,7 @@ ul.menu {
     width: 300px;
     padding-top: 5px;
     padding-bottom: 5px;
+    margin: 10px;
 }
 
 .result {
