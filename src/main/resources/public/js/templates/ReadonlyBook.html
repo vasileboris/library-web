@@ -2,6 +2,9 @@
   <span class="title"><%= book.title %></span>
 </div>
 <div>
+  <%= book.image ? urlUtil.previewUrl(book.image) : '' %>
+</div>
+<div>
   <%= localizer.localize('book-by-label') %> <%= book.authors %>
 </div>
 <div>

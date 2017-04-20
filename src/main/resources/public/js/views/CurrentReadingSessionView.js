@@ -11,6 +11,7 @@ define(function(require) {
         DateReadingSessionView = require('views/DateReadingSessionView'),
         DateReadingSessionsDispatcher = require('events/DateReadingSessionsDispatcher'),
         localizer = require('utils/Localizer'),
+        urlUtil = require('utils/UrlUtil'),
         readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
         readingSessionProgressHtml = require('text!templates/ReadingSessionProgress.html'),
         addDateReadingSessionsHtml = require('text!templates/AddDateReadingSessions.html'),
@@ -64,7 +65,8 @@ define(function(require) {
         successOnRetrieveBook: function (model, response, options) {
             this.$('#book-div').html(this.readonlyBookTemplate({
                 book: this.book.attributes,
-                localizer: localizer
+                localizer: localizer,
+                urlUtil: urlUtil
             }));
         },
 

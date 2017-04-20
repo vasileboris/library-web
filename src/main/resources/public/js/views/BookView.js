@@ -5,6 +5,7 @@ define(function(require) {
         Backbone = require('backbone'),
         BooksDispatcher = require('events/BooksDispatcher'),
         localizer = require('utils/Localizer'),
+        urlUtil = require('utils/UrlUtil'),
         templateHtml = require('text!templates/Book.html');
 
     var BookView = Backbone.View.extend({
@@ -28,7 +29,8 @@ define(function(require) {
         render: function () {
             this.$el.html(this.template({
                 book: this.book.attributes,
-                localizer: localizer
+                localizer: localizer,
+                urlUtil: urlUtil
             }));
             return this;
         },
