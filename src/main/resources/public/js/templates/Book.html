@@ -1,19 +1,19 @@
 <div class="message-item"></div>
 <a href="#" class="edit-item"><img src="/img/edit.png" alt="edit book" class="img-small"/></a> <a href="/books/<%= book.uuid %>" class="read-item"><img src="/img/read.png" alt="read book" class="img-small"/></a> <a href="#" class="delete-item"><img src="/img/delete.png" alt="delete book" class="img-small"/></a>
-<div>
-  <span class="title"><%= book.title %></span>
-</div>
-<div>
+<div class="result-detail">
   <% if(book.image) { %>
-  <img src="<%= book.image%>" alt="<%= urlUtil.previewUrl(book.image)%>"/>
+  <img src="<%= book.image%>" alt="<%= urlUtil.previewUrl(book.image)%>" class="img-book-small"/>
   <% } %>
 </div>
-<div>
+<div class="result-detail">
+  <span class="title"><%= book.title %></span>
+</div>
+<div class="result-detail">
   <%= localizer.localize('book-by-label') %> <%= book.authors %>
 </div>
-<div>
-  <%= book.isbn10 ? localizer.localize('book-isbn10-label') + ': ' + book.isbn10 : '' %>
+<div class="result-detail">
+  <%= book.isbn10 %>
 </div>
-<div>
-  <%= book.isbn13 ? localizer.localize('book-isbn13-label') + ': ' + book.isbn13 : '' %>
+<div class="result-detail">
+  <%= book.isbn13 %>
 </div>

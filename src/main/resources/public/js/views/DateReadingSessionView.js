@@ -10,7 +10,7 @@ define(function(require) {
     var DateReadingSessionView = Backbone.View.extend({
         tagName: 'div',
 
-        className: 'result',
+        className: 'result-date-reading-session',
 
         template: _.template(templateHtml),
 

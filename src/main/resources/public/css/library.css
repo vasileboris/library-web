@@ -107,23 +107,32 @@ ul.menu {
     overflow: auto;
 }
 
-.result, .result-single {
+.result-book, .result-date-reading-session, .result-single {
     float: left;
     margin: 10px;
 }
 
-.result {
-    width: 300px;
-    height: 120px;
+.result-book {
+    width: 140px;
+    height: 320px;
+}
+
+.result-date-reading-session {
+    width: 140px;
+    height: 160px;
 }
 
 .result-single {
-    width: 460px;
+    width: 300px;
 }
 
 .result-important {
     font-weight: bold;
     color: #ff0072;
+}
+
+.result-detail {
+    margin-top: 2px;
 }
 
 .title {
@@ -134,4 +143,14 @@ ul.menu {
     margin-left: 5px;
     height: 20px;
     width: 20px;
+}
+
+.img-book-small {
+    width: 140px;
+    height: 174px;
+}
+
+.img-book-large {
+    width: 300px;
+    height: 373px;
 }

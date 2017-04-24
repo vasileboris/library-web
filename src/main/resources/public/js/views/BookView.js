@@ -11,7 +11,7 @@ define(function(require) {
     var BookView = Backbone.View.extend({
         tagName: 'div',
 
-        className: 'result',
+        className: 'result-book',
 
         template: _.template(templateHtml),
 
