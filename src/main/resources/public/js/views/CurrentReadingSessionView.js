@@ -14,7 +14,6 @@ define(function(require) {
         urlUtil = require('utils/UrlUtil'),
         imageUtil = require('utils/ImageUtil'),
         readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
-        readonlyBookImageHtml = require('text!templates/ReadonlyBookImage.html'),
         readingSessionProgressHtml = require('text!templates/ReadingSessionProgress.html'),
         addDateReadingSessionsHtml = require('text!templates/AddDateReadingSessions.html'),
         editDateReadingSessionHtml = require('text!templates/EditDateReadingSession.html'),
@@ -24,8 +23,6 @@ define(function(require) {
         tagName: 'div',
 
         readonlyBookTemplate: _.template(readonlyBookHtml),
-
-        readonlyBookImageTemplate: _.template(readonlyBookImageHtml),
 
         readingSessionProgressTemplate: _.template(readingSessionProgressHtml),
 
@@ -69,10 +66,7 @@ define(function(require) {
         successOnRetrieveBook: function (model, response, options) {
             this.$('#book-div').html(this.readonlyBookTemplate({
                 book: this.book.attributes,
-                localizer: localizer
-            }));
-            this.$('#book-image-div').html(this.readonlyBookImageTemplate({
-                book: this.book.attributes,
+                localizer: localizer,
                 urlUtil: urlUtil,
                 imageUtil: imageUtil
             }));

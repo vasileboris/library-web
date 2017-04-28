@@ -123,7 +123,7 @@ ul.menu {
 }
 
 .result-single {
-    width: 300px;
+    width: 220px;
 }
 
 .result-important {
@@ -145,12 +145,16 @@ ul.menu {
     width: 20px;
 }
 
+.figure-book {
+    margin: 0px;
+}
+
 .img-book-small {
     width: 140px;
     height: 174px;
 }
 
 .img-book-large {
-    width: 300px;
-    height: 373px;
+    width: 220px;
+    height: 273px;
 }

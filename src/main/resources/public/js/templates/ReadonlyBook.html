@@ -1,5 +1,17 @@
 <div>
-  <span class="title"><%= book.title %></span>
+  <figure class="figure-book">
+    <% if(book.image) { %>
+    <img src="<%= book.image%>"
+         alt="<%= urlUtil.previewUrl(book.image)%>"
+         onerror="imageUtil.displayDefaultImage(this, '/img/no-image-available.jpg');"
+         class="img-book-large"/>
+    <% } else { %>
+    <img src="/img/no-image-available.jpg"
+         alt="<%= urlUtil.previewUrl(book.image)%>"
+         class="img-book-large"/>
+    <% }  %>
+    <figcaption class="title"><%= book.title %></figcaption>
+  </figure>
 </div>
 <div>
   <%= localizer.localize('book-by-label') %> <%= book.authors %>

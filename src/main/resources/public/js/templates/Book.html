@@ -3,19 +3,22 @@
 <a href="/books/<%= book.uuid %>" class="read-item"><img src="/img/read.png" alt="read book" class="img-small"/></a>
 <a href="#" class="delete-item"><img src="/img/delete.png" alt="delete book" class="img-small"/></a>
 <div class="result-detail">
-  <% if(book.image) { %>
-  <img src="<%= book.image%>"
-       alt="<%= urlUtil.previewUrl(book.image)%>"
-       onerror="imageUtil.displayDefaultImage(this, '/img/no-image-available.jpg');"
-       class="img-book-small"/>
-  <% } else { %>
-  <img src="/img/no-image-available.jpg"
-       alt="<%= urlUtil.previewUrl(book.image)%>"
-       class="img-book-small"/>
-  <% }  %>
+  <figure class="figure-book">
+    <% if(book.image) { %>
+    <img src="<%= book.image%>"
+         alt="<%= urlUtil.previewUrl(book.image)%>"
+         onerror="imageUtil.displayDefaultImage(this, '/img/no-image-available.jpg');"
+         class="img-book-small"/>
+    <% } else { %>
+    <img src="/img/no-image-available.jpg"
+         alt="<%= urlUtil.previewUrl(book.image)%>"
+         class="img-book-small"/>
+    <% }  %>
+    <figcaption class="title"><%= book.title %></figcaption>
+  </figure>
 </div>
 <div class="result-detail">
-  <span class="title"><%= book.title %></span>
+  <span class="title"></span>
 </div>
 <div class="result-detail">
   <%= localizer.localize('book-by-label') %> <%= book.authors %>
