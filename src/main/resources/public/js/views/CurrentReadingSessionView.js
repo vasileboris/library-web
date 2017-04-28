@@ -12,6 +12,7 @@ define(function(require) {
         DateReadingSessionsDispatcher = require('events/DateReadingSessionsDispatcher'),
         localizer = require('utils/Localizer'),
         urlUtil = require('utils/UrlUtil'),
+        imageUtil = require('utils/ImageUtil'),
         readonlyBookHtml = require('text!templates/ReadonlyBook.html'),
         readonlyBookImageHtml = require('text!templates/ReadonlyBookImage.html'),
         readingSessionProgressHtml = require('text!templates/ReadingSessionProgress.html'),
@@ -72,7 +73,8 @@ define(function(require) {
             }));
             this.$('#book-image-div').html(this.readonlyBookImageTemplate({
                 book: this.book.attributes,
-                urlUtil: urlUtil
+                urlUtil: urlUtil,
+                imageUtil: imageUtil
             }));
         },
 

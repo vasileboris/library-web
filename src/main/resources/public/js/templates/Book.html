@@ -1,9 +1,18 @@
 <div class="message-item"></div>
-<a href="#" class="edit-item"><img src="/img/edit.png" alt="edit book" class="img-small"/></a> <a href="/books/<%= book.uuid %>" class="read-item"><img src="/img/read.png" alt="read book" class="img-small"/></a> <a href="#" class="delete-item"><img src="/img/delete.png" alt="delete book" class="img-small"/></a>
+<a href="#" class="edit-item"><img src="/img/edit.png" alt="edit book" class="img-small"/></a>
+<a href="/books/<%= book.uuid %>" class="read-item"><img src="/img/read.png" alt="read book" class="img-small"/></a>
+<a href="#" class="delete-item"><img src="/img/delete.png" alt="delete book" class="img-small"/></a>
 <div class="result-detail">
   <% if(book.image) { %>
-  <img src="<%= book.image%>" alt="<%= urlUtil.previewUrl(book.image)%>" class="img-book-small"/>
-  <% } %>
+  <img src="<%= book.image%>"
+       alt="<%= urlUtil.previewUrl(book.image)%>"
+       onerror="imageUtil.displayDefaultImage(this, '/img/no-image-available.jpg');"
+       class="img-book-small"/>
+  <% } else { %>
+  <img src="/img/no-image-available.jpg"
+       alt="<%= urlUtil.previewUrl(book.image)%>"
+       class="img-book-small"/>
+  <% }  %>
 </div>
 <div class="result-detail">
   <span class="title"><%= book.title %></span>
