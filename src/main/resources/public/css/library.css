@@ -3,7 +3,7 @@ body {
     font-size: 16px;
 }
 
-.app {
+.page {
     max-width: 960px;
     min-width: 480px;
     margin-left: auto;
@@ -11,24 +11,30 @@ body {
 }
 
 .header {
-    width: 100%;
     margin: 10px;
 }
 
-ul.menu {
+.menu {
     display: inline;
     list-style-type: none;
 }
 
 .menu-title {
     text-transform: uppercase;
+    font-weight: bold;
     letter-spacing: 0.1em;
-    font-size: 18px;
+    font-size: 32px;
     vertical-align: middle;
-}
+    }
 
 .img-title {
     vertical-align: middle;
+    height: 80px;
+    width: 80px;
+}
+
+.content {
+    margin: 10px;
 }
 
 .entries {
@@ -37,7 +43,6 @@ ul.menu {
 
 .entry {
     width: 460px;
-    margin: 10px;
 }
 
 .text {
@@ -87,7 +92,6 @@ ul.menu {
 
 .message {
     width: 460px;
-    margin: 10px;
     color: red;
 }
 
@@ -109,7 +113,7 @@ ul.menu {
 
 .result-book, .result-date-reading-session, .result-single {
     float: left;
-    margin: 10px;
+    margin: 10px 10px 10px 0px;
 }
 
 .result-book {
