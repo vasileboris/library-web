@@ -6,7 +6,7 @@ define(function(require) {
         templateHtml = require('text!templates/Header.html');
 
     var HeaderView = Backbone.View.extend({
-        el: '#header',
+        el: '#header-div',
 
         template: _.template(templateHtml),
 

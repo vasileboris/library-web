@@ -4,16 +4,17 @@ body {
     background-color: #f0f0f0;
 }
 
-.page {
+.page-header {
+    max-width: 100%;
+    margin: 10px 0 10px 0;
+    background-color: #403042;
+}
+
+.header {
     max-width: 960px;
     min-width: 480px;
     margin-left: auto;
     margin-right: auto;
-    background-color: white;
-}
-
-.header {
-    margin: 10px;
 }
 
 .menu {
@@ -28,11 +29,19 @@ body {
     letter-spacing: 0.1em;
     font-size: 32px;
     vertical-align: middle;
-    }
+}
 
 .img-logo {
     height: 75px;
     width: 225px;
+}
+
+.page-content {
+    max-width: 960px;
+    min-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
 }
 
 .content {
@@ -41,6 +50,7 @@ body {
 
 .entries {
     width: 100%;
+    padding: 10px 0 0 0;
 }
 
 .entry {

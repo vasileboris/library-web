@@ -6,7 +6,7 @@ define(function(require) {
         CurrentReadingSessionView = require('views/CurrentReadingSessionView');
 
     var LibraryView = Backbone.View.extend({
-        el: '#content',
+        el: '#content-div',
 
         manageBooks: function () {
             this.currentView = new BooksView();
