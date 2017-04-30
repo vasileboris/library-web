@@ -17,6 +17,7 @@ body {
 .menu {
     display: inline;
     list-style-type: none;
+    font-size: 24px;
 }
 
 .menu-title {
@@ -27,10 +28,9 @@ body {
     vertical-align: middle;
     }
 
-.img-title {
-    vertical-align: middle;
-    height: 80px;
-    width: 80px;
+.img-logo {
+    height: 75px;
+    width: 225px;
 }
 
 .content {
@@ -66,11 +66,6 @@ body {
     font-size: 16px;
     border-style: none;
     outline: none;
-}
-
-.img-big {
-    height: 40px;
-    width: 40px;
 }
 
 .readonly {
@@ -143,10 +138,9 @@ body {
     font-weight: bold;
 }
 
-.img-small {
-    margin-left: 5px;
-    height: 20px;
-    width: 20px;
+.img-icon {
+    height: 40px;
+    width: 40px;
 }
 
 .figure-book {
