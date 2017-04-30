@@ -8,7 +8,7 @@ define(function(require) {
         templateHtml = require('text!templates/DateReadingSession.html');
 
     var DateReadingSessionView = Backbone.View.extend({
-        tagName: 'div',
+        tagName: 'article',
 
         className: 'result-date-reading-session',
 

@@ -64,7 +64,7 @@ define(function(require) {
         },
 
         successOnRetrieveBook: function (model, response, options) {
-            this.$('#book-div').html(this.readonlyBookTemplate({
+            this.$('#book-article').html(this.readonlyBookTemplate({
                 book: this.book.attributes,
                 localizer: localizer,
                 urlUtil: urlUtil,
@@ -104,14 +104,14 @@ define(function(require) {
         },
 
         successOnRetrieveReadingSessionProgress: function (model, response, options) {
-            this.$('#progress-div').html(this.readingSessionProgressTemplate({
+            this.$('#progress-article').html(this.readingSessionProgressTemplate({
                 readingSessionProgress: this.readingSessionProgress.attributes,
                 localizer: localizer
             }));
         },
 
         errorOnRetrieveReadingSessionProgress: function (model, response, options) {
-            this.$('#progress-div').html('');
+            this.$('#progress-article').html('');
         },
 
         renderAddDateReadingSessions: function () {

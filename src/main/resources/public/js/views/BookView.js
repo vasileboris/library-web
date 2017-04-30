@@ -10,7 +10,7 @@ define(function(require) {
         templateHtml = require('text!templates/Book.html');
 
     var BookView = Backbone.View.extend({
-        tagName: 'div',
+        tagName: 'article',
 
         className: 'result-book',
 
