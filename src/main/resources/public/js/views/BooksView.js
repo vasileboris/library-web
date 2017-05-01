@@ -12,7 +12,8 @@ define(function(require) {
         booksHtml = require('text!templates/Books.html'),
         searchBooksHtml = require('text!templates/SearchBooks.html'),
         addBooksHtml = require('text!templates/AddBooks.html'),
-        editBookHtml = require('text!templates/EditBook.html');
+        editBookHtml = require('text!templates/EditBook.html'),
+        messageHtml = require('text!templates/Message.html');
 
     var BooksView = Backbone.View.extend({
         tagName: 'div',
@@ -24,6 +25,8 @@ define(function(require) {
         addBooksTemplate: _.template(addBooksHtml),
 
         editBookTemplate: _.template(editBookHtml),
+
+        messageTemplate: _.template(messageHtml),
 
         events: {
             'click #book-cancel-add-link': 'renderSearchBooks',
@@ -110,7 +113,9 @@ define(function(require) {
         },
 
         errorOnAddBook: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('book-add-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('book-add-error', options.xhr.status)
+            }));
         },
 
         updateBook: function () {
@@ -130,7 +135,9 @@ define(function(require) {
         },
 
         errorOnValidateBook: function (model, error) {
-            this.$el.find('#message-div').html(error);
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: error
+            }));
         },
 
         successOnUpdateBook: function (model, response, options) {
@@ -138,7 +145,9 @@ define(function(require) {
         },
 
         errorOnUpdateBook: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('book-update-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('book-update-error', options.xhr.status)
+            }));
         },
 
         buildBookData: function () {

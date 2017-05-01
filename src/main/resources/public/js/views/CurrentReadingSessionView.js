@@ -17,7 +17,8 @@ define(function(require) {
         readingSessionProgressHtml = require('text!templates/ReadingSessionProgress.html'),
         addDateReadingSessionsHtml = require('text!templates/AddDateReadingSessions.html'),
         editDateReadingSessionHtml = require('text!templates/EditDateReadingSession.html'),
-        currentReadingSessionHtml = require('text!templates/CurrentReadingSession.html');
+        currentReadingSessionHtml = require('text!templates/CurrentReadingSession.html'),
+        messageHtml = require('text!templates/Message.html');
 
     var ReadingSessionsView = Backbone.View.extend({
         tagName: 'div',
@@ -31,6 +32,8 @@ define(function(require) {
         editDateReadingSessionTemplate: _.template(editDateReadingSessionHtml),
 
         currentReadingSessionTemplate: _.template(currentReadingSessionHtml),
+
+        messageTemplate: _.template(messageHtml),
 
         events: {
             'click #date-reading-session-cancel-edit-link': 'renderAddDateReadingSessions',
@@ -73,7 +76,9 @@ define(function(require) {
         },
 
         errorOnRetrieveBook: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('book-retrieve-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('book-retrieve-error', options.xhr.status)
+            }));
         },
 
         retrieveCurrentReadingSession: function () {
@@ -121,7 +126,9 @@ define(function(require) {
         },
 
         errorOnRetrieveCurrentReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('reading-session-retrieve-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('reading-session-retrieve-error', options.xhr.status)
+            }));
         },
 
         renderDateReadingSessions: function () {
@@ -142,7 +149,9 @@ define(function(require) {
         },
 
         errorOnRetrieveDateReadingSessions: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('date-reading-sessions-retrieve-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('date-reading-sessions-retrieve-error', options.xhr.status)
+            }));
         },
 
         addDateReadingSession: function () {
@@ -172,7 +181,9 @@ define(function(require) {
         },
 
         errorOnValidateDateReadingSession: function (model, error) {
-            this.$el.find('#message-div').html(error);
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: error
+            }));
         },
 
         successOnAddDateReadingSession: function (model, response, options) {
@@ -183,7 +194,9 @@ define(function(require) {
         },
 
         errorOnAddDateReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('date-reading-session-add-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('date-reading-session-add-error', options.xhr.status)
+            }));
         },
 
         renderEditDateReadingSession: function (dateReadingSession) {
@@ -216,7 +229,9 @@ define(function(require) {
         },
 
         errorOnUpdateDateReadingSession: function (model, response, options) {
-            this.$el.find('#message-div').html(localizer.localize('date-reading-session-update-error', options.xhr.status));
+            this.$el.find('#message-div').html(this.messageTemplate({
+                message: localizer.localize('date-reading-session-update-error', options.xhr.status)
+            }));
         }
 
     });

@@ -97,8 +97,13 @@ body {
 .delete-item {
 }
 
-.message {
+.messages {
     width: 460px;
+}
+
+.message-entry {
+    width: 100%;
+    padding: 10px 0 10px 0;
     color: red;
 }
 
