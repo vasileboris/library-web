@@ -14,3 +14,8 @@
 <div>
   <%= localizer.localize('reading-session-progress-estimated-finish-date-label') %> <span class="result-important "><%= readingSessionProgress.estimatedFinishDate %></span>
 </div>
+<div>
+  <% if(readingSessionProgress.deadline) { %>
+  <%= localizer.localize('reading-session-progress-deadline-label') %> <span class="result-important "><%= readingSessionProgress.deadline %></span>
+  <% } %>
+</div>
