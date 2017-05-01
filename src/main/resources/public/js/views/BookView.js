@@ -39,7 +39,7 @@ define(function(require) {
 
         editBook: function (e) {
             e.preventDefault();
-            this.$el.find('.message-item').html('');
+            BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
             BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
         },
 
@@ -50,7 +50,7 @@ define(function(require) {
 
         deleteBook: function (e) {
             e.preventDefault();
-            this.$el.find('.message-item').html('');
+            BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
             this.book.destroy({
                 success: _.bind(this.successOnDeleteBook, this),
                 error: _.bind(this.errorOnDeleteBook, this)
@@ -62,7 +62,8 @@ define(function(require) {
         },
 
         errorOnDeleteBook: function (model, response, options) {
-            this.$el.find('.message-item').html(localizer.localize('book-delete-error', options.xhr.status));
+            var message = localizer.localize('book-delete-error', options.xhr.status);
+            BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, message);
         }
 
     });

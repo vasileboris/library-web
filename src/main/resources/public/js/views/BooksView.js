@@ -42,6 +42,7 @@ define(function(require) {
             this.listenTo(this.books, 'add', this.renderBook);
             this.listenTo(this.books, 'reset', this.renderBooks);
             this.listenTo(BooksDispatcher, BooksDispatcher.Events.EDIT, this.renderEditBook);
+            this.listenTo(BooksDispatcher, BooksDispatcher.Events.ERROR, this.renderErrorBook);
         },
 
         render: function () {
@@ -51,7 +52,7 @@ define(function(require) {
         },
 
         renderSearchBooks: function () {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
             this.$('#input-div').html(this.searchBooksTemplate({
                 localizer: localizer
             }));
@@ -59,17 +60,23 @@ define(function(require) {
 
         renderAddBooks: function (event) {
             event.preventDefault();
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
             this.$('#input-div').html(this.addBooksTemplate({
                 localizer: localizer
             }));
         },
 
         renderEditBook: function (book) {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
             this.$('#input-div').html(this.editBookTemplate({
                 book: book.attributes,
                 localizer: localizer
+            }));
+        },
+
+        renderErrorBook: function (message) {
+            this.$el.find('#results-message-div').html(this.messageTemplate({
+                message: message
             }));
         },
 
@@ -96,7 +103,7 @@ define(function(require) {
         },
 
         addBook: function () {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
 
             var bookData = this.buildBookData();
             var book = new Book(bookData);
@@ -119,7 +126,7 @@ define(function(require) {
         },
 
         updateBook: function () {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
 
             var bookData = this.buildBookData(this);
             var book = this.books.get(bookData.uuid);
@@ -164,6 +171,11 @@ define(function(require) {
             });
 
             return bookData;
+        },
+
+        clearMessages: function () {
+            this.$el.find('#message-div').html('');
+            this.$el.find('#results-message-div').html('');
         }
 
     });

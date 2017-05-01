@@ -5,7 +5,8 @@ define(function(require) {
         Backbone = require('backbone');
 
     var Events = {
-        EDIT: 'EDIT'
+        EDIT: 'EDIT',
+        ERROR: 'ERROR'
     };
 
     var BooksDispatcher = _.clone(Backbone.Events);
