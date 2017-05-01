@@ -34,13 +34,13 @@ define(function(require) {
 
         editDateReadingSession: function (e) {
             e.preventDefault();
-            this.$el.find('.message-item').html('');
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.ERROR, '');
             DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.EDIT, this.dateReadingSession);
         },
 
         deleteDateReadingSession: function (e) {
             e.preventDefault();
-            this.$el.find('.message-item').html('');
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.ERROR, '');
             this.dateReadingSession.destroy({
                 success: _.bind(this.successOnDeleteDateReadingSession, this),
                 error: _.bind(this.errorOnDeleteDateReadingSession, this)
@@ -53,7 +53,8 @@ define(function(require) {
         },
 
         errorOnDeleteDateReadingSession: function (model, response, options) {
-            this.$el.find('.message-item').html(localizer.localize('date-reading-session-delete-error', options.xhr.status));
+            var message = localizer.localize('date-reading-session-delete-error', options.xhr.status);
+            DateReadingSessionsDispatcher.trigger(DateReadingSessionsDispatcher.Events.ERROR, message);
         }
 
     });

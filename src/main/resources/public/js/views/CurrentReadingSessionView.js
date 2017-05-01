@@ -98,6 +98,7 @@ define(function(require) {
             });
             this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.EDIT, this.renderEditDateReadingSession);
             this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.UPDATED, this.retrieveReadingSessionProgress);
+            this.listenTo(DateReadingSessionsDispatcher, DateReadingSessionsDispatcher.Events.ERROR, this.renderErrorDateReadingSession);
         },
 
         retrieveReadingSessionProgress: function () {
@@ -155,7 +156,7 @@ define(function(require) {
         },
 
         addDateReadingSession: function () {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
 
             var dateReadingSessionData = this.buildDateReadingSessionData();
             var dateReadingSession = new DateReadingSession(dateReadingSessionData);
@@ -200,15 +201,22 @@ define(function(require) {
         },
 
         renderEditDateReadingSession: function (dateReadingSession) {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
+
             this.$('#input-div').html(this.editDateReadingSessionTemplate({
                 dateReadingSession: dateReadingSession.attributes,
                 localizer: localizer
             }));
         },
 
+        renderErrorDateReadingSession: function (message) {
+            this.$el.find('#results-message-div').html(this.messageTemplate({
+                message: message
+            }));
+        },
+
         updateDateReadingSession: function () {
-            this.$el.find('#message-div').html('');
+            this.clearMessages();
 
             var dateReadingSessionData = this.buildDateReadingSessionData();
             var dateReadingSession = this.dateReadingSessions.get(dateReadingSessionData.date);
@@ -232,6 +240,11 @@ define(function(require) {
             this.$el.find('#message-div').html(this.messageTemplate({
                 message: localizer.localize('date-reading-session-update-error', options.xhr.status)
             }));
+        },
+
+        clearMessages: function () {
+            this.$el.find('#message-div').html('');
+            this.$el.find('#results-message-div').html('');
         }
 
     });

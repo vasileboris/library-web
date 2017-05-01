@@ -6,7 +6,8 @@ define(function(require) {
 
     var Events = {
         EDIT: 'EDIT',
-        UPDATED: 'UPDATED'
+        UPDATED: 'UPDATED',
+        ERROR: 'ERROR'
     };
 
     var DateReadingSessionsDispatcher = _.clone(Backbone.Events);
