@@ -6,3 +6,4 @@
 target
 .classpath
 .settings
+src/main/external-resources

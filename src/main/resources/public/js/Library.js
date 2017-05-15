@@ -2,11 +2,11 @@
 requirejs.config({
     baseUrl: '/js',
     paths: {
-        text: 'lib/text',
-        jquery: 'lib/jquery',
-        i18n: 'lib/jquery.i18n.properties',
-        underscore: 'lib/underscore',
-        backbone: 'lib/backbone'
+        text: 'lib/text/text',
+        jquery: 'lib/jquery/dist/jquery',
+        i18n: 'lib/jquery-i18n-properties/jquery.i18n.properties',
+        underscore: 'lib/underscore/underscore',
+        backbone: 'lib/backbone/backbone'
     },
     shim: {
         i18n: {

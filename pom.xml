@@ -8,4 +8,22 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/external-resources</directory>
+                <includes>
+                    <include>public/js/lib/text/text.js</include>
+                    <include>public/js/lib/jquery/dist/jquery.js</include>
+                    <include>public/js/lib/jquery-i18n-properties/jquery.i18n.properties.js</include>
+                    <include>public/js/lib/underscore/underscore.js</include>
+                    <include>public/js/lib/backbone/backbone.js</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
 </project>
