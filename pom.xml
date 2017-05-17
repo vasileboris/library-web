@@ -16,7 +16,7 @@
             <resource>
                 <directory>target/external-resources</directory>
                 <includes>
-                    <include>public/js/lib/text/text.js</include>
+                    <include>public/js/lib/requirejs-text/text.js</include>
                     <include>public/js/lib/jquery/dist/jquery.js</include>
                     <include>public/js/lib/jquery-i18n-properties/jquery.i18n.properties.js</include>
                     <include>public/js/lib/underscore/underscore.js</include>
