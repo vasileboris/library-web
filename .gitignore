@@ -6,6 +6,6 @@
 target
 .classpath
 .settings
-src/main/external-resources
+bower_components
 node_modules
 yarn.lock

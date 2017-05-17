@@ -14,7 +14,7 @@
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <directory>src/main/external-resources</directory>
+                <directory>target/external-resources</directory>
                 <includes>
                     <include>public/js/lib/text/text.js</include>
                     <include>public/js/lib/jquery/dist/jquery.js</include>
@@ -24,6 +24,34 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/external-resources/public/js/lib</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>bower_components</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>node_modules</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
