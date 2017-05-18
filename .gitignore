@@ -8,4 +8,3 @@ target
 .settings
 bower_components
 node_modules
-yarn.lock
