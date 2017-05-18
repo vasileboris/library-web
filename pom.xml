@@ -30,7 +30,23 @@
                 <version>3.0.2</version>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>copy-bower-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/external-resources/public/js/lib/jquery-i18n-properties</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>bower_components/jquery-i18n-properties</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-yarn-resources</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -38,10 +54,6 @@
                         <configuration>
                             <outputDirectory>${basedir}/target/external-resources/public/js/lib</outputDirectory>
                             <resources>
-                                <resource>
-                                    <directory>bower_components</directory>
-                                    <filtering>true</filtering>
-                                </resource>
                                 <resource>
                                     <directory>node_modules</directory>
                                     <filtering>true</filtering>
@@ -53,5 +65,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
