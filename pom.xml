@@ -7,6 +7,31 @@
     <artifactId>library-backbone</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>Library Application</name>
+    <description>Backbone web interface for Library Application</description>
+    <url>https://github.com/vasileboris/library-backbone</url>
+
+    <licenses>
+        <license>
+            <name>Creative Commons Attribution 4.0 International Public License</name>
+            <url>https://creativecommons.org/licenses/by/4.0/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Vasile Boris</name>
+            <email>boris@espressoprogrammer.com</email>
+            <organization>Espressoprogrammer</organization>
+            <organizationUrl>http://espressoprogrammer.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/vasileboris/library-backbone.git</connection>
+        <developerConnection>scm:git:ssh://github.com:vasileboris/library-backbone.git</developerConnection>
+        <url>http://github.com/vasileboris/library-backbone/tree/master</url>
+    </scm>
 
     <build>
         <resources>
