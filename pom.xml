@@ -29,7 +29,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/vasileboris/library-backbone.git</connection>
-        <developerConnection>scm:git:ssh://github.com:vasileboris/library-backbone.git</developerConnection>
+        <developerConnection>scm:git:git://github.com/vasileboris/library-backbone.git</developerConnection>
         <url>http://github.com/vasileboris/library-backbone/tree/master</url>
     </scm>
 
