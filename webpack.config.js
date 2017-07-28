@@ -21,6 +21,7 @@ module.exports = {
     ],
     output: {
         path: __dirname + '/dist/public',
+        publicPath: '/',
         filename: 'index.js'
     },
     devtool: 'source-map',
