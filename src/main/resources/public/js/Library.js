@@ -1,4 +1,5 @@
 // Require.js allows us to configure shortcut alias
+/*
 requirejs.config({
     baseUrl: '/js',
     paths: {
@@ -14,6 +15,7 @@ requirejs.config({
         }
     }
 });
+*/
 
 define(function(require) {
     'use strict';

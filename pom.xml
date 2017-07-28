@@ -37,57 +37,16 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>public/js/</exclude>
+                    <exclude>public/index.html</exclude>
+                </excludes>
             </resource>
             <resource>
-                <directory>target/external-resources</directory>
-                <includes>
-                    <include>public/js/lib/requirejs-text/text.js</include>
-                    <include>public/js/lib/jquery/dist/jquery.js</include>
-                    <include>public/js/lib/jquery-i18n-properties/jquery.i18n.properties.js</include>
-                    <include>public/js/lib/underscore/underscore.js</include>
-                    <include>public/js/lib/backbone/backbone.js</include>
-                </includes>
+                <directory>dist</directory>
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <executions>
-                    <execution>
-                        <id>copy-bower-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/external-resources/public/js/lib/jquery-i18n-properties</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>bower_components/jquery-i18n-properties</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-yarn-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/external-resources/public/js/lib</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>node_modules</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
