@@ -1,8 +1,5 @@
-define(function() {
-    'use strict';
+const user = {
+    id: 'boris'
+};
 
-    return {
-        id: 'boris'
-    };
-
-});
+export default user;

@@ -35,5 +35,18 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery'
         })
-    ]
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.(js)$/,
+                include: __dirname,
+                exclude: /(node_modules|bower_components)/,
+                loader: require.resolve('babel-loader'),
+                query: {
+                    presets: ['es2015', 'stage-2']
+                }
+            }
+        ]
+    }
 };
