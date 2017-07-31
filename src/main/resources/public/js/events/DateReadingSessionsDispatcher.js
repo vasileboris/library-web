@@ -1,18 +1,14 @@
-define(function(require) {
-    'use strict';
+import _ from 'underscore';
+import Backbone from 'backbone';
 
-    var _ = require('underscore'),
-        Backbone = require('backbone');
+const Events = {
+    EDIT: 'EDIT',
+    UPDATED: 'UPDATED',
+    ERROR: 'ERROR'
+};
 
-    var Events = {
-        EDIT: 'EDIT',
-        UPDATED: 'UPDATED',
-        ERROR: 'ERROR'
-    };
+const DateReadingSessionsDispatcher = _.clone(Backbone.Events);
 
-    var DateReadingSessionsDispatcher = _.clone(Backbone.Events);
+DateReadingSessionsDispatcher.Events = Events;
 
-    DateReadingSessionsDispatcher.Events = Events;
-
-    return DateReadingSessionsDispatcher;
-});
+export default DateReadingSessionsDispatcher;

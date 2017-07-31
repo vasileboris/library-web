@@ -1,11 +1,7 @@
-define(function(require) {
-    'use strict';
+import i18n from 'i18n';
 
-    require('i18n');
-    return {
-        localize: function (key) {
-            return jQuery.i18n.prop.apply(jQuery.i18n, arguments);
-        }
-    };
-
-});
+export default {
+    localize: function (key) {
+        return jQuery.i18n.prop.apply(jQuery.i18n, arguments);
+    }
+};

@@ -1,72 +1,68 @@
-define(function(require) {
-    'use strict';
+import _ from 'underscore';
+import Backbone from 'backbone';
+import BooksDispatcher from 'events/BooksDispatcher';
+import localizer from 'utils/Localizer';
+import urlUtil from 'utils/UrlUtil';
+import imageUtil from 'utils/ImageUtil';
+import templateHtml from 'text!templates/Book.html';
 
-    var _ = require('underscore'),
-        Backbone = require('backbone'),
-        BooksDispatcher = require('events/BooksDispatcher'),
-        localizer = require('utils/Localizer'),
-        urlUtil = require('utils/UrlUtil'),
-        imageUtil = require('utils/ImageUtil'),
-        templateHtml = require('text!templates/Book.html');
+const BookView = Backbone.View.extend({
+    tagName: 'article',
 
-    var BookView = Backbone.View.extend({
-        tagName: 'article',
+    className: 'result-book',
 
-        className: 'result-book',
+    template: _.template(templateHtml),
 
-        template: _.template(templateHtml),
+    events: {
+        'click .edit-item': 'editBook',
+        'click .read-item': 'readBook',
+        'click .delete-item': 'deleteBook'
+    },
 
-        events: {
-            'click .edit-item': 'editBook',
-            'click .read-item': 'readBook',
-            'click .delete-item': 'deleteBook'
-        },
+    initialize: function (book) {
+        this.book = book;
+        this.listenTo(this.book, 'change', this.render);
+    },
 
-        initialize: function (book) {
-            this.book = book;
-            this.listenTo(this.book, 'change', this.render);
-        },
+    render: function () {
+        this.$el.html(this.template({
+            book: this.book.attributes,
+            localizer: localizer,
+            urlUtil: urlUtil,
+            imageUtil: imageUtil
+        }));
+        return this;
+    },
 
-        render: function () {
-            this.$el.html(this.template({
-                book: this.book.attributes,
-                localizer: localizer,
-                urlUtil: urlUtil,
-                imageUtil: imageUtil
-            }));
-            return this;
-        },
+    editBook: function (e) {
+        e.preventDefault();
+        BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
+        BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
+    },
 
-        editBook: function (e) {
-            e.preventDefault();
-            BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
-            BooksDispatcher.trigger(BooksDispatcher.Events.EDIT, this.book);
-        },
+    readBook: function (e) {
+        e.preventDefault();
+        Backbone.history.navigate('/books/' + this.book.get('uuid'), {trigger: true});
+    },
 
-        readBook: function (e) {
-            e.preventDefault();
-            Backbone.history.navigate('/books/' + this.book.get('uuid'), {trigger: true});
-        },
+    deleteBook: function (e) {
+        e.preventDefault();
+        BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
+        this.book.destroy({
+            success: _.bind(this.successOnDeleteBook, this),
+            error: _.bind(this.errorOnDeleteBook, this)
+        });
+    },
 
-        deleteBook: function (e) {
-            e.preventDefault();
-            BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
-            this.book.destroy({
-                success: _.bind(this.successOnDeleteBook, this),
-                error: _.bind(this.errorOnDeleteBook, this)
-            });
-        },
+    successOnDeleteBook: function (model, response, options) {
+        this.remove();
+    },
 
-        successOnDeleteBook: function (model, response, options) {
-            this.remove();
-        },
+    errorOnDeleteBook: function (model, response, options) {
+        const message = localizer.localize('book-delete-error', options.xhr.status);
+        BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, message);
+    }
 
-        errorOnDeleteBook: function (model, response, options) {
-            var message = localizer.localize('book-delete-error', options.xhr.status);
-            BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, message);
-        }
-
-    });
-
-    return BookView;
 });
+
+export default BookView;

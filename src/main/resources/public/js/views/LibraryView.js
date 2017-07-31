@@ -1,28 +1,24 @@
-define(function(require) {
-    'use strict';
+import Backbone from 'backbone';
+import BooksView from 'views/BooksView';
+import CurrentReadingSessionView from 'views/CurrentReadingSessionView';
 
-    var Backbone = require('backbone'),
-        BooksView = require('views/BooksView'),
-        CurrentReadingSessionView = require('views/CurrentReadingSessionView');
+const LibraryView = Backbone.View.extend({
+    el: '#content-div',
 
-    var LibraryView = Backbone.View.extend({
-        el: '#content-div',
+    manageBooks: function () {
+        this.currentView = new BooksView();
+        this.render();
+    },
 
-        manageBooks: function () {
-            this.currentView = new BooksView();
-            this.render();
-        },
+    manageCurrentReadingSession: function (bookUuid) {
+        this.currentView = new CurrentReadingSessionView(bookUuid);
+        this.render();
+    },
 
-        manageCurrentReadingSession: function (bookUuid) {
-            this.currentView = new CurrentReadingSessionView(bookUuid);
-            this.render();
-        },
+    render: function () {
+        this.$el.html(this.currentView.render().el);
+    }
 
-        render: function () {
-            this.$el.html(this.currentView.render().el);
-        }
-
-    });
-
-    return LibraryView;
 });
+
+export default LibraryView;

@@ -1,184 +1,180 @@
-define(function(require) {
-    'use strict';
+import _ from 'underscore';
+import $ from 'jquery';
+import Backbone from 'backbone';
+import Book from 'models/Book';
+import Books from 'collections/Books';
+import BookView from 'views/BookView';
+import BooksDispatcher from 'events/BooksDispatcher';
+import localizer from 'utils/Localizer';
+import booksHtml from 'text!templates/Books.html';
+import searchBooksHtml from 'text!templates/SearchBooks.html';
+import addBooksHtml from 'text!templates/AddBooks.html';
+import editBookHtml from 'text!templates/EditBook.html';
+import messageHtml from 'text!templates/Message.html';
 
-    var _ = require('underscore'),
-        $ = require('jquery'),
-        Backbone = require('backbone'),
-        Book = require('models/Book'),
-        Books = require('collections/Books'),
-        BookView = require('views/BookView'),
-        BooksDispatcher = require('events/BooksDispatcher'),
-        localizer = require('utils/Localizer'),
-        booksHtml = require('text!templates/Books.html'),
-        searchBooksHtml = require('text!templates/SearchBooks.html'),
-        addBooksHtml = require('text!templates/AddBooks.html'),
-        editBookHtml = require('text!templates/EditBook.html'),
-        messageHtml = require('text!templates/Message.html');
+const BooksView = Backbone.View.extend({
+    tagName: 'div',
 
-    var BooksView = Backbone.View.extend({
-        tagName: 'div',
+    booksTemplate: _.template(booksHtml),
 
-        booksTemplate: _.template(booksHtml),
+    searchBooksTemplate: _.template(searchBooksHtml),
 
-        searchBooksTemplate: _.template(searchBooksHtml),
+    addBooksTemplate: _.template(addBooksHtml),
 
-        addBooksTemplate: _.template(addBooksHtml),
+    editBookTemplate: _.template(editBookHtml),
 
-        editBookTemplate: _.template(editBookHtml),
+    messageTemplate: _.template(messageHtml),
 
-        messageTemplate: _.template(messageHtml),
+    events: {
+        'click #book-cancel-add-link': 'renderSearchBooks',
+        'click #book-cancel-edit-link': 'renderSearchBooks',
+        'click #books-search-button': 'searchBooks',
+        'click #books-add-link': 'renderAddBooks',
+        'click #book-add-button': 'addBook',
+        'click #book-update-button': 'updateBook'
+    },
 
-        events: {
-            'click #book-cancel-add-link': 'renderSearchBooks',
-            'click #book-cancel-edit-link': 'renderSearchBooks',
-            'click #books-search-button': 'searchBooks',
-            'click #books-add-link': 'renderAddBooks',
-            'click #book-add-button': 'addBook',
-            'click #book-update-button': 'updateBook'
-        },
+    initialize: function () {
+        this.books = new Books();
+        this.listenTo(this.books, 'add', this.renderBook);
+        this.listenTo(this.books, 'reset', this.renderBooks);
+        this.listenTo(BooksDispatcher, BooksDispatcher.Events.EDIT, this.renderEditBook);
+        this.listenTo(BooksDispatcher, BooksDispatcher.Events.ERROR, this.renderErrorBook);
+    },
 
-        initialize: function () {
-            this.books = new Books();
-            this.listenTo(this.books, 'add', this.renderBook);
-            this.listenTo(this.books, 'reset', this.renderBooks);
-            this.listenTo(BooksDispatcher, BooksDispatcher.Events.EDIT, this.renderEditBook);
-            this.listenTo(BooksDispatcher, BooksDispatcher.Events.ERROR, this.renderErrorBook);
-        },
+    render: function () {
+        this.$el.html(this.booksTemplate());
+        this.renderSearchBooks();
+        return this;
+    },
 
-        render: function () {
-            this.$el.html(this.booksTemplate());
-            this.renderSearchBooks();
-            return this;
-        },
+    renderSearchBooks: function () {
+        this.clearMessages();
+        this.$('#input-div').html(this.searchBooksTemplate({
+            localizer: localizer
+        }));
+    },
 
-        renderSearchBooks: function () {
-            this.clearMessages();
-            this.$('#input-div').html(this.searchBooksTemplate({
-                localizer: localizer
-            }));
-        },
+    renderAddBooks: function (event) {
+        event.preventDefault();
+        this.clearMessages();
+        this.$('#input-div').html(this.addBooksTemplate({
+            localizer: localizer
+        }));
+    },
 
-        renderAddBooks: function (event) {
-            event.preventDefault();
-            this.clearMessages();
-            this.$('#input-div').html(this.addBooksTemplate({
-                localizer: localizer
-            }));
-        },
+    renderEditBook: function (book) {
+        this.clearMessages();
+        this.$('#input-div').html(this.editBookTemplate({
+            book: book.attributes,
+            localizer: localizer
+        }));
+    },
 
-        renderEditBook: function (book) {
-            this.clearMessages();
-            this.$('#input-div').html(this.editBookTemplate({
-                book: book.attributes,
-                localizer: localizer
-            }));
-        },
+    renderErrorBook: function (message) {
+        this.$el.find('#results-message-div').html(this.messageTemplate({
+            message: message
+        }));
+    },
 
-        renderErrorBook: function (message) {
-            this.$el.find('#results-message-div').html(this.messageTemplate({
-                message: message
-            }));
-        },
+    searchBooks: function() {
+        const searchText = this.$el.find('#books-search-text').val().trim();
+        $('body').addClass('waiting');
+        this.$('#books-div').html('');
+        this.books.changeSearchText(searchText);
+        this.books.fetch({reset: true});
+    },
 
-        searchBooks: function() {
-            var searchText = this.$el.find('#books-search-text').val().trim();
-            $('body').addClass('waiting');
-            this.$('#books-div').html('');
-            this.books.changeSearchText(searchText);
-            this.books.fetch({reset: true});
-        },
+    renderBooks: function () {
+        this.$('#books-div').html('');
+        $('body').removeClass('waiting');
+        this.books.each(function (book) {
+            this.renderBook(book);
+        }, this);
+        return this;
+    },
 
-        renderBooks: function () {
-            this.$('#books-div').html('');
-            $('body').removeClass('waiting');
-            this.books.each(function (book) {
-                this.renderBook(book);
-            }, this);
-            return this;
-        },
+    renderBook: function (book) {
+        const bookView = new BookView(book);
+        this.$('#books-div').append(bookView.render().el);
+    },
 
-        renderBook: function (book) {
-            var bookView = new BookView(book);
-            this.$('#books-div').append(bookView.render().el);
-        },
+    addBook: function () {
+        this.clearMessages();
 
-        addBook: function () {
-            this.clearMessages();
+        const bookData = this.buildBookData();
+        const book = new Book(bookData);
+        this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
+        this.books.create(book, {
+            wait: true,
+            success: _.bind(this.successOnAddBook, this),
+            error: _.bind(this.errorOnAddBook, this)
+        });
+    },
 
-            var bookData = this.buildBookData();
-            var book = new Book(bookData);
+    successOnAddBook: function (model, response, options) {
+        this.renderSearchBooks();
+    },
+
+    errorOnAddBook: function (model, response, options) {
+        this.$el.find('#message-div').html(this.messageTemplate({
+            message: localizer.localize('book-add-error', options.xhr.status)
+        }));
+    },
+
+    updateBook: function () {
+        this.clearMessages();
+
+        const bookData = this.buildBookData(this);
+        const book = this.books.get(bookData.uuid);
+        if(book) {
             this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
-            this.books.create(book, {
-                wait: true,
-                success: _.bind(this.successOnAddBook, this),
-                error: _.bind(this.errorOnAddBook, this)
+            book.save(bookData, {
+                success: _.bind(this.successOnUpdateBook, this),
+                error: _.bind(this.errorOnUpdateBook, this)
             });
-        },
-
-        successOnAddBook: function (model, response, options) {
+        } else {
             this.renderSearchBooks();
-        },
-
-        errorOnAddBook: function (model, response, options) {
-            this.$el.find('#message-div').html(this.messageTemplate({
-                message: localizer.localize('book-add-error', options.xhr.status)
-            }));
-        },
-
-        updateBook: function () {
-            this.clearMessages();
-
-            var bookData = this.buildBookData(this);
-            var book = this.books.get(bookData.uuid);
-            if(book) {
-                this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
-                book.save(bookData, {
-                    success: _.bind(this.successOnUpdateBook, this),
-                    error: _.bind(this.errorOnUpdateBook, this)
-                });
-            } else {
-                this.renderSearchBooks();
-            }
-        },
-
-        errorOnValidateBook: function (model, error) {
-            this.$el.find('#message-div').html(this.messageTemplate({
-                message: error
-            }));
-        },
-
-        successOnUpdateBook: function (model, response, options) {
-            this.renderSearchBooks();
-        },
-
-        errorOnUpdateBook: function (model, response, options) {
-            this.$el.find('#message-div').html(this.messageTemplate({
-                message: localizer.localize('book-update-error', options.xhr.status)
-            }));
-        },
-
-        buildBookData: function () {
-            var bookData = {};
-            this.$el.find('input').each(function (i, el) {
-                var property = el.id.replace('book-', '').replace(/-\w+$/, '');
-                var value = $(el).val().trim();
-                if (property === 'authors') {
-                    value = value.split(",")
-                        .map(function (s) { return s.trim(); })
-                        .filter(function (s) { return s !== ''; })
-                }
-                bookData[property] = value;
-            });
-
-            return bookData;
-        },
-
-        clearMessages: function () {
-            this.$el.find('#message-div').html('');
-            this.$el.find('#results-message-div').html('');
         }
+    },
 
-    });
+    errorOnValidateBook: function (model, error) {
+        this.$el.find('#message-div').html(this.messageTemplate({
+            message: error
+        }));
+    },
 
-    return BooksView;
+    successOnUpdateBook: function (model, response, options) {
+        this.renderSearchBooks();
+    },
+
+    errorOnUpdateBook: function (model, response, options) {
+        this.$el.find('#message-div').html(this.messageTemplate({
+            message: localizer.localize('book-update-error', options.xhr.status)
+        }));
+    },
+
+    buildBookData: function () {
+        const bookData = {};
+        this.$el.find('input').each(function (i, el) {
+            const property = el.id.replace('book-', '').replace(/-\w+$/, '');
+            let value = $(el).val().trim();
+            if (property === 'authors') {
+                value = value.split(",")
+                    .map(function (s) { return s.trim(); })
+                    .filter(function (s) { return s !== ''; })
+            }
+            bookData[property] = value;
+        });
+
+        return bookData;
+    },
+
+    clearMessages: function () {
+        this.$el.find('#message-div').html('');
+        this.$el.find('#results-message-div').html('');
+    }
+
 });
+
+export default BooksView;

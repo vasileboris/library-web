@@ -1,17 +1,13 @@
-define(function(require) {
-    'use strict';
+import _ from 'underscore';
+import Backbone from 'backbone';
 
-    var _ = require('underscore'),
-        Backbone = require('backbone');
+const Events = {
+    EDIT: 'EDIT',
+    ERROR: 'ERROR'
+};
 
-    var Events = {
-        EDIT: 'EDIT',
-        ERROR: 'ERROR'
-    };
+const BooksDispatcher = _.clone(Backbone.Events);
 
-    var BooksDispatcher = _.clone(Backbone.Events);
+BooksDispatcher.Events = Events;
 
-    BooksDispatcher.Events = Events;
-
-    return BooksDispatcher;
-});
+export default BooksDispatcher;
