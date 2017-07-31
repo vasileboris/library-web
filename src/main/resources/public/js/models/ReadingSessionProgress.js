@@ -8,9 +8,7 @@ const ReadingSessionProgress = Backbone.Model.extend({
     },
 
     urlRoot: function () {
-        return '/users/' + user.id + '/books/'
-            + this.bookUuid + '/reading-sessions/'
-            + this.uuid + '/progress';
+        return `/users/${user.id}/books/${this.bookUuid}/reading-sessions/${this.uuid}/progress`;
     }
 });
 

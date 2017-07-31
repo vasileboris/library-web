@@ -6,7 +6,7 @@ const Book = Backbone.Model.extend({
     idAttribute: 'uuid',
 
     urlRoot: function () {
-        return '/users/' + user.id + '/books';
+        return `/users/${user.id}/books`;
     },
     
     validate: function (bookData) {

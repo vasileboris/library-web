@@ -1,7 +1,4 @@
-export default {
-    displayDefaultImage: function (target, defaultImage) {
-        return function() {
-            target.src = defaultImage;
-        }
-    }
+export const displayDefaultImage = (target, defaultImage) => () => {
+    alert(defaultImage);
+    target.src = defaultImage
 };

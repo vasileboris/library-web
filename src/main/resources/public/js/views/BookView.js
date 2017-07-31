@@ -3,7 +3,7 @@ import Backbone from 'backbone';
 import BooksDispatcher from 'events/BooksDispatcher';
 import localizer from 'utils/Localizer';
 import urlUtil from 'utils/UrlUtil';
-import imageUtil from 'utils/ImageUtil';
+import {displayDefaultImage} from 'utils/ImageUtil';
 import templateHtml from 'text!templates/Book.html';
 
 const BookView = Backbone.View.extend({
@@ -29,7 +29,7 @@ const BookView = Backbone.View.extend({
             book: this.book.attributes,
             localizer: localizer,
             urlUtil: urlUtil,
-            imageUtil: imageUtil
+            displayDefaultImage: displayDefaultImage
         }));
         return this;
     },
