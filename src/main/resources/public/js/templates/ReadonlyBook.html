@@ -3,7 +3,6 @@
     <% if(book.image) { %>
     <img src="<%= book.image%>"
          alt="<%= urlUtil.previewUrl(book.image)%>"
-         onerror="imageUtil.displayDefaultImage(this, '/img/no-image-available.png');"
          class="img-book-large"/>
     <% } else { %>
     <img src="/img/no-image-available.png"
