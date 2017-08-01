@@ -9,7 +9,6 @@ import DateReadingSessionView from 'views/DateReadingSessionView';
 import DateReadingSessionsDispatcher from 'events/DateReadingSessionsDispatcher';
 import localizer from 'utils/Localizer';
 import urlUtil from 'utils/UrlUtil';
-import {displayDefaultImage} from 'utils/ImageUtil';
 import readonlyBookHtml from 'text!templates/ReadonlyBook.html';
 import readingSessionProgressHtml from 'text!templates/ReadingSessionProgress.html';
 import addDateReadingSessionsHtml from 'text!templates/AddDateReadingSessions.html';
@@ -67,8 +66,7 @@ const ReadingSessionsView = Backbone.View.extend({
         this.$('#book-article').html(this.readonlyBookTemplate({
             book: this.book.attributes,
             localizer: localizer,
-            urlUtil: urlUtil,
-            displayDefaultImage: displayDefaultImage
+            urlUtil: urlUtil
         }));
     },
 
