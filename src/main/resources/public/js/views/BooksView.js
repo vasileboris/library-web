@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import $ from 'jquery';
 import Backbone from 'backbone';
+//import Promise from 'backbone-es6-promise';
 import Book from 'models/Book';
 import Books from 'collections/Books';
 import BookView from 'views/BookView';
@@ -129,10 +130,9 @@ const BooksView = Backbone.View.extend({
         const book = this.books.get(bookData.uuid);
         if(book) {
             this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
-            book.save(bookData, {
-                success: _.bind(this.successOnUpdateBook, this),
-                error: _.bind(this.errorOnUpdateBook, this)
-            });
+            book.save(bookData)
+                .then(() => this.renderSearchBooks())
+                .catch(error => this.errorOnUpdateBook(error))
         } else {
             this.renderSearchBooks();
         }
@@ -144,13 +144,9 @@ const BooksView = Backbone.View.extend({
         }));
     },
 
-    successOnUpdateBook: function (model, response, options) {
-        this.renderSearchBooks();
-    },
-
-    errorOnUpdateBook: function (model, response, options) {
+    errorOnUpdateBook: function (error) {
         this.$el.find('#message-div').html(this.messageTemplate({
-            message: localizer.localize('book-update-error', options.xhr.status)
+            message: localizer.localize('book-update-error', error.status)
         }));
     },
 
