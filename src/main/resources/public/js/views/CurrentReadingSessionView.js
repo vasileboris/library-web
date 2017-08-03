@@ -55,24 +55,23 @@ const ReadingSessionsView = Backbone.View.extend({
     },
 
     retrieveBook: function () {
-        this.book = new Book({uuid: this.bookUuid});
-        this.book.fetch({
-            success: _.bind(this.successOnRetrieveBook, this),
-            error: _.bind(this.errorOnRetrieveBook, this)
-        });
+        var book = new Book({uuid: this.bookUuid});
+        book.fetch()
+            .then(book => this.successOnRetrieveBook(book))
+            .catch(error => this.errorOnRetrieveBook(error));
     },
 
-    successOnRetrieveBook: function (model, response, options) {
+    successOnRetrieveBook: function (book) {
         this.$('#book-article').html(this.readonlyBookTemplate({
-            book: this.book.attributes,
+            book: book,
             localizer: localizer,
             urlUtil: urlUtil
         }));
     },
 
-    errorOnRetrieveBook: function (model, response, options) {
+    errorOnRetrieveBook: function (error) {
         this.$el.find('#message-div').html(this.messageTemplate({
-            message: localizer.localize('book-retrieve-error', options.xhr.status)
+            message: localizer.localize('book-retrieve-error', error.status)
         }));
     },
 
