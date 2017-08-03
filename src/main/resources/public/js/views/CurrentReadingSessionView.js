@@ -83,7 +83,7 @@ const ReadingSessionsView = Backbone.View.extend({
         });
     },
 
-    successOnRetrieveCurrentReadingSession: function (model, response, options) {
+    successOnRetrieveCurrentReadingSession: function (model) {
         this.renderAddDateReadingSessions();
         this.dateReadingSessions = new DateReadingSessions(this.bookUuid, this.currentReadingSession.get('uuid'));
         this.dateReadingSessions.fetch({
@@ -120,9 +120,9 @@ const ReadingSessionsView = Backbone.View.extend({
         }));
     },
 
-    errorOnRetrieveCurrentReadingSession: function (model, response, options) {
+    errorOnRetrieveCurrentReadingSession: function (error) {
         this.$el.find('#message-div').html(this.messageTemplate({
-            message: localizer.localize('reading-session-retrieve-error', options.xhr.status)
+            message: localizer.localize('reading-session-retrieve-error', error.status)
         }));
     },
 
