@@ -1,6 +1,5 @@
 import _ from 'underscore';
 import Backbone from 'backbone';
-//import Promise from 'backbone-es6-promise';
 import BooksDispatcher from 'events/BooksDispatcher';
 import localizer from 'utils/Localizer';
 import urlUtil from 'utils/UrlUtil';
@@ -49,11 +48,11 @@ const BookView = Backbone.View.extend({
         BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
         this.book.destroy()
             .then(() => this.remove())
-            .catch(error => this.errorOnDeleteBook());
+            .catch(error => this.errorOnDeleteBook(error));
     },
 
-    errorOnDeleteBook: function (model, response, options) {
-        const message = localizer.localize('book-delete-error', options.xhr.status);
+    errorOnDeleteBook: function (error) {
+        const message = localizer.localize('book-delete-error', error.status);
         BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, message);
     }
 });

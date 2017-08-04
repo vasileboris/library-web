@@ -1,7 +1,6 @@
 import _ from 'underscore';
 import $ from 'jquery';
 import Backbone from 'backbone';
-//import Promise from 'backbone-es6-promise';
 import Book from 'models/Book';
 import Books from 'collections/Books';
 import BookView from 'views/BookView';

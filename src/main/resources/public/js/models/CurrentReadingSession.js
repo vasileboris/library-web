@@ -18,19 +18,23 @@ const CurrentReadingSession = ReadingSession.extend({
         const success = options && _.isFunction(options.success) ? options.success : function () {};
         const error = options && _.isFunction(options.error) ? options.error : function () {};
 
-        const errorOnFetch = function (err) {
-            if(404 === err.status) {
-                this.save()
-                    .then(crs => success(crs))
-                    .catch(err => error(err));
+        const errorOnFetch = function (model, response, options) {
+            if(404 === options.xhr.status) {
+                this.save({}, {
+                    wait: true,
+                    success: success,
+                    error: error
+                });
             } else {
-                error(err);
+                error(model, response, options);
             }
-        }.bind(this);
+        };
 
-        this.fetch()
-            .then(crs => success(crs))
-            .catch(err => errorOnFetch(err));
+        this.fetch({
+            wait: true,
+            success: success,
+            error: _.bind(errorOnFetch, this)
+        });
     }
 });
 
