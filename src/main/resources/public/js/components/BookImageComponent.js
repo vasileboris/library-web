@@ -1,6 +1,7 @@
 import React from 'react';
 import urlUtil from 'utils/UrlUtil';
 import localizer from 'utils/Localizer';
+import PropTypes from 'prop-types';
 
 class BookImageComponent extends React.Component {
     render() {
@@ -17,5 +18,9 @@ class BookImageComponent extends React.Component {
         return React.createElement('img', {src, alt, className});
     }
 }
+
+BookImageComponent.propTypes = {
+    book: PropTypes.object.isRequired
+};
 
 export default BookImageComponent

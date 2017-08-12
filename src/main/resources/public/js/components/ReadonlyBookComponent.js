@@ -1,6 +1,7 @@
 import React from 'react';
 import localizer from 'utils/Localizer';
 import BookFigureComponent from 'components/BookFigureComponent';
+import PropTypes from 'prop-types';
 
 class ReadonlyBookComponent extends React.Component {
     render() {
@@ -18,5 +19,9 @@ class ReadonlyBookComponent extends React.Component {
             bookFigureDiv, bookAuthorsDiv, bookPagesDiv);
     }
 }
+
+ReadonlyBookComponent.propTypes = {
+    book: PropTypes.object.isRequired
+};
 
 export default ReadonlyBookComponent;

@@ -1,5 +1,6 @@
 import React from 'react';
 import BookImageComponent from 'components/BookImageComponent';
+import PropTypes from 'prop-types';
 
 class BookFigureComponent extends React.Component {
     render() {
@@ -9,5 +10,9 @@ class BookFigureComponent extends React.Component {
         return React.createElement('figure', { className: 'figure-book' }, bookImage, bookFigureCaption);
     }
 }
+
+BookFigureComponent.propTypes = {
+    book: PropTypes.object.isRequired
+};
 
 export default BookFigureComponent
