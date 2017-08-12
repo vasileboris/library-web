@@ -8,7 +8,6 @@ import DateReadingSessions from 'collections/DateReadingSessions';
 import DateReadingSessionView from 'views/DateReadingSessionView';
 import DateReadingSessionsDispatcher from 'events/DateReadingSessionsDispatcher';
 import localizer from 'utils/Localizer';
-import urlUtil from 'utils/UrlUtil';
 import readingSessionProgressHtml from 'text!templates/ReadingSessionProgress.html';
 import addDateReadingSessionsHtml from 'text!templates/AddDateReadingSessions.html';
 import editDateReadingSessionHtml from 'text!templates/EditDateReadingSession.html';
@@ -16,6 +15,7 @@ import currentReadingSessionHtml from 'text!templates/CurrentReadingSession.html
 import messageHtml from 'text!templates/Message.html';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 
 const ReadingSessionsView = Backbone.View.extend({
     tagName: 'div',
@@ -61,46 +61,11 @@ const ReadingSessionsView = Backbone.View.extend({
     },
 
     successOnRetrieveBook: function (book) {
-        let bookImage;
-        if (book.image) {
-            bookImage = React.createElement('img',
-                {
-                    src: book.image,
-                    alt: urlUtil.previewUrl(book.image),
-                    className: 'img-book-large'
-                });
-        } else {
-            bookImage = React.createElement('img',
-                {
-                    src: '/img/no-image-available.png',
-                    alt: localizer.localize('book-no-image-available'),
-                    className: 'img-book-large'
-                });
-        }
-        const bookFigureCaption = React.createElement('figcaption',
+        const readonlyBookComponent = React.createElement(ReadonlyBookComponent,
             {
-                className: 'title'
-            },
-            book.title);
-        const bookFigureDiv = React.createElement('div', {},
-            React.createElement('figure',
-                {
-                    className: 'figure-book'
-                },
-                bookImage,
-                bookFigureCaption));
-
-        const bookAuthorsDiv = React.createElement('div', {},
-            `${localizer.localize('book-by-label')} ${book.authors}`);
-
-        const bookPagesDiv = React.createElement('div', {},
-            `${book.pages} ${localizer.localize('book-pages-label')}`);
-
-        const bookDiv = React.createElement('div', {},
-            bookFigureDiv, bookAuthorsDiv, bookPagesDiv);
-
-
-        ReactDOM.render(bookDiv, this.$('#book-article').get(0));
+               book: book
+            });
+        ReactDOM.render(readonlyBookComponent, this.$('#book-article').get(0));
     },
 
     errorOnRetrieveBook: function (error) {
