@@ -15,6 +15,8 @@ import addDateReadingSessionsHtml from 'text!templates/AddDateReadingSessions.ht
 import editDateReadingSessionHtml from 'text!templates/EditDateReadingSession.html';
 import currentReadingSessionHtml from 'text!templates/CurrentReadingSession.html';
 import messageHtml from 'text!templates/Message.html';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const ReadingSessionsView = Backbone.View.extend({
     tagName: 'div',
@@ -62,11 +64,33 @@ const ReadingSessionsView = Backbone.View.extend({
     },
 
     successOnRetrieveBook: function (book) {
-        this.$('#book-article').html(this.readonlyBookTemplate({
-            book: book,
-            localizer: localizer,
-            urlUtil: urlUtil
-        }));
+        let bookImage;
+        if (book.image) {
+            bookImage = React.createElement('img', {
+                src: book.image,
+                alt: urlUtil.previewUrl(book.image),
+                className: 'img-book-large'
+            })
+        } else {
+            bookImage = React.createElement('img', {
+                src: '/img/no-image-available.png',
+                alt: 'no image available', //TO DO translate it
+                className: 'img-book-large'
+            })
+        }
+        const bookFigureDiv = React.createElement('div', {},
+            React.createElement('figure', {
+                    className: 'figure-book'
+                },
+                bookImage,
+                React.createElement('figcaption', {
+                        className: 'title'
+                    },
+                book.title)
+            )
+        );
+
+        ReactDOM.render(bookFigureDiv, this.$('#book-article').get(0));
     },
 
     errorOnRetrieveBook: function (error) {
