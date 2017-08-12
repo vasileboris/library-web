@@ -66,31 +66,44 @@ const ReadingSessionsView = Backbone.View.extend({
     successOnRetrieveBook: function (book) {
         let bookImage;
         if (book.image) {
-            bookImage = React.createElement('img', {
-                src: book.image,
-                alt: urlUtil.previewUrl(book.image),
-                className: 'img-book-large'
-            })
+            bookImage = React.createElement('img',
+                {
+                    src: book.image,
+                    alt: urlUtil.previewUrl(book.image),
+                    className: 'img-book-large'
+                });
         } else {
-            bookImage = React.createElement('img', {
-                src: '/img/no-image-available.png',
-                alt: 'no image available', //TO DO translate it
-                className: 'img-book-large'
-            })
+            bookImage = React.createElement('img',
+                {
+                    src: '/img/no-image-available.png',
+                    alt: localizer.localize('book-no-image-available'),
+                    className: 'img-book-large'
+                });
         }
+        const bookFigureCaption = React.createElement('figcaption',
+            {
+                className: 'title'
+            },
+            book.title);
         const bookFigureDiv = React.createElement('div', {},
-            React.createElement('figure', {
+            React.createElement('figure',
+                {
                     className: 'figure-book'
                 },
                 bookImage,
-                React.createElement('figcaption', {
-                        className: 'title'
-                    },
-                book.title)
-            )
-        );
+                bookFigureCaption));
 
-        ReactDOM.render(bookFigureDiv, this.$('#book-article').get(0));
+        const bookAuthorsDiv = React.createElement('div', {},
+            `${localizer.localize('book-by-label')} ${book.authors}`);
+
+        const bookPagesDiv = React.createElement('div', {},
+            `${book.pages} ${localizer.localize('book-pages-label')}`);
+
+        const bookDiv = React.createElement('div', {},
+            bookFigureDiv, bookAuthorsDiv, bookPagesDiv);
+
+
+        ReactDOM.render(bookDiv, this.$('#book-article').get(0));
     },
 
     errorOnRetrieveBook: function (error) {
