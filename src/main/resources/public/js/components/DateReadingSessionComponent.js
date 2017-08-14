@@ -7,19 +7,19 @@ class DateReadingSessionComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateReadingSession: this.props.dateReadingSession
+            dateReadingSessionAttributes: {...this.props.dateReadingSession.attributes}
         }
         this.props.dateReadingSession.on('change', this.updateState.bind(this));
     }
 
     updateState() {
         this.setState({
-            dateReadingSession: this.props.dateReadingSession
+            dateReadingSessionAttributes: {...this.props.dateReadingSession.attributes}
         })
     }
 
     render() {
-        const dateReadingSession = this.state.dateReadingSession.attributes;
+        const dateReadingSessionAttributes = this.state.dateReadingSessionAttributes;
 
         return <article className="result-date-reading-session">
             <div className="message-item"></div>
@@ -29,9 +29,9 @@ class DateReadingSessionComponent extends React.Component {
             <a href="#" className="delete-item">
                 <img src="/img/delete.png" alt="delete reading session" className="img-icon"/>
             </a>
-            <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
-            <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>
-            <div>{dateReadingSession.bookmark ? localizer.localize('date-reading-session-bookmark-label') + ' "' + dateReadingSession.bookmark + '"' : ''}</div>
+            <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSessionAttributes.lastReadPage}</div>
+            <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSessionAttributes.date}</div>
+            <div>{dateReadingSessionAttributes.bookmark ? localizer.localize('date-reading-session-bookmark-label') + ' "' + dateReadingSessionAttributes.bookmark + '"' : ''}</div>
         </article>
     }
 
