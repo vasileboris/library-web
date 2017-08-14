@@ -2,14 +2,14 @@ import _ from 'underscore';
 import Backbone from 'backbone';
 import DateReadingSessionsDispatcher from 'events/DateReadingSessionsDispatcher';
 import localizer from 'utils/Localizer';
-import templateHtml from 'text!templates/DateReadingSession.html';
+import DateReadingSessionComponent from 'components/DateReadingSessionComponent';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const DateReadingSessionView = Backbone.View.extend({
     tagName: 'article',
 
     className: 'result-date-reading-session',
-
-    template: _.template(templateHtml),
 
     events: {
         'click .edit-item': 'editDateReadingSession',
@@ -22,10 +22,9 @@ const DateReadingSessionView = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.html(this.template({
-            dateReadingSession: this.dateReadingSession.attributes,
-            localizer: localizer
-        }));
+        const dateReadingSessionComponent = React.createElement(DateReadingSessionComponent,
+            { dateReadingSession: this.dateReadingSession.attributes });
+        ReactDOM.render(dateReadingSessionComponent, this.$el.get(0));
         return this;
     },
 
