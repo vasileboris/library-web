@@ -16,6 +16,7 @@ import messageHtml from 'text!templates/Message.html';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
+import DateReadingSessionComponent from 'components/DateReadingSessionComponent';
 
 const ReadingSessionsView = Backbone.View.extend({
     tagName: 'div',
@@ -126,10 +127,12 @@ const ReadingSessionsView = Backbone.View.extend({
     },
 
     renderDateReadingSessions: function () {
-        this.$('#reading-sessions-div').html('');
-        this.dateReadingSessions.each(function (dateReadingSession) {
-            this.renderDateReadingSession(dateReadingSession);
-        }, this);
+        const $readingSessionsDiv = this.$('#reading-sessions-div');
+        $readingSessionsDiv.html('');
+
+        const dateReadingSessionsArticles = this.dateReadingSessions
+            .map(dateReadingSession => React.createElement(DateReadingSessionComponent, {dateReadingSession: dateReadingSession.attributes}));
+        ReactDOM.render(React.createElement('div', {}, dateReadingSessionsArticles), $readingSessionsDiv.get(0));
     },
 
     renderDateReadingSession: function (dateReadingSession) {
