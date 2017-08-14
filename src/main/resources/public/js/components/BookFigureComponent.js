@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 class BookFigureComponent extends React.Component {
     render() {
         const book = this.props.book;
-        const bookImage = React.createElement(BookImageComponent, { book });
-        const bookFigureCaption = React.createElement('figcaption', { className: 'title'}, book.title);
-        return React.createElement('figure', { className: 'figure-book' }, bookImage, bookFigureCaption);
+
+        return <figure className="figure-book">
+            <BookImageComponent book={book}/>
+            <figcaption className="title">{book.title}</figcaption>
+        </figure>;
     }
 }
 
