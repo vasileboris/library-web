@@ -5,7 +5,6 @@ import CurrentReadingSession from 'models/CurrentReadingSession';
 import DateReadingSession from 'models/DateReadingSession';
 import ReadingSessionProgress from 'models/ReadingSessionProgress';
 import DateReadingSessions from 'collections/DateReadingSessions';
-import DateReadingSessionView from 'views/DateReadingSessionView';
 import DateReadingSessionsDispatcher from 'events/DateReadingSessionsDispatcher';
 import localizer from 'utils/Localizer';
 import readingSessionProgressHtml from 'text!templates/ReadingSessionProgress.html';
@@ -131,13 +130,12 @@ const ReadingSessionsView = Backbone.View.extend({
         $readingSessionsDiv.html('');
 
         const dateReadingSessionsArticles = this.dateReadingSessions
-            .map(dateReadingSession => React.createElement(DateReadingSessionComponent, {dateReadingSession: dateReadingSession.attributes}));
+            .map(dateReadingSession => React.createElement(DateReadingSessionComponent,
+                {
+                    key: dateReadingSession.get('date'),
+                    dateReadingSession
+                }));
         ReactDOM.render(React.createElement('div', {}, dateReadingSessionsArticles), $readingSessionsDiv.get(0));
-    },
-
-    renderDateReadingSession: function (dateReadingSession) {
-        const dateReadingSessionView = new DateReadingSessionView(dateReadingSession);
-        this.$('#reading-sessions-div').append(dateReadingSessionView.render().el);
     },
 
     successOnRetrieveDateReadingSessions: function (model, response, options) {
@@ -199,10 +197,7 @@ const ReadingSessionsView = Backbone.View.extend({
     renderEditDateReadingSession: function (dateReadingSession) {
         this.clearMessages();
 
-        this.$('#input-div').html(this.editDateReadingSessionTemplate({
-            dateReadingSession: dateReadingSession.attributes,
-            localizer: localizer
-        }));
+        this.$('#input-div').html(this.editDateReadingSessionTemplate({ dateReadingSession: dateReadingSession.attributes, localizer }));
     },
 
     renderErrorDateReadingSession: function (message) {
