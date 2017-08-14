@@ -15,7 +15,7 @@ class BookImageComponent extends React.Component {
             alt = urlUtil.previewUrl(book.image);
         }
 
-        return (<img src={src} alt={alt} className={className}/>);
+        return <img src={src} alt={alt} className={className}/>;
     }
 }
 
