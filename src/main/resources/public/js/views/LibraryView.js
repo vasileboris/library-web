@@ -1,6 +1,8 @@
 import Backbone from 'backbone';
 import BooksView from 'views/BooksView';
-import CurrentReadingSessionView from 'views/CurrentReadingSessionView';
+import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const LibraryView = Backbone.View.extend({
     el: '#content-div',
@@ -11,8 +13,7 @@ const LibraryView = Backbone.View.extend({
     },
 
     manageCurrentReadingSession: function (bookUuid) {
-        this.currentView = new CurrentReadingSessionView(bookUuid);
-        this.render();
+        ReactDOM.render(React.createElement(CurrentReadingSessionComponent, {bookUuid}), this.$el.get(0));
     },
 
     render: function () {

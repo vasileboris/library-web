@@ -21,4 +21,4 @@ BookImageComponent.propTypes = {
     book: PropTypes.object.isRequired
 };
 
-export default BookImageComponent
+export default BookImageComponent;
