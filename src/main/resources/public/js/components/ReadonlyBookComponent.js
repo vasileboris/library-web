@@ -11,7 +11,7 @@ function ReadonlyBookComponent(props) {
     }
 
     return (
-        <article>
+        <article className="result-single">
             <BookFigureComponent book={book}/>
             <div>{localizer.localize('book-by-label')} {book.authors}</div>
             <div>{book.pages} {localizer.localize('book-pages-label')}</div>

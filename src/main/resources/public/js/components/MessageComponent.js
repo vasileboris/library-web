@@ -7,7 +7,7 @@ function MessageComponent (props) {
     }
 
     return (
-        <div class="message-entry">{props.message}</div>
+        <div className="message-entry">{props.message}</div>
     );
 }
 
