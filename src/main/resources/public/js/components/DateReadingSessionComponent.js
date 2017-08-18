@@ -2,11 +2,11 @@ import React from 'react';
 import localizer from 'utils/Localizer';
 import PropTypes from 'prop-types';
 
-function DateReadingSessionComponent() {
-    const dateReadingSessionAttributes = this.props.dateReadingSession.attributes;
+function DateReadingSessionComponent(props) {
+    const dateReadingSession = props.dateReadingSession;
     let bookmark = '';
-    if(dateReadingSessionAttributes.bookmark) {
-        bookmark = localizer.localize('date-reading-session-bookmark-label') + ' "' + dateReadingSessionAttributes.bookmark + '"';
+    if(dateReadingSession.bookmark) {
+        bookmark = localizer.localize('date-reading-session-bookmark-label') + ' "' + dateReadingSession.bookmark + '"';
     }
 
     return (
@@ -18,8 +18,8 @@ function DateReadingSessionComponent() {
             <a href="#" className="delete-item">
                 <img src="/img/delete.png" alt="delete reading session" className="img-icon"/>
             </a>
-            <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSessionAttributes.lastReadPage}</div>
-            <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSessionAttributes.date}</div>
+            <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
+            <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>
             <div>{bookmark}</div>
         </article>
     );

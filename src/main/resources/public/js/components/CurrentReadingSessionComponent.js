@@ -4,9 +4,11 @@ import localizer from 'utils/Localizer';
 import Book from 'models/Book';
 import CurrentReadingSession from 'models/CurrentReadingSession';
 import ReadingSessionProgress from 'models/ReadingSessionProgress';
+import DateReadingSessions from 'collections/DateReadingSessions';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
 import MessageComponent from 'components/MessageComponent';
+import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -15,6 +17,8 @@ class CurrentReadingSessionComponent extends React.Component {
             message: null,
             book: null
         };
+        this.successOnRetrieveCurrentReadingSession = this.successOnRetrieveCurrentReadingSession.bind(this);
+        this.errorOnRetrieveCurrentReadingSession = this.errorOnRetrieveCurrentReadingSession.bind(this);
     }
 
     render() {
@@ -30,6 +34,9 @@ class CurrentReadingSessionComponent extends React.Component {
                 </div>
                 {this.state.message ? (
                     <MessageComponent message={this.state.message}/>
+                ) : null}
+                {this.state.dateReadingSessions ? (
+                    <DateReadingSessionsComponent dateReadingSessions={this.state.dateReadingSessions}/>
                 ) : null}
             </div>
         );
@@ -62,8 +69,8 @@ class CurrentReadingSessionComponent extends React.Component {
     retrieveCurrentReadingSession() {
         let currentReadingSession = new CurrentReadingSession({bookUuid: this.props.bookUuid});
         currentReadingSession.fetchAndCreateIfMissing({
-            success: this.successOnRetrieveCurrentReadingSession.bind(this),
-            error: this.errorOnRetrieveCurrentReadingSession.bind(this)
+            success: this.successOnRetrieveCurrentReadingSession,
+            error: this.errorOnRetrieveCurrentReadingSession
         });
     }
 
@@ -72,6 +79,7 @@ class CurrentReadingSessionComponent extends React.Component {
             currentReadingSession: currentReadingSession.attributes
         });
         this.retrieveReadingSessionProgress();
+        this.retrieveDateReadingSessions();
     }
 
     errorOnRetrieveCurrentReadingSession(error) {
@@ -99,6 +107,24 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
+    retrieveDateReadingSessions() {
+        let dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
+        dateReadingSessions.fetch()
+            .then(dateReadingSessions => this.successOnRetrieveDateReadingSessions(dateReadingSessions))
+            .catch(error => this.errorOnRetrieveDateReadingSessions(error));
+    }
+
+    successOnRetrieveDateReadingSessions(dateReadingSessions) {
+        this.setState({
+            dateReadingSessions
+        });
+    }
+
+    errorOnRetrieveDateReadingSessions() {
+        this.setState({
+            message: localizer.localize('date-reading-sessions-retrieve-error', options.xhr.status)
+        });
+    }
 }
 
 CurrentReadingSessionComponent.propTypes = {
