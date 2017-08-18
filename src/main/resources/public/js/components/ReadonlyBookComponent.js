@@ -5,11 +5,6 @@ import PropTypes from 'prop-types';
 
 function ReadonlyBookComponent(props) {
     const book = props.book;
-
-    if(!book) {
-        return null;
-    }
-
     return (
         <article className="result-single">
             <BookFigureComponent book={book}/>

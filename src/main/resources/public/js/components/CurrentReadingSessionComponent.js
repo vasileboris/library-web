@@ -21,10 +21,16 @@ class CurrentReadingSessionComponent extends React.Component {
         return (
             <div>
                 <div className="results">
-                    <ReadonlyBookComponent book={this.state.book}/>
-                    <ReadingSessionProgressComponent readingSessionProgress={this.state.readingSessionProgress}/>
+                    {this.state.book ? (
+                        <ReadonlyBookComponent book={this.state.book}/>
+                    ) : null }
+                    {this.state.readingSessionProgress ? (
+                        <ReadingSessionProgressComponent readingSessionProgress={this.state.readingSessionProgress}/>
+                    ) : null}
                 </div>
-                <MessageComponent message={this.state.message}/>
+                {this.state.message ? (
+                    <MessageComponent message={this.state.message}/>
+                ) : null}
             </div>
         );
     }

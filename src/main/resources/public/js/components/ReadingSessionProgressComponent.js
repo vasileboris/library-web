@@ -3,23 +3,7 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 
 function ReadingSessionProgressComponent (props) {
-    if(!props.readingSessionProgress) {
-        return null;
-    }
-
     let readingSessionProgress = props.readingSessionProgress;
-    let needByDiv = null;
-    if(readingSessionProgress.deadline) {
-        needByDiv = (
-            <div>
-                {localizer.localize('reading-session-progress-deadline-label')}
-                &nbsp;
-                <span className="result-important ">{readingSessionProgress.deadline}</span>
-            </div>
-        );
-    }
-
-
     return (
         <article className="result-single">
             <div>
@@ -53,7 +37,13 @@ function ReadingSessionProgressComponent (props) {
                 &nbsp;
                 <span className="result-important ">{readingSessionProgress.estimatedFinishDate}</span>
             </div>
-            {needByDiv}
+            {readingSessionProgress.deadline ? (
+                <div>
+                    {localizer.localize('reading-session-progress-deadline-label')}
+                    &nbsp;
+                    <span className="result-important ">{readingSessionProgress.deadline}</span>
+                </div>
+            ) : null}
         </article>
     );
 }
