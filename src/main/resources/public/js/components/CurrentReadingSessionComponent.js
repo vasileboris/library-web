@@ -47,6 +47,10 @@ class CurrentReadingSessionComponent extends React.Component {
         this.retrieveCurrentReadingSession();
     }
 
+    componentWillUnmount() {
+        console.log('Moving away from react!')
+    }
+
     retrieveBook() {
         let book = new Book({uuid: this.props.bookUuid});
         book.fetch()
