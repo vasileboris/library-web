@@ -15,7 +15,7 @@ function ReadonlyBookComponent(props) {
 }
 
 ReadonlyBookComponent.propTypes = {
-    book: PropTypes.object
+    book: PropTypes.object.isRequired
 };
 
 export default ReadonlyBookComponent;

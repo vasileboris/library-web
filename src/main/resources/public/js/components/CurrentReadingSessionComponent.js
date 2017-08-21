@@ -14,6 +14,7 @@ class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            operation: 'add',
             message: null,
             book: null
         };
@@ -80,7 +81,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     successOnRetrieveCurrentReadingSession(currentReadingSession) {
         this.setState({
-            currentReadingSession: currentReadingSession.attributes
+            currentReadingSession: Object.assign(currentReadingSession.attributes)
         });
         this.retrieveReadingSessionProgress();
         this.retrieveDateReadingSessions();

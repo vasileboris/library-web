@@ -3,12 +3,10 @@ import BookImageComponent from 'components/BookImageComponent';
 import PropTypes from 'prop-types';
 
 function BookFigureComponent (props) {
-    const book = props.book;
-
     return (
         <figure className="figure-book">
-            <BookImageComponent book={book}/>
-            <figcaption className="title">{book.title}</figcaption>
+            <BookImageComponent book={props.book}/>
+            <figcaption className="title">{props.book.title}</figcaption>
         </figure>
     );
 }

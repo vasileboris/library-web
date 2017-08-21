@@ -49,7 +49,7 @@ function ReadingSessionProgressComponent (props) {
 }
 
 ReadingSessionProgressComponent.propTypes = {
-    readingSessionProgress: PropTypes.object
+    readingSessionProgress: PropTypes.object.isRequired
 };
 
 export default ReadingSessionProgressComponent;

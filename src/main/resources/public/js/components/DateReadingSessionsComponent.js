@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import DateReadingSessionComponent from 'components/DateReadingSessionComponent'
 
 function DateReadingSessionsComponent(props) {
-    const dateReadingSessions = props.dateReadingSessions;
     return (
         <div className="results">
-            {dateReadingSessions.map(dateReadingSession => (
+            {props.dateReadingSessions.map(dateReadingSession => (
                 <DateReadingSessionComponent
                     key={dateReadingSession.date}
                     dateReadingSession={dateReadingSession}/>

@@ -4,17 +4,18 @@ import localizer from 'utils/Localizer';
 import PropTypes from 'prop-types';
 
 function BookImageComponent(props) {
-    const book = props.book;
+    const imgAttributes = buildImgAttributes(props);
+    return <img src={imgAttributes.src} alt={imgAttributes.alt} className="img-book-large"/>;
+}
 
+function buildImgAttributes(props) {
     let src = '/img/no-image-available.png',
-        alt = localizer.localize('book-no-image-available'),
-        className = 'img-book-large';
-    if (book.image) {
-        src = book.image;
-        alt = urlUtil.previewUrl(book.image);
+        alt = localizer.localize('book-no-image-available');
+    if (props.book.image) {
+        src = props.book.image;
+        alt = urlUtil.previewUrl(props.book.image);
     }
-
-    return <img src={src} alt={alt} className={className}/>;
+    return {src, alt}
 }
 
 BookImageComponent.propTypes = {
