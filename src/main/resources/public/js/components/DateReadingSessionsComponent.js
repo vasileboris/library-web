@@ -5,10 +5,12 @@ import DateReadingSessionComponent from 'components/DateReadingSessionComponent'
 function DateReadingSessionsComponent(props) {
     return (
         <div className="results">
-            {props.dateReadingSessions.map(dateReadingSession => (
+            {props.dateReadingSessions
+                .sort((drs1, drs2) => drs2.date.localeCompare(drs1.date))
+                .map(drs => (
                 <DateReadingSessionComponent
-                    key={dateReadingSession.date}
-                    dateReadingSession={dateReadingSession}/>
+                    key={drs.date}
+                    dateReadingSession={drs}/>
             ))}
         </div>
     );

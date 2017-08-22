@@ -125,8 +125,8 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     retrieveDateReadingSessions() {
-        this.dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
-        this.dateReadingSessions.fetch()
+        const dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
+        dateReadingSessions.fetch()
             .then(dateReadingSessions => this.successOnRetrieveDateReadingSessions(dateReadingSessions))
             .catch(error => this.errorOnRetrieveDateReadingSessions(error));
     }
@@ -154,8 +154,9 @@ class CurrentReadingSessionComponent extends React.Component {
     onAddButtonClick() {
         const dateReadingSession = new DateReadingSession(this.state.dateReadingSession);
         dateReadingSession.isNewDateReadingSession = true;
-        //this.listenTo(dateReadingSession, "invalid", this.errorOnValidateDateReadingSession);
-        this.dateReadingSessions.create(dateReadingSession, {
+        dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
+        const dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
+        dateReadingSessions.create(dateReadingSession, {
             wait: true,
             success: this.successOnAddDateReadingSession,
             error: this.errorOnAddDateReadingSession
