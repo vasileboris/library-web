@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 
-function AddDateReadingSessionComponent (props) {
+function AddDateReadingSessionComponent(props) {
     return (
         <div className="entry">
             <input type="date"
