@@ -6,7 +6,7 @@ function DateReadingSessionComponent(props) {
     return (
         <article className="result-date-reading-session">
             <div className="message-item"></div>
-            <a href="#" className="edit-item">
+            <a href="#" className="edit-item" onClick={e => {e.preventDefault(); props.onEditClick()}}>
                 <img src="/img/edit.png" alt="edit reading session" className="img-icon"/>
             </a>
             <a href="#" className="delete-item">
@@ -22,7 +22,8 @@ function DateReadingSessionComponent(props) {
 }
 
 DateReadingSessionComponent.propTypes = {
-    dateReadingSession: PropTypes.object.isRequired
+    dateReadingSession: PropTypes.object.isRequired,
+    onEditClick: PropTypes.func.isRequired
 };
 
 export default DateReadingSessionComponent;

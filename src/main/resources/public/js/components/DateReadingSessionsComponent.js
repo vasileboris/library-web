@@ -10,14 +10,15 @@ function DateReadingSessionsComponent(props) {
                 .map(drs => (
                 <DateReadingSessionComponent
                     key={drs.date}
-                    dateReadingSession={drs}/>
+                    dateReadingSession={drs} onEditClick={props.onEditClick}/>
             ))}
         </div>
     );
 }
 
 DateReadingSessionsComponent.propTypes = {
-    dateReadingSessions: PropTypes.arrayOf(PropTypes.object).isRequired
+    dateReadingSessions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onEditClick: PropTypes.func.isRequired
 };
 
 export default DateReadingSessionsComponent;

@@ -9,7 +9,7 @@ import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
 import MessageComponent from 'components/MessageComponent';
 import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
-import AddDateReadingSessionComponent from 'components/AddDateReadingSessionComponent';
+import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
 import DateReadingSession from 'models/DateReadingSession';
 
 class CurrentReadingSessionComponent extends React.Component {
@@ -26,6 +26,7 @@ class CurrentReadingSessionComponent extends React.Component {
         this.errorOnValidateDateReadingSession = this.errorOnValidateDateReadingSession.bind(this);
         this.successOnAddDateReadingSession = this.successOnAddDateReadingSession.bind(this);
         this.errorOnAddDateReadingSession = this.errorOnAddDateReadingSession.bind(this);
+        this.onEditDateReadingSessionClick = this.onEditDateReadingSessionClick.bind(this);
     }
 
     render() {
@@ -42,14 +43,15 @@ class CurrentReadingSessionComponent extends React.Component {
                 {this.state.message ? (
                     <MessageComponent message={this.state.message}/>
                 ) : null}
-                {this.state.operation === 'add' ? (
-                    <AddDateReadingSessionComponent
-                        dateReadingSession={this.state.dateReadingSession}
-                        onInputChange={this.onInputChange}
-                        onButtonClick={this.onAddButtonClick}/>
-                ) : null }
+                <InputDateReadingSessionComponent
+                    operation={this.state.operation}
+                    dateReadingSession={this.state.dateReadingSession}
+                    onInputChange={this.onInputChange}
+                    onButtonClick={this.onAddButtonClick}/>
                 {this.state.dateReadingSessions ? (
-                    <DateReadingSessionsComponent dateReadingSessions={this.state.dateReadingSessions}/>
+                    <DateReadingSessionsComponent
+                        dateReadingSessions={this.state.dateReadingSessions}
+                        onEditClick={this.onEditDateReadingSessionClick}/>
                 ) : null}
             </div>
         );
@@ -179,6 +181,12 @@ class CurrentReadingSessionComponent extends React.Component {
     errorOnAddDateReadingSession(model, response, options) {
         this.setState({
             message: localizer.localize('date-reading-session-add-error', options.xhr.status)
+        });
+    }
+
+    onEditDateReadingSessionClick() {
+        this.setState({
+            operation: 'edit'
         });
     }
 

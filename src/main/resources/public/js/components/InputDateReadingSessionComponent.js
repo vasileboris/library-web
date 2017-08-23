@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 
-function AddDateReadingSessionComponent(props) {
+function InputDateReadingSessionComponent(props) {
     return (
         <div className="entry">
             <input type="date"
@@ -10,7 +10,8 @@ function AddDateReadingSessionComponent(props) {
                    className="text"
                    placeholder={localizer.localize('date-reading-session-date-text')}
                    value={props.dateReadingSession.date}
-                   onChange={props.onInputChange}/>
+                   onChange={props.onInputChange}
+                   readOnly={props.operation === 'add' ? false : true}/>
             <input type="text"
                    name="lastReadPage"
                    className="text"
@@ -25,17 +26,19 @@ function AddDateReadingSessionComponent(props) {
                    onChange={props.onInputChange}/>
             <button className="button"
                     onClick={props.onButtonClick}>
-                {localizer.localize('date-reading-session-add-button')}
+                {props.operation === 'add'
+                    ? localizer.localize('date-reading-session-add-button')
+                    : localizer.localize('date-reading-session-update-button')}
             </button>
 
         </div>
     );
 }
 
-AddDateReadingSessionComponent.propTypes = {
+InputDateReadingSessionComponent.propTypes = {
     dateReadingSession: PropTypes.object,
     onInputChange: PropTypes.func,
     onButtonClick: PropTypes.func
 };
 
-export default AddDateReadingSessionComponent;
+export default InputDateReadingSessionComponent;
