@@ -27,6 +27,9 @@ class CurrentReadingSessionComponent extends React.Component {
         this.successOnAddDateReadingSession = this.successOnAddDateReadingSession.bind(this);
         this.errorOnAddDateReadingSession = this.errorOnAddDateReadingSession.bind(this);
         this.onEditDateReadingSessionClick = this.onEditDateReadingSessionClick.bind(this);
+        this.onUpdateButtonClick = this.onUpdateButtonClick.bind(this);
+        this.successOnUpdateDateReadingSession = this.successOnUpdateDateReadingSession.bind(this);
+        this.errorOnUpdateDateReadingSession = this.errorOnUpdateDateReadingSession.bind(this);
     }
 
     render() {
@@ -47,7 +50,8 @@ class CurrentReadingSessionComponent extends React.Component {
                     operation={this.state.operation}
                     dateReadingSession={this.state.dateReadingSession}
                     onInputChange={this.onInputChange}
-                    onButtonClick={this.onAddButtonClick}/>
+                    onAddButtonClick={this.onAddButtonClick}
+                    onUpdateButtonClick={this.onUpdateButtonClick}/>
                 {this.state.dateReadingSessions ? (
                     <DateReadingSessionsComponent
                         dateReadingSessions={this.state.dateReadingSessions}
@@ -127,15 +131,15 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     retrieveDateReadingSessions() {
-        const dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
-        dateReadingSessions.fetch()
-            .then(dateReadingSessions => this.successOnRetrieveDateReadingSessions(dateReadingSessions))
+        this.dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
+        this.dateReadingSessions.fetch()
+            .then(dateReadingSessions => this.successOnRetrieveDateReadingSessions())
             .catch(error => this.errorOnRetrieveDateReadingSessions(error));
     }
 
-    successOnRetrieveDateReadingSessions(dateReadingSessions) {
+    successOnRetrieveDateReadingSessions() {
         this.setState({
-            dateReadingSessions
+            dateReadingSessions: this.dateReadingSessions.map(dateReadingSession => dateReadingSession.attributes)
         });
     }
 
@@ -157,9 +161,7 @@ class CurrentReadingSessionComponent extends React.Component {
         const dateReadingSession = new DateReadingSession(this.state.dateReadingSession);
         dateReadingSession.isNewDateReadingSession = true;
         dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
-        const dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
-        dateReadingSessions.create(dateReadingSession, {
-            wait: true,
+        this.dateReadingSessions.create(dateReadingSession, {
             success: this.successOnAddDateReadingSession,
             error: this.errorOnAddDateReadingSession
         });
@@ -173,9 +175,10 @@ class CurrentReadingSessionComponent extends React.Component {
 
     successOnAddDateReadingSession() {
         this.setState({
-            message: null
+            message: null,
+            dateReadingSession: {}
         });
-        this.retrieveDateReadingSessions();
+        this.successOnRetrieveDateReadingSessions();
     }
 
     errorOnAddDateReadingSession(model, response, options) {
@@ -184,9 +187,35 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
-    onEditDateReadingSessionClick() {
+    onEditDateReadingSessionClick(dateReadingSession) {
         this.setState({
-            operation: 'edit'
+            message: null,
+            operation: 'edit',
+            dateReadingSession
+        });
+    }
+
+    onUpdateButtonClick() {
+        const dateReadingSession = this.dateReadingSessions.get(this.state.dateReadingSession.date);
+        dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
+        dateReadingSession.save(this.state.dateReadingSession, {
+            success: this.successOnUpdateDateReadingSession,
+            error: this.errorOnUpdateDateReadingSession
+        });
+    }
+
+    successOnUpdateDateReadingSession() {
+        this.setState({
+            message: null,
+            operation: 'add',
+            dateReadingSession: {}
+        });
+        this.successOnRetrieveDateReadingSessions();
+    }
+
+    errorOnUpdateDateReadingSession(model, response, options) {
+        this.setState({
+            message: localizer.localize('date-reading-session-update-error', options.xhr.status)
         });
     }
 

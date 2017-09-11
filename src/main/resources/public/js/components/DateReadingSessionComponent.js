@@ -3,10 +3,14 @@ import localizer from 'utils/Localizer';
 import PropTypes from 'prop-types';
 
 function DateReadingSessionComponent(props) {
+    function onEditClick() {
+        props.onEditClick(props.dateReadingSession);
+    }
+
     return (
         <article className="result-date-reading-session">
             <div className="message-item"></div>
-            <a href="#" className="edit-item" onClick={e => {e.preventDefault(); props.onEditClick()}}>
+            <a href="#" className="edit-item" onClick={onEditClick}>
                 <img src="/img/edit.png" alt="edit reading session" className="img-icon"/>
             </a>
             <a href="#" className="delete-item">

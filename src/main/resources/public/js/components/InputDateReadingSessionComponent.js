@@ -9,28 +9,33 @@ function InputDateReadingSessionComponent(props) {
                    name="date"
                    className="text"
                    placeholder={localizer.localize('date-reading-session-date-text')}
-                   value={props.dateReadingSession.date}
+                   value={props.dateReadingSession.date ? props.dateReadingSession.date : ""}
                    onChange={props.onInputChange}
                    readOnly={props.operation === 'add' ? false : true}/>
             <input type="text"
                    name="lastReadPage"
                    className="text"
                    placeholder={localizer.localize('date-reading-session-last-read-page-text')}
-                   value={props.dateReadingSession.lastReadPage}
+                   value={props.dateReadingSession.lastReadPage ? props.dateReadingSession.lastReadPage : ""}
                    onChange={props.onInputChange}/>
             <input type="text"
                    name="bookmark"
                    className="text"
                    placeholder={localizer.localize('date-reading-session-bookmark-text')}
-                   value={props.dateReadingSession.bookmark}
+                   value={props.dateReadingSession.bookmark ? props.dateReadingSession.bookmark : ""}
                    onChange={props.onInputChange}/>
-            <button className="button"
-                    onClick={props.onButtonClick}>
-                {props.operation === 'add'
-                    ? localizer.localize('date-reading-session-add-button')
-                    : localizer.localize('date-reading-session-update-button')}
-            </button>
 
+            {props.operation === 'add' ? (
+                <button className="button"
+                        onClick={props.onAddButtonClick}>
+                    {localizer.localize('date-reading-session-add-button')}
+                </button>
+            ) :
+                <button className="button"
+                        onClick={props.onUpdateButtonClick}>
+                    {localizer.localize('date-reading-session-update-button')}
+                </button>
+            }
         </div>
     );
 }
