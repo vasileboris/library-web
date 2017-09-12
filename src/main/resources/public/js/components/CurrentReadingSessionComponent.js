@@ -176,6 +176,8 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     successOnAddDateReadingSession() {
+        const dateReadingSession = this.dateReadingSessions.get(this.state.dateReadingSession.date);
+        delete dateReadingSession.isNewDateReadingSession;
         this.setState({
             message: null,
             dateReadingSession: {}
