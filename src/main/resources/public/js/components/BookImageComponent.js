@@ -11,15 +11,15 @@ function BookImageComponent(props) {
 function buildImgAttributes(props) {
     let src = '/img/no-image-available.png',
         alt = localizer.localize('book-no-image-available');
-    if (props.book.image) {
-        src = props.book.image;
-        alt = urlUtil.previewUrl(props.book.image);
+    if (props.image) {
+        src = props.image;
+        alt = urlUtil.previewUrl(props.image);
     }
     return {src, alt}
 }
 
 BookImageComponent.propTypes = {
-    book: PropTypes.object.isRequired
+    image: PropTypes.string
 };
 
 export default BookImageComponent;

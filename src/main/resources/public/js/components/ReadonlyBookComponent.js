@@ -15,7 +15,12 @@ function ReadonlyBookComponent(props) {
 }
 
 ReadonlyBookComponent.propTypes = {
-    book: PropTypes.object.isRequired
+    book: PropTypes.shape({
+        image: PropTypes.string,
+        title: PropTypes.string.isRequired,
+        authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+        pages: PropTypes.number.isRequired
+    }).isRequired
 };
 
 export default ReadonlyBookComponent;

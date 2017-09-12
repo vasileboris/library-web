@@ -49,7 +49,16 @@ function ReadingSessionProgressComponent (props) {
 }
 
 ReadingSessionProgressComponent.propTypes = {
-    readingSessionProgress: PropTypes.object.isRequired
+    readingSessionProgress: PropTypes.shape({
+        readPercentage: PropTypes.number.isRequired,
+        averagePagesPerDay: PropTypes.number.isRequired,
+        pagesTotal: PropTypes.number.isRequired,
+        lastReadPage: PropTypes.number.isRequired,
+        estimatedReadDaysLeft: PropTypes.number.isRequired,
+        estimatedDaysLeft: PropTypes.number.isRequired,
+        estimatedFinishDate: PropTypes.string.isRequired,
+        deadline: PropTypes.string
+    }).isRequired
 };
 
 export default ReadingSessionProgressComponent;

@@ -41,7 +41,17 @@ function InputDateReadingSessionComponent(props) {
 }
 
 InputDateReadingSessionComponent.propTypes = {
-    dateReadingSession: PropTypes.object,
+    dateReadingSession: PropTypes.shape({
+        date: PropTypes.string,
+        lastReadPage: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
+        ]),
+        bookmark: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
+        ])
+    }),
     onInputChange: PropTypes.func,
     onButtonClick: PropTypes.func
 };

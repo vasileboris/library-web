@@ -30,7 +30,11 @@ function DateReadingSessionComponent(props) {
 }
 
 DateReadingSessionComponent.propTypes = {
-    dateReadingSession: PropTypes.object.isRequired,
+    dateReadingSession: PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        lastReadPage: PropTypes.number.isRequired,
+        bookmark: PropTypes.string
+    }).isRequired,
     onEditClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired
 };

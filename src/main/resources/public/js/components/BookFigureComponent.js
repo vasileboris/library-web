@@ -5,14 +5,17 @@ import PropTypes from 'prop-types';
 function BookFigureComponent (props) {
     return (
         <figure className="figure-book">
-            <BookImageComponent book={props.book}/>
+            <BookImageComponent book={props.book.image}/>
             <figcaption className="title">{props.book.title}</figcaption>
         </figure>
     );
 }
 
 BookFigureComponent.propTypes = {
-    book: PropTypes.object.isRequired
+    book: PropTypes.shape({
+        image: PropTypes.string,
+        title: PropTypes.string.isRequired
+    }).isRequired
 };
 
 export default BookFigureComponent;
