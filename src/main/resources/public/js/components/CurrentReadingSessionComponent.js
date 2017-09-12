@@ -30,6 +30,7 @@ class CurrentReadingSessionComponent extends React.Component {
         this.onUpdateButtonClick = this.onUpdateButtonClick.bind(this);
         this.successOnUpdateDateReadingSession = this.successOnUpdateDateReadingSession.bind(this);
         this.errorOnUpdateDateReadingSession = this.errorOnUpdateDateReadingSession.bind(this);
+        this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
     }
 
     render() {
@@ -55,7 +56,8 @@ class CurrentReadingSessionComponent extends React.Component {
                 {this.state.dateReadingSessions ? (
                     <DateReadingSessionsComponent
                         dateReadingSessions={this.state.dateReadingSessions}
-                        onEditClick={this.onEditDateReadingSessionClick}/>
+                        onEditClick={this.onEditDateReadingSessionClick}
+                        onDeleteClick={this.onDeleteDateReadingSessionClick}/>
                 ) : null}
             </div>
         );
@@ -133,11 +135,11 @@ class CurrentReadingSessionComponent extends React.Component {
     retrieveDateReadingSessions() {
         this.dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
         this.dateReadingSessions.fetch()
-            .then(dateReadingSessions => this.successOnRetrieveDateReadingSessions())
+            .then(dateReadingSessions => this.successOnDateReadingSessions())
             .catch(error => this.errorOnRetrieveDateReadingSessions(error));
     }
 
-    successOnRetrieveDateReadingSessions() {
+    successOnDateReadingSessions() {
         this.setState({
             dateReadingSessions: this.dateReadingSessions.map(dateReadingSession => dateReadingSession.attributes)
         });
@@ -178,7 +180,7 @@ class CurrentReadingSessionComponent extends React.Component {
             message: null,
             dateReadingSession: {}
         });
-        this.successOnRetrieveDateReadingSessions();
+        this.successOnDateReadingSessions();
     }
 
     errorOnAddDateReadingSession(model, response, options) {
@@ -210,7 +212,7 @@ class CurrentReadingSessionComponent extends React.Component {
             operation: 'add',
             dateReadingSession: {}
         });
-        this.successOnRetrieveDateReadingSessions();
+        this.successOnDateReadingSessions();
     }
 
     errorOnUpdateDateReadingSession(model, response, options) {
@@ -219,6 +221,18 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
+    onDeleteDateReadingSessionClick(date) {
+        const dateReadingSession = this.dateReadingSessions.get(date);
+        dateReadingSession.destroy()
+            .then(() => this.successOnDateReadingSessions())
+            .catch(error => this.errorOnDeleteDateReadingSession(error));
+    }
+
+    errorOnDeleteDateReadingSession(error) {
+        this.setState({
+            message: localizer.localize('date-reading-session-delete-error', error.status)
+        });
+    }
 }
 
 CurrentReadingSessionComponent.propTypes = {

@@ -7,13 +7,17 @@ function DateReadingSessionComponent(props) {
         props.onEditClick(props.dateReadingSession);
     }
 
+    function onDeleteClick() {
+        props.onDeleteClick(props.dateReadingSession.date);
+    }
+
     return (
         <article className="result-date-reading-session">
             <div className="message-item"></div>
             <a href="#" className="edit-item" onClick={onEditClick}>
                 <img src="/img/edit.png" alt="edit reading session" className="img-icon"/>
             </a>
-            <a href="#" className="delete-item">
+            <a href="#" className="delete-item" onClick={onDeleteClick}>
                 <img src="/img/delete.png" alt="delete reading session" className="img-icon"/>
             </a>
             <div>{localizer.localize('date-reading-session-last-read-page-label')} {props.dateReadingSession.lastReadPage}</div>
@@ -27,7 +31,8 @@ function DateReadingSessionComponent(props) {
 
 DateReadingSessionComponent.propTypes = {
     dateReadingSession: PropTypes.object.isRequired,
-    onEditClick: PropTypes.func.isRequired
+    onEditClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired
 };
 
 export default DateReadingSessionComponent;
