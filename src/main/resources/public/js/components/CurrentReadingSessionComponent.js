@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
-import ReadingSessionProgress from 'models/ReadingSessionProgress';
 import DateReadingSessions from 'collections/DateReadingSessions';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
@@ -11,6 +10,7 @@ import InputDateReadingSessionComponent from 'components/InputDateReadingSession
 import DateReadingSession from 'models/DateReadingSession';
 import { fetchBook } from 'api/BookApi';
 import { fetchCurrentReadingSession } from 'api/ReadingSessionApi';
+import { fetchCurrentReadingSessionProgress } from 'api/ReadingSessionProgressApi';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -111,9 +111,8 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     retrieveReadingSessionProgress() {
-        let readingSessionProgress = new ReadingSessionProgress(this.props.bookUuid, this.state.currentReadingSession.uuid);
-        readingSessionProgress.fetch()
-            .then(readingSessionProgress => this.successOnRetrieveReadingSessionProgress(readingSessionProgress))
+        fetchCurrentReadingSessionProgress(this.props.bookUuid, this.state.currentReadingSession.uuid)
+            .then(readingSessionProgress => this.successOnRetrieveReadingSessionProgress(readingSessionProgress.data))
             .catch(error => this.errorOnRetrieveReadingSessionProgress(error));
     }
 
