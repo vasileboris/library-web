@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
-import DateReadingSessions from 'collections/DateReadingSessions';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
 import MessageComponent from 'components/MessageComponent';
 import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
 import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
-import DateReadingSession from 'models/DateReadingSession';
 import { fetchBook } from 'api/BookApi';
 import { fetchCurrentReadingSession } from 'api/ReadingSessionApi';
 import { fetchCurrentReadingSessionProgress } from 'api/ReadingSessionProgressApi';
+import {
+    fetchDateReadingSessions,
+    createDateReadingSession,
+    updateDateReadingSession,
+    deleteDateReadingSession
+} from 'api/DateReadingSessionApi';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -100,7 +104,6 @@ class CurrentReadingSessionComponent extends React.Component {
         this.setState({
             currentReadingSession
         });
-        this.retrieveReadingSessionProgress();
         this.retrieveDateReadingSessions();
     }
 
@@ -129,21 +132,21 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     retrieveDateReadingSessions() {
-        this.dateReadingSessions = new DateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid);
-        this.dateReadingSessions.fetch()
-            .then(dateReadingSessions => this.successOnDateReadingSessions())
+        fetchDateReadingSessions(this.props.bookUuid, this.state.currentReadingSession.uuid)
+            .then(response => this.successOnRetrieveDateReadingSessions(response.data))
             .catch(error => this.errorOnRetrieveDateReadingSessions(error));
     }
 
-    successOnDateReadingSessions() {
+    successOnRetrieveDateReadingSessions(dateReadingSessions) {
         this.setState({
-            dateReadingSessions: this.dateReadingSessions.map(dateReadingSession => dateReadingSession.attributes)
+            dateReadingSessions
         });
+        this.retrieveReadingSessionProgress();
     }
 
-    errorOnRetrieveDateReadingSessions() {
+    errorOnRetrieveDateReadingSessions(error) {
         this.setState({
-            message: localizer.localize('date-reading-sessions-retrieve-error', options.xhr.status)
+            message: localizer.localize('date-reading-sessions-retrieve-error', error.response.status)
         });
     }
 
@@ -156,34 +159,29 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onAddButtonClick() {
-        const dateReadingSession = new DateReadingSession(this.state.dateReadingSession);
-        dateReadingSession.isNewDateReadingSession = true;
-        dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
-        this.dateReadingSessions.create(dateReadingSession, {
-            success: this.successOnAddDateReadingSession,
-            error: this.errorOnAddDateReadingSession
-        });
+        //dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
+        createDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession)
+            .then(() => this.successOnAddDateReadingSession())
+            .catch(error => this.errorOnAddDateReadingSession(error));
     }
 
-    errorOnValidateDateReadingSession(model, error) {
+    errorOnValidateDateReadingSession(error) {
         this.setState({
             message: error
         });
     }
 
     successOnAddDateReadingSession() {
-        const dateReadingSession = this.dateReadingSessions.get(this.state.dateReadingSession.date);
-        delete dateReadingSession.isNewDateReadingSession;
         this.setState({
             message: null,
             dateReadingSession: {}
         });
-        this.successOnDateReadingSessions();
+        this.retrieveDateReadingSessions();
     }
 
-    errorOnAddDateReadingSession(model, response, options) {
+    errorOnAddDateReadingSession(error) {
         this.setState({
-            message: localizer.localize('date-reading-session-add-error', options.xhr.status)
+            message: localizer.localize('date-reading-session-add-error', error.response.status)
         });
     }
 
@@ -196,12 +194,10 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onUpdateButtonClick() {
-        const dateReadingSession = this.dateReadingSessions.get(this.state.dateReadingSession.date);
-        dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
-        dateReadingSession.save(this.state.dateReadingSession, {
-            success: this.successOnUpdateDateReadingSession,
-            error: this.errorOnUpdateDateReadingSession
-        });
+        //dateReadingSession.on("invalid", this.errorOnValidateDateReadingSession);
+        updateDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession)
+            .then(() => this.successOnUpdateDateReadingSession())
+            .catch(error => this.errorOnUpdateDateReadingSession(error));
     }
 
     successOnUpdateDateReadingSession() {
@@ -210,25 +206,24 @@ class CurrentReadingSessionComponent extends React.Component {
             operation: 'add',
             dateReadingSession: {}
         });
-        this.successOnDateReadingSessions();
+        this.retrieveDateReadingSessions();
     }
 
-    errorOnUpdateDateReadingSession(model, response, options) {
+    errorOnUpdateDateReadingSession(error) {
         this.setState({
-            message: localizer.localize('date-reading-session-update-error', options.xhr.status)
+            message: localizer.localize('date-reading-session-update-error', error.response.status)
         });
     }
 
     onDeleteDateReadingSessionClick(date) {
-        const dateReadingSession = this.dateReadingSessions.get(date);
-        dateReadingSession.destroy()
-            .then(() => this.successOnDateReadingSessions())
+        deleteDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, date)
+            .then(() => this.retrieveDateReadingSessions())
             .catch(error => this.errorOnDeleteDateReadingSession(error));
     }
 
     errorOnDeleteDateReadingSession(error) {
         this.setState({
-            message: localizer.localize('date-reading-session-delete-error', error.status)
+            message: localizer.localize('date-reading-session-delete-error', error.response.status)
         });
     }
 }
