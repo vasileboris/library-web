@@ -1,5 +1,6 @@
 import { BOOKS_ENDPOINT } from './BookApi';
 import axios from 'axios';
+import localizer from 'utils/Localizer';
 
 function readingSessionsEndpoint(bookUuid) {
     return `${BOOKS_ENDPOINT}/${bookUuid}/reading-sessions`;
@@ -17,9 +18,9 @@ export function fetchCurrentReadingSession(bookUuid) {
                 if(404 === error.response.status) {
                     axios.post(readingSessionsEndpoint(bookUuid), { bookUuid })
                         .then(response => resolve(response))
-                        .catch(error => reject(error));
+                        .catch(error => reject(localizer.localize('reading-session-retrieve-error', error.response.status)));
                 } else {
-                    reject(error)
+                    reject(localizer.localize('reading-session-retrieve-error', error.response.status))
                 }
             });
     });
