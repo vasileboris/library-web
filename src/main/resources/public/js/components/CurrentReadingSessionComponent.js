@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
-import CurrentReadingSession from 'models/CurrentReadingSession';
 import ReadingSessionProgress from 'models/ReadingSessionProgress';
 import DateReadingSessions from 'collections/DateReadingSessions';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
@@ -11,6 +10,7 @@ import DateReadingSessionsComponent from 'components/DateReadingSessionsComponen
 import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
 import DateReadingSession from 'models/DateReadingSession';
 import { fetchBook } from 'api/BookApi';
+import { fetchCurrentReadingSession } from 'api/ReadingSessionApi';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -91,16 +91,14 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     retrieveCurrentReadingSession() {
-        let currentReadingSession = new CurrentReadingSession({bookUuid: this.props.bookUuid});
-        currentReadingSession.fetchAndCreateIfMissing({
-            success: this.successOnRetrieveCurrentReadingSession,
-            error: this.errorOnRetrieveCurrentReadingSession
-        });
+        fetchCurrentReadingSession(this.props.bookUuid)
+            .then(response => this.successOnRetrieveCurrentReadingSession(response.data))
+            .catch(error => this.errorOnRetrieveCurrentReadingSession(error));
     }
 
     successOnRetrieveCurrentReadingSession(currentReadingSession) {
         this.setState({
-            currentReadingSession: Object.assign(currentReadingSession.attributes)
+            currentReadingSession
         });
         this.retrieveReadingSessionProgress();
         this.retrieveDateReadingSessions();
@@ -108,7 +106,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     errorOnRetrieveCurrentReadingSession(error) {
         this.setState({
-            message: localizer.localize('reading-session-retrieve-error', error.status)
+            message: localizer.localize('reading-session-retrieve-error', error.response.status)
         });
     }
 
