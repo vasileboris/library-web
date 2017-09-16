@@ -1,6 +1,7 @@
 import Backbone from 'backbone';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
 
 const ReadingSessionsView = Backbone.View.extend({
@@ -11,7 +12,10 @@ const ReadingSessionsView = Backbone.View.extend({
     },
 
     render: function () {
-        ReactDOM.render(React.createElement(CurrentReadingSessionComponent, {bookUuid: this.bookUuid}), this.el);
+        render(
+            <CurrentReadingSessionComponent bookUuid={this.bookUuid}/>,
+            this.el
+        );
         return this;
     },
 

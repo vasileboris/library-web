@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function BookFigureComponent (props) {
     return (
         <figure className="figure-book">
-            <BookImageComponent book={props.book.image}/>
+            <BookImageComponent image={props.book.image}/>
             <figcaption className="title">{props.book.title}</figcaption>
         </figure>
     );

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
-import Book from 'models/Book';
 import CurrentReadingSession from 'models/CurrentReadingSession';
 import ReadingSessionProgress from 'models/ReadingSessionProgress';
 import DateReadingSessions from 'collections/DateReadingSessions';
@@ -11,6 +10,7 @@ import MessageComponent from 'components/MessageComponent';
 import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
 import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
 import DateReadingSession from 'models/DateReadingSession';
+import { fetchBook } from 'api/BookApi';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -73,9 +73,8 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     retrieveBook() {
-        let book = new Book({uuid: this.props.bookUuid});
-        book.fetch()
-            .then(book => this.successOnRetrieveBook(book))
+        fetchBook(this.props.bookUuid)
+            .then(response => this.successOnRetrieveBook(response.data))
             .catch(error => this.errorOnRetrieveBook(error));
     }
 
@@ -87,7 +86,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     errorOnRetrieveBook(error) {
         this.setState({
-            message: localizer.localize('book-retrieve-error', error.status)
+            message: localizer.localize('book-retrieve-error', error.response.status)
         });
     }
 
