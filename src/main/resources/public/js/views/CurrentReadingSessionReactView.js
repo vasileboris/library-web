@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import CurrentReadingSessionContainer from 'components/CurrentReadingSessionContainer';
+import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
 
 const ReadingSessionsView = Backbone.View.extend({
     tagName: 'div',
@@ -16,7 +16,7 @@ const ReadingSessionsView = Backbone.View.extend({
     render: function () {
         render(
             <Provider store={this.store}>
-                <CurrentReadingSessionContainer bookUuid={this.bookUuid}/>
+                <CurrentReadingSessionComponent bookUuid={this.bookUuid}/>
             </Provider>,
             this.el
         );

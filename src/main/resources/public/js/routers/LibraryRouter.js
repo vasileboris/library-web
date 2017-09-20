@@ -1,8 +1,13 @@
 import Backbone from 'backbone';
 import HeaderView from 'views/HeaderView';
 import LibraryView from 'views/LibraryView';
-import { createStore } from 'redux';
+import {
+    createStore,
+    applyMiddleware
+} from 'redux';
 import library  from 'reducers';
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 let LibraryRouter = Backbone.Router.extend({
     routes: {
@@ -11,7 +16,7 @@ let LibraryRouter = Backbone.Router.extend({
     },
 
     initialize: function () {
-        this.store = createStore(library);
+        this.store = createStore(library, composeWithDevTools(applyMiddleware(thunk)));
 
         this.headerView = new HeaderView();
         this.headerView.render();
