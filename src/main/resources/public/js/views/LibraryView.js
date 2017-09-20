@@ -11,9 +11,9 @@ const LibraryView = Backbone.View.extend({
         this.render();
     },
 
-    manageCurrentReadingSession: function (bookUuid) {
+    manageCurrentReadingSession: function (bookUuid, store) {
         this.cleanup();
-        this.currentView = new CurrentReadingSessionReactView(bookUuid);
+        this.currentView = new CurrentReadingSessionReactView(bookUuid, store);
         this.render();
     },
 

@@ -1,6 +1,8 @@
 import Backbone from 'backbone';
 import HeaderView from 'views/HeaderView';
 import LibraryView from 'views/LibraryView';
+import { createStore } from 'redux';
+import library  from 'reducers';
 
 let LibraryRouter = Backbone.Router.extend({
     routes: {
@@ -9,6 +11,8 @@ let LibraryRouter = Backbone.Router.extend({
     },
 
     initialize: function () {
+        this.store = createStore(library);
+
         this.headerView = new HeaderView();
         this.headerView.render();
 
@@ -23,7 +27,7 @@ let LibraryRouter = Backbone.Router.extend({
     },
 
     manageCurrentReadingSession: function (bookUuid) {
-        this.libraryView.manageCurrentReadingSession(bookUuid);
+        this.libraryView.manageCurrentReadingSession(bookUuid, this.store);
     }
 
 });
