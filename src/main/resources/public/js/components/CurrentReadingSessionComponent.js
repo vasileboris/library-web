@@ -10,7 +10,6 @@ class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: props.message,//TODO - use it for validation locally!!!
             operation: 'add',
             dateReadingSession: {}
         };
@@ -20,7 +19,7 @@ class CurrentReadingSessionComponent extends React.Component {
     render() {
         const book = this.props.book;
         const readingSessionProgress = this.props.readingSessionProgress;
-        const message = this.state.message;
+        const message = this.props.message;
         const dateReadingSessions = this.props.currentReadingSession.dateReadingSessions;
 
         return (

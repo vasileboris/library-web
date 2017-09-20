@@ -4,6 +4,7 @@ import {
 import { combineReducers } from 'redux';
 
 const initialState = {
+    message: '',
     book: {
         uuid: 'c168f17a-3a7c-4edc-9551-57cfc64f732b',
         isbn10: 'isbn10',
@@ -33,6 +34,10 @@ const initialState = {
     }
 };
 
+function message(message = initialState.message, action) {
+    return message;
+}
+
 function book(book = initialState.book, action) {
     return book;
 }
@@ -53,6 +58,7 @@ function readingSessionProgress(readingSessionProgress = initialState.readingSes
 }
 
 const library = combineReducers({
+    message,
     book,
     currentReadingSession,
     readingSessionProgress
