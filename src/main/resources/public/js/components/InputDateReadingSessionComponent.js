@@ -11,7 +11,7 @@ function InputDateReadingSessionComponent(props) {
                    placeholder={localizer.localize('date-reading-session-date-text')}
                    value={props.dateReadingSession.date ? props.dateReadingSession.date : ""}
                    onChange={props.onInputChange}
-                   readOnly={props.operation === 'add' ? false : true}/>
+                   readOnly={props.operation !== 'add'}/>
             <input type="text"
                    name="lastReadPage"
                    className="text"
@@ -53,7 +53,8 @@ InputDateReadingSessionComponent.propTypes = {
         ])
     }),
     onInputChange: PropTypes.func,
-    onButtonClick: PropTypes.func
+    onAddButtonClick: PropTypes.func,
+    onUpdateButtonClick: PropTypes.func
 };
 
 export default InputDateReadingSessionComponent;
