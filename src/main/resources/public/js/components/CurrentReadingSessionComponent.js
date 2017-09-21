@@ -6,7 +6,8 @@ import ReadingSessionProgressComponent from 'components/ReadingSessionProgressCo
 import MessageComponent from 'components/MessageComponent';
 import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
 import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
-import { fetchBookAction } from 'actions/index';
+import { fetchBookAction } from 'actions/BookAction';
+import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -56,14 +57,11 @@ class CurrentReadingSessionComponent extends React.Component {
 
     componentDidMount() {
         this.retrieveBook();
+        this.retrieveCurrentReadingSession();
     }
 
     componentWillUnmount() {
         console.log('Moving away from react!')
-    }
-
-    retrieveBook() {
-        this.props.dispatch(fetchBookAction(this.props.bookUuid))
     }
 
     onInputChange(e) {
@@ -73,6 +71,15 @@ class CurrentReadingSessionComponent extends React.Component {
             dateReadingSession
         });
     }
+
+    retrieveBook() {
+        this.props.dispatch(fetchBookAction(this.props.bookUuid))
+    }
+
+    retrieveCurrentReadingSession() {
+        this.props.dispatch(fetchCurrentReadingSessionAction(this.props.bookUuid))
+    }
+
 }
 
 CurrentReadingSessionComponent.propTypes = {
