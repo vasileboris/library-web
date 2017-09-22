@@ -2,18 +2,22 @@ import Backbone from 'backbone';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
 
 const ReadingSessionsView = Backbone.View.extend({
     tagName: 'div',
 
-    initialize: function (bookUuid) {
+    initialize: function (bookUuid, store) {
         this.bookUuid = bookUuid;
+        this.store = store;
     },
 
     render: function () {
         render(
-            <CurrentReadingSessionComponent bookUuid={this.bookUuid}/>,
+            <Provider store={this.store}>
+                <CurrentReadingSessionComponent bookUuid={this.bookUuid}/>
+            </Provider>,
             this.el
         );
         return this;

@@ -5,7 +5,7 @@ function readingSessionProgressEndpoint(bookUuid, uuid) {
     return `${BOOKS_ENDPOINT}/${bookUuid}/reading-sessions/${uuid}/progress`;
 }
 
-export function fetchCurrentReadingSessionProgress(bookUuid, uuid) {
+export function fetchReadingSessionProgress(bookUuid, uuid) {
     return new Promise((resolve, reject) => {
         axios.get(readingSessionProgressEndpoint(bookUuid, uuid))
             .then(response => resolve(response))
