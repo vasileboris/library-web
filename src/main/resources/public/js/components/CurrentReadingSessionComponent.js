@@ -6,16 +6,16 @@ import ReadingSessionProgressComponent from 'components/ReadingSessionProgressCo
 import MessageComponent from 'components/MessageComponent';
 import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
 import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
+import {
+    updateDateReadingSessionFieldAction,
+    createDateReadingSessionFieldAction
+} from 'actions/DateReadingSessionAction';
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            operation: 'add',
-            dateReadingSession: {}
-        };
         this.onInputChange = this.onInputChange.bind(this);
     }
 
@@ -40,15 +40,15 @@ class CurrentReadingSessionComponent extends React.Component {
                     <MessageComponent message={message}/>
                 ) : null}
                 <InputDateReadingSessionComponent
-                    operation={this.state.operation}
-                    dateReadingSession={this.state.dateReadingSession}
+                    operation={this.props.operation}
+                    dateReadingSession={this.props.dateReadingSession}
                     onInputChange={this.onInputChange}
-                    onAddButtonClick={() => this.props.onAddButtonClick(this.state.dateReadingSession)}
+                    onAddButtonClick={() => this.createDateReadingSession()}
                     onUpdateButtonClick={this.props.onUpdateButtonClick}/>
                     {dateReadingSessions && dateReadingSessions.length > 0 ? (
                         <DateReadingSessionsComponent
                             dateReadingSessions={this.props.currentReadingSession.dateReadingSessions}
-                            onEditClick={() => this.props.onEditDateReadingSessionClick(this.state.dateReadingSession)}
+                            onEditClick={() => this.props.onEditDateReadingSessionClick(this.props.dateReadingSession)}
                             onDeleteClick={this.props.onDeleteDateReadingSessionClick}/>
                     ) : null}
             </div>
@@ -65,11 +65,7 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onInputChange(e) {
-        const dateReadingSession = Object.assign({}, this.state.dateReadingSession);
-        dateReadingSession[e.target.name] = e.target.value;
-        this.setState({
-            dateReadingSession
-        });
+        this.props.dispatch(updateDateReadingSessionFieldAction(e.target.name, e.target.value));
     }
 
     retrieveBook() {
@@ -80,6 +76,11 @@ class CurrentReadingSessionComponent extends React.Component {
         this.props.dispatch(fetchCurrentReadingSessionAction(this.props.bookUuid))
     }
 
+    createDateReadingSession() {
+        this.props.dispatch(createDateReadingSessionFieldAction(this.props.bookUuid,
+            this.props.currentReadingSession.uuid,
+            this.props.dateReadingSession));
+    }
 }
 
 CurrentReadingSessionComponent.propTypes = {

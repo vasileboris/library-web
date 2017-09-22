@@ -7,7 +7,13 @@ export function fetchReadingSessionProgressAction(bookUuid, uuid) {
     return function (dispatch) {
         fetchReadingSessionProgress(bookUuid, uuid)
             .then(readingSessionProgress => dispatch(receiveReadingSessionProgressAction(readingSessionProgress.data)))
-            .catch(error => dispatch(receiveMessageAction(error)));
+            .catch(error => {
+                if(error.response.status === 404) {
+                    dispatch(receiveReadingSessionProgressAction(null));
+                } else {
+                    dispatch(receiveMessageAction(error.response.status));
+                }
+            });
     }
 }
 
