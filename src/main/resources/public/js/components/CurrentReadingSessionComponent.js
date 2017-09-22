@@ -7,16 +7,22 @@ import MessageComponent from 'components/MessageComponent';
 import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
 import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
 import {
-    updateDateReadingSessionFieldAction,
-    createDateReadingSessionFieldAction
+    changeDateReadingSessionFieldAction,
+    changeDateReadingSessionAction,
+    createDateReadingSessionAction,
+    updateDateReadingSessionAction
 } from 'actions/DateReadingSessionAction';
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
+import { changeOperationAction } from 'actions/OperationAction';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
         super(props);
         this.onInputChange = this.onInputChange.bind(this);
+        this.onAddButtonClick = this.onAddButtonClick.bind(this);
+        this.onEditDateReadingSessionClick = this.onEditDateReadingSessionClick.bind(this);
+        this.onUpdateButtonClick = this.onUpdateButtonClick.bind(this);
     }
 
     render() {
@@ -43,12 +49,12 @@ class CurrentReadingSessionComponent extends React.Component {
                     operation={this.props.operation}
                     dateReadingSession={this.props.dateReadingSession}
                     onInputChange={this.onInputChange}
-                    onAddButtonClick={() => this.createDateReadingSession()}
-                    onUpdateButtonClick={this.props.onUpdateButtonClick}/>
+                    onAddButtonClick={this.onAddButtonClick}
+                    onUpdateButtonClick={this.onUpdateButtonClick}/>
                     {dateReadingSessions && dateReadingSessions.length > 0 ? (
                         <DateReadingSessionsComponent
                             dateReadingSessions={this.props.currentReadingSession.dateReadingSessions}
-                            onEditClick={() => this.props.onEditDateReadingSessionClick(this.props.dateReadingSession)}
+                            onEditClick={this.onEditDateReadingSessionClick}
                             onDeleteClick={this.props.onDeleteDateReadingSessionClick}/>
                     ) : null}
             </div>
@@ -65,7 +71,7 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onInputChange(e) {
-        this.props.dispatch(updateDateReadingSessionFieldAction(e.target.name, e.target.value));
+        this.props.dispatch(changeDateReadingSessionFieldAction(e.target.name, e.target.value));
     }
 
     retrieveBook() {
@@ -76,8 +82,19 @@ class CurrentReadingSessionComponent extends React.Component {
         this.props.dispatch(fetchCurrentReadingSessionAction(this.props.bookUuid))
     }
 
-    createDateReadingSession() {
-        this.props.dispatch(createDateReadingSessionFieldAction(this.props.bookUuid,
+    onAddButtonClick() {
+        this.props.dispatch(createDateReadingSessionAction(this.props.bookUuid,
+            this.props.currentReadingSession.uuid,
+            this.props.dateReadingSession));
+    }
+
+    onEditDateReadingSessionClick(dateReadingSession) {
+        this.props.dispatch(changeOperationAction('edit'));
+        this.props.dispatch(changeDateReadingSessionAction(dateReadingSession));
+    }
+
+    onUpdateButtonClick() {
+        this.props.dispatch(updateDateReadingSessionAction(this.props.bookUuid,
             this.props.currentReadingSession.uuid,
             this.props.dateReadingSession));
     }

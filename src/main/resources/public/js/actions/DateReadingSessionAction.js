@@ -1,32 +1,37 @@
-import { validateDateReadingSession, createDateReadingSession } from 'api/DateReadingSessionApi';
+import {
+    validateDateReadingSession,
+    createDateReadingSession,
+    updateDateReadingSession
+} from 'api/DateReadingSessionApi';
 import { receiveMessageAction } from 'actions/MessageAction';
+import { changeOperationAction } from 'actions/OperationAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 
-export const UPDATE_DATE_READING_SESSION = 'UPDATE_DATE_READING_SESSION';
+export const CHANGE_DATE_READING_SESSION = 'CHANGE_DATE_READING_SESSION';
 
-export function updateDateReadingSessionFieldAction(field, value) {
+export function changeDateReadingSessionFieldAction(field, value) {
     return {
-        type: UPDATE_DATE_READING_SESSION,
+        type: CHANGE_DATE_READING_SESSION,
         payload: {[field]: value}
 
     }
 }
 
-export function updateDateReadingSessionAction(dateReadingSession) {
+export function changeDateReadingSessionAction(dateReadingSession) {
     return {
-        type: UPDATE_DATE_READING_SESSION,
+        type: CHANGE_DATE_READING_SESSION,
         payload: dateReadingSession
 
     }
 }
 
-export function createDateReadingSessionFieldAction(bookUuid, uuid, dateReadingSession) {
+export function createDateReadingSessionAction(bookUuid, uuid, dateReadingSession) {
     return function (dispatch) {
         validateDateReadingSession(dateReadingSession)
             .then(() => createDateReadingSession(bookUuid, uuid, dateReadingSession))
             .then(() => {
                 dispatch(receiveMessageAction(null));
-                dispatch(updateDateReadingSessionAction({
+                dispatch(changeDateReadingSessionAction({
                     date: null,
                     lastReadPage: null,
                     bookmark: null
@@ -37,3 +42,20 @@ export function createDateReadingSessionFieldAction(bookUuid, uuid, dateReadingS
     }
 }
 
+export function updateDateReadingSessionAction(bookUuid, uuid, dateReadingSession) {
+    return function (dispatch) {
+        validateDateReadingSession(dateReadingSession)
+            .then(() => updateDateReadingSession(bookUuid, uuid, dateReadingSession))
+            .then(() => {
+                dispatch(receiveMessageAction(null));
+                dispatch(changeOperationAction('add'))
+                dispatch(changeDateReadingSessionAction({
+                    date: null,
+                    lastReadPage: null,
+                    bookmark: null
+                }));
+                dispatch(fetchCurrentReadingSessionAction(bookUuid))
+            })
+            .catch(error => dispatch(receiveMessageAction(error)));
+    }
+}
