@@ -1,7 +1,8 @@
 import {
     validateDateReadingSession,
     createDateReadingSession,
-    updateDateReadingSession
+    updateDateReadingSession,
+    deleteDateReadingSession
 } from 'api/DateReadingSessionApi';
 import { receiveMessageAction } from 'actions/MessageAction';
 import { changeOperationAction } from 'actions/OperationAction';
@@ -29,15 +30,7 @@ export function createDateReadingSessionAction(bookUuid, uuid, dateReadingSessio
     return function (dispatch) {
         validateDateReadingSession(dateReadingSession)
             .then(() => createDateReadingSession(bookUuid, uuid, dateReadingSession))
-            .then(() => {
-                dispatch(receiveMessageAction(null));
-                dispatch(changeDateReadingSessionAction({
-                    date: null,
-                    lastReadPage: null,
-                    bookmark: null
-                }));
-                dispatch(fetchCurrentReadingSessionAction(bookUuid))
-            })
+            .then(() => dispatchCurrentReadingSessionData(dispatch, bookUuid))
             .catch(error => dispatch(receiveMessageAction(error)));
     }
 }
@@ -46,16 +39,27 @@ export function updateDateReadingSessionAction(bookUuid, uuid, dateReadingSessio
     return function (dispatch) {
         validateDateReadingSession(dateReadingSession)
             .then(() => updateDateReadingSession(bookUuid, uuid, dateReadingSession))
-            .then(() => {
-                dispatch(receiveMessageAction(null));
-                dispatch(changeOperationAction('add'))
-                dispatch(changeDateReadingSessionAction({
-                    date: null,
-                    lastReadPage: null,
-                    bookmark: null
-                }));
-                dispatch(fetchCurrentReadingSessionAction(bookUuid))
-            })
+            .then(() => dispatchCurrentReadingSessionData(dispatch, bookUuid))
             .catch(error => dispatch(receiveMessageAction(error)));
     }
+}
+
+export function deleteDateReadingSessionAction(bookUuid, uuid, date) {
+    return function (dispatch) {
+        deleteDateReadingSession(bookUuid, uuid, date)
+            .then(() => dispatchCurrentReadingSessionData(dispatch, bookUuid))
+            .catch(error => dispatch(receiveMessageAction(error)));
+    }
+
+}
+
+function dispatchCurrentReadingSessionData(dispatch, bookUuid) {
+    dispatch(receiveMessageAction(null));
+    dispatch(changeOperationAction('add'))
+    dispatch(changeDateReadingSessionAction({
+        date: null,
+        lastReadPage: null,
+        bookmark: null
+    }));
+    dispatch(fetchCurrentReadingSessionAction(bookUuid))
 }
