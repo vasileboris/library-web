@@ -24,9 +24,9 @@ class CurrentReadingSessionComponent extends React.Component {
             dateReadingSession: {}
         };
         this.onInputChange = this.onInputChange.bind(this);
-        this.onAddButtonClick = this.onAddButtonClick.bind(this);
+        this.onAddDateReadingSessionClick = this.onAddDateReadingSessionClick.bind(this);
         this.onEditDateReadingSessionClick = this.onEditDateReadingSessionClick.bind(this);
-        this.onUpdateButtonClick = this.onUpdateButtonClick.bind(this);
+        this.onUpdateDateReadingSessionClick = this.onUpdateDateReadingSessionClick.bind(this);
         this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
     }
 
@@ -48,8 +48,8 @@ class CurrentReadingSessionComponent extends React.Component {
                     operation={this.state.operation}
                     dateReadingSession={this.state.dateReadingSession}
                     onInputChange={this.onInputChange}
-                    onAddButtonClick={this.onAddButtonClick}
-                    onUpdateButtonClick={this.onUpdateButtonClick}/>
+                    onAddButtonClick={this.onAddDateReadingSessionClick}
+                    onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
                 {this.state.dateReadingSessions ? (
                     <DateReadingSessionsComponent
                         dateReadingSessions={this.state.dateReadingSessions}
@@ -133,7 +133,7 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
-    onAddButtonClick() {
+    onAddDateReadingSessionClick() {
         validateDateReadingSession(this.state.dateReadingSession)
             .then(() => createDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession))
             .then(() => this.successOnAddDateReadingSession())
@@ -156,7 +156,7 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
-    onUpdateButtonClick() {
+    onUpdateDateReadingSessionClick() {
         validateDateReadingSession(this.state.dateReadingSession)
             .then(() => updateDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession))
             .then(() => this.successOnUpdateDateReadingSession())
