@@ -3,7 +3,7 @@ import Backbone from 'backbone';
 import templateHtml from 'text!templates/Header.html';
 
 const HeaderView = Backbone.View.extend({
-    el: '#header-div',
+    el: '.page-header',
 
     template: _.template(templateHtml),
 

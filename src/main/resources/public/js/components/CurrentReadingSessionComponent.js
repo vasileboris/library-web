@@ -36,14 +36,14 @@ class CurrentReadingSessionComponent extends React.Component {
 
         return (
             <div>
-                <div className="results">
+                <section className="results">
                     {book ? (
                         <ReadonlyBookComponent book={book}/>
                     ) : null }
                     {readingSessionProgress ? (
                         <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
                     ) : null}
-                </div>
+                </section>
                 {message ? (
                     <MessageComponent message={message}/>
                 ) : null}

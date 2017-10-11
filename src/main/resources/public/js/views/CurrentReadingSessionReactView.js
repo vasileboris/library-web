@@ -8,6 +8,8 @@ import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComp
 const ReadingSessionsView = Backbone.View.extend({
     tagName: 'div',
 
+    className: 'content',
+
     initialize: function (bookUuid, store) {
         this.bookUuid = bookUuid;
         this.store = store;

@@ -3,7 +3,7 @@ import BooksView from 'views/BooksView';
 import CurrentReadingSessionReactView from 'views/CurrentReadingSessionReactView';
 
 const LibraryView = Backbone.View.extend({
-    el: '#content-div',
+    el: '.page-content',
 
     manageBooks: function () {
         this.cleanup();
