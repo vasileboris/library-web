@@ -35,7 +35,7 @@ class CurrentReadingSessionComponent extends React.Component {
         const dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [];
 
         return (
-            <div>
+            <div className="content">
                 <section className="results">
                     {book ? (
                         <ReadonlyBookComponent book={book}/>
@@ -44,21 +44,25 @@ class CurrentReadingSessionComponent extends React.Component {
                         <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
                     ) : null}
                 </section>
-                {message ? (
-                    <MessageComponent message={message}/>
-                ) : null}
-                <InputDateReadingSessionComponent
-                    operation={this.props.operation}
-                    dateReadingSession={this.props.dateReadingSession}
-                    onInputChange={this.onInputChange}
-                    onAddButtonClick={this.onAddDateReadingSessionClick}
-                    onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
+                <section>
+                    {message ? (
+                        <MessageComponent message={message}/>
+                    ) : null}
+                    <InputDateReadingSessionComponent
+                        operation={this.props.operation}
+                        dateReadingSession={this.props.dateReadingSession}
+                        onInputChange={this.onInputChange}
+                        onAddButtonClick={this.onAddDateReadingSessionClick}
+                        onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
+                </section>
+                <section>
                     {dateReadingSessions && dateReadingSessions.length > 0 ? (
                         <DateReadingSessionsComponent
                             dateReadingSessions={this.props.currentReadingSession.dateReadingSessions}
                             onEditClick={this.onEditDateReadingSessionClick}
                             onDeleteClick={this.onDeleteDateReadingSessionClick}/>
                     ) : null}
+                </section>
             </div>
         );
     }
