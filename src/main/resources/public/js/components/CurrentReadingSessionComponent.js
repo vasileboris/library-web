@@ -32,6 +32,8 @@ class CurrentReadingSessionComponent extends React.Component {
         this.onUpdateDateReadingSessionClick = this.onUpdateDateReadingSessionClick.bind(this);
         this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
         this.retrieveBook = this.retrieveBook.bind(this);
+        this.retrieveCurrentReadingSession = this.retrieveCurrentReadingSession.bind(this);
+        this.retrieveReadingSessionProgress = this.retrieveReadingSessionProgress.bind(this);
     }
 
     render() {
@@ -66,7 +68,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     componentDidMount() {
         run(this.retrieveBook);
-        this.retrieveCurrentReadingSession();
+        run(this.retrieveCurrentReadingSession);
     }
 
     componentWillUnmount() {
@@ -78,7 +80,6 @@ class CurrentReadingSessionComponent extends React.Component {
             let book = yield fetchBook(this.props.bookUuid);
             this.successOnRetrieveBook(book);
         } catch(error) {
-            console.log('Error on retrieving book - ' + this.props.bookUuid);
             this.errorOnApiOperation(error)
         }
     }
@@ -89,10 +90,13 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
-    retrieveCurrentReadingSession() {
-        fetchCurrentReadingSession(this.props.bookUuid)
-            .then(response => this.successOnRetrieveCurrentReadingSession(response.data))
-            .catch(error => this.errorOnApiOperation(error));
+    *retrieveCurrentReadingSession() {
+        try {
+            const currentReadingSession = yield fetchCurrentReadingSession(this.props.bookUuid);
+            this.successOnRetrieveCurrentReadingSession(currentReadingSession);
+        } catch(error) {
+            this.errorOnApiOperation(error);
+        }
     }
 
     successOnRetrieveCurrentReadingSession(currentReadingSession) {
@@ -100,12 +104,6 @@ class CurrentReadingSessionComponent extends React.Component {
             currentReadingSession
         });
         this.retrieveDateReadingSessions();
-    }
-
-    retrieveReadingSessionProgress() {
-        fetchCurrentReadingSessionProgress(this.props.bookUuid, this.state.currentReadingSession.uuid)
-            .then(readingSessionProgress => this.successOnRetrieveReadingSessionProgress(readingSessionProgress.data))
-            .catch(() => this.errorOnRetrieveReadingSessionProgress());
     }
 
     successOnRetrieveReadingSessionProgress(readingSessionProgress) {
@@ -130,7 +128,18 @@ class CurrentReadingSessionComponent extends React.Component {
         this.setState({
             dateReadingSessions
         });
-        this.retrieveReadingSessionProgress();
+        run(this.retrieveReadingSessionProgress);
+    }
+
+    *retrieveReadingSessionProgress() {
+        try {
+            const currentReadingSessionProgress = yield fetchCurrentReadingSessionProgress(
+                this.props.bookUuid,
+                this.state.currentReadingSession.uuid);
+            this.successOnRetrieveReadingSessionProgress(currentReadingSessionProgress);
+        } catch(error) {
+            this.errorOnRetrieveReadingSessionProgress();
+        }
     }
 
     onInputChange(e) {
