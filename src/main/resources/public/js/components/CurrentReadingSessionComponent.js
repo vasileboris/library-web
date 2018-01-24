@@ -61,7 +61,7 @@ class CurrentReadingSessionComponent extends React.Component {
                     <DateReadingSessionsComponent
                         dateReadingSessions={this.state.dateReadingSessions}
                         onEditClick={this.onEditDateReadingSessionClick}
-                        onDeleteClick={this.onDeleteDateReadingSessionClick}/>
+                        onDeleteClick={date => run(this.onDeleteDateReadingSessionClick, date)}/>
                 ) : null}
             </div>
         );
@@ -121,8 +121,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     *retrieveDateReadingSessions() {
         try {
-            let dateReadingSessions = yield fetchDateReadingSessions(
-                this.props.bookUuid,
+            let dateReadingSessions = yield fetchDateReadingSessions(this.props.bookUuid,
                 this.state.currentReadingSession.uuid);
             this.successOnRetrieveDateReadingSessions(dateReadingSessions);
         } catch(error) {
@@ -139,8 +138,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     *retrieveReadingSessionProgress() {
         try {
-            const currentReadingSessionProgress = yield fetchCurrentReadingSessionProgress(
-                this.props.bookUuid,
+            const currentReadingSessionProgress = yield fetchCurrentReadingSessionProgress(this.props.bookUuid,
                 this.state.currentReadingSession.uuid);
             this.successOnRetrieveReadingSessionProgress(currentReadingSessionProgress);
         } catch(error) {
@@ -159,7 +157,9 @@ class CurrentReadingSessionComponent extends React.Component {
     *onAddDateReadingSessionClick() {
         try {
             yield validateDateReadingSession(this.state.dateReadingSession);
-            yield createDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession);
+            yield createDateReadingSession(this.props.bookUuid,
+                this.state.currentReadingSession.uuid,
+                this.state.dateReadingSession);
             this.successOnAddDateReadingSession();
         } catch(error) {
             this.errorOnApiOperation(error);
@@ -185,7 +185,9 @@ class CurrentReadingSessionComponent extends React.Component {
     *onUpdateDateReadingSessionClick() {
         try {
             yield validateDateReadingSession(this.state.dateReadingSession);
-            yield updateDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession);
+            yield updateDateReadingSession(this.props.bookUuid,
+                this.state.currentReadingSession.uuid,
+                this.state.dateReadingSession);
             this.successOnUpdateDateReadingSession();
         } catch(error){
             this.errorOnApiOperation(error);
@@ -201,10 +203,15 @@ class CurrentReadingSessionComponent extends React.Component {
         run(this.retrieveDateReadingSessions);
     }
 
-    onDeleteDateReadingSessionClick(date) {
-        deleteDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, date)
-            .then(() => run(this.retrieveDateReadingSessions))
-            .catch(error => this.errorOnApiOperation(error));
+    *onDeleteDateReadingSessionClick(date) {
+        try {
+            yield deleteDateReadingSession(this.props.bookUuid,
+                this.state.currentReadingSession.uuid,
+                date);
+            run(this.retrieveDateReadingSessions);
+        } catch(error) {
+            this.errorOnApiOperation(error);
+        }
     }
 
     errorOnApiOperation(message) {

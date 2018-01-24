@@ -1,5 +1,5 @@
-export function run(taskDef) {
-    let task = taskDef();
+export function run(taskDef, ...params) {
+    let task = taskDef(...params);
 
     nextStep(task.next());
 
