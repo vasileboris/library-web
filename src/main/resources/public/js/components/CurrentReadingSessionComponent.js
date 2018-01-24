@@ -15,6 +15,9 @@ import {
     deleteDateReadingSession,
     validateDateReadingSession
 } from 'api/DateReadingSessionApi';
+import { run } from 'middleware/PromiseGenerator';
+//Needed for Uncaught ReferenceError: regeneratorRuntime is not defined
+import 'babel-polyfill';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -28,6 +31,7 @@ class CurrentReadingSessionComponent extends React.Component {
         this.onEditDateReadingSessionClick = this.onEditDateReadingSessionClick.bind(this);
         this.onUpdateDateReadingSessionClick = this.onUpdateDateReadingSessionClick.bind(this);
         this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
+        this.retrieveBook = this.retrieveBook.bind(this);
     }
 
     render() {
@@ -61,7 +65,7 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.retrieveBook();
+        run(this.retrieveBook);
         this.retrieveCurrentReadingSession();
     }
 
@@ -69,10 +73,14 @@ class CurrentReadingSessionComponent extends React.Component {
         console.log('Moving away from react!')
     }
 
-    retrieveBook() {
-        fetchBook(this.props.bookUuid)
-            .then(response => this.successOnRetrieveBook(response.data))
-            .catch(error => this.errorOnApiOperation(error));
+    *retrieveBook () {
+        try {
+            let book = yield fetchBook(this.props.bookUuid);
+            this.successOnRetrieveBook(book);
+        } catch(error) {
+            console.log('Error on retrieving book - ' + this.props.bookUuid);
+            this.errorOnApiOperation(error)
+        }
     }
 
     successOnRetrieveBook(book) {
