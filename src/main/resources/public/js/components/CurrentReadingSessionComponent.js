@@ -15,7 +15,7 @@ import {
     deleteDateReadingSession,
     validateDateReadingSession
 } from 'api/DateReadingSessionApi';
-import { run } from 'middleware/PromiseGenerator';
+import { run } from 'middleware/PromiseGeneratorRunner';
 //Needed for Uncaught ReferenceError: regeneratorRuntime is not defined
 import 'babel-polyfill';
 
