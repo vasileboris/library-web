@@ -6,7 +6,7 @@ export function run(taskDef) {
     function nextStep(result) {
         if(!result.done) {
             result.value
-                .then(response => nextStep(task.next(response.data)))
+                .then(response => nextStep(task.next(response ? response.data : undefined)))
                 .catch(error => task.throw(error))
         }
     }
