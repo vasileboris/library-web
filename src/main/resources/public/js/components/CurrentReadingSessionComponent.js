@@ -56,7 +56,7 @@ class CurrentReadingSessionComponent extends React.Component {
                     dateReadingSession={this.state.dateReadingSession}
                     onInputChange={this.onInputChange}
                     onAddButtonClick={() => run(this.onAddDateReadingSessionClick)}
-                    onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
+                    onUpdateButtonClick={() => run(this.onUpdateDateReadingSessionClick)}/>
                 {this.state.dateReadingSessions ? (
                     <DateReadingSessionsComponent
                         dateReadingSessions={this.state.dateReadingSessions}
@@ -182,11 +182,14 @@ class CurrentReadingSessionComponent extends React.Component {
         });
     }
 
-    onUpdateDateReadingSessionClick() {
-        validateDateReadingSession(this.state.dateReadingSession)
-            .then(() => updateDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession))
-            .then(() => this.successOnUpdateDateReadingSession())
-            .catch(error => this.errorOnApiOperation(error));
+    *onUpdateDateReadingSessionClick() {
+        try {
+            yield validateDateReadingSession(this.state.dateReadingSession);
+            yield updateDateReadingSession(this.props.bookUuid, this.state.currentReadingSession.uuid, this.state.dateReadingSession);
+            this.successOnUpdateDateReadingSession();
+        } catch(error){
+            this.errorOnApiOperation(error);
+        }
     }
 
     successOnUpdateDateReadingSession() {
