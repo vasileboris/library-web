@@ -1,13 +1,14 @@
-export function run(taskDef, ...params) {
-    let task = taskDef(...params);
+export function run(generator, ...params) {
+    const iterator = generator(...params);
 
-    nextStep(task.next());
+    iterate(iterator.next());
 
-    function nextStep(result) {
+    function iterate(result) {
         if(!result.done) {
-            result.value
-                .then(response => nextStep(task.next(response ? response.data : undefined)))
-                .catch(error => task.throw(error))
+            const promise = result.value;
+            promise
+                .then(response => iterate(iterator.next(response ? response.data : undefined)))
+                .catch(error => iterator.throw(error))
         }
     }
 
