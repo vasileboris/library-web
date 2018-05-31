@@ -16,6 +16,8 @@ import {
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeOperationAction } from 'actions/OperationAction';
+//Needed for Uncaught ReferenceError: regeneratorRuntime is not defined
+import 'babel-polyfill';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
