@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchBook } from 'api/BookApi';
 import { receiveBookAction, FETCH_BOOK } from 'actions/BookAction';
 import { receiveMessageAction } from 'actions/MessageAction';
@@ -9,7 +9,6 @@ function* callFetchBook(action) {
         yield put(receiveBookAction(response.data));
     } catch(error) {
         yield put(receiveMessageAction(error));
-
     }
 }
 
