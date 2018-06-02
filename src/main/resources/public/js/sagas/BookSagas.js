@@ -3,7 +3,7 @@ import { fetchBook } from 'api/BookApi';
 import { receiveBookAction, FETCH_BOOK } from 'actions/BookAction';
 import { receiveMessageAction } from 'actions/MessageAction';
 
-function* fetchBookWorker(action) {
+function* callFetchBook(action) {
     try {
         const response = yield call(fetchBook, action.payload);
         yield put(receiveBookAction(response.data));
@@ -13,6 +13,6 @@ function* fetchBookWorker(action) {
     }
 }
 
-export function* fetchBookSaga() {
-    yield takeLatest(FETCH_BOOK, fetchBookWorker);
+export function* watchFetchBook() {
+    yield takeLatest(FETCH_BOOK, callFetchBook);
 }

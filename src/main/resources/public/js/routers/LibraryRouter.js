@@ -8,7 +8,7 @@ import {
 import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import { fetchBookSaga } from 'sagas/BookSagas';
+import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const LibraryRouter = Backbone.Router.extend({
@@ -20,10 +20,9 @@ const LibraryRouter = Backbone.Router.extend({
     initialize: function () {
         const sagaMiddleware = createSagaMiddleware();
 
-        this.store = createStore(currentReadingSessionReducer,
-            composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)));
+        this.store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)));
 
-        sagaMiddleware.run(fetchBookSaga);
+        sagaMiddleware.run(rootSaga);
 
         this.headerView = new HeaderView();
         this.headerView.render();
