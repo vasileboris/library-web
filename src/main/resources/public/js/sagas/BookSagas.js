@@ -5,7 +5,8 @@ import { receiveMessageAction } from 'actions/MessageAction';
 
 function* callFetchBook(action) {
     try {
-        const response = yield call(fetchBook, action.payload);
+        const bookUuid = action.payload;
+        const response = yield call(fetchBook, bookUuid);
         yield put(receiveBookAction(response.data));
     } catch(error) {
         yield put(receiveMessageAction(error));

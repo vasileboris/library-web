@@ -1,12 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchReadingSessionProgress } from 'api/ReadingSessionProgressApi';
+import { receiveReadingSessionProgressAction, FETCH_READING_SESSION_PROGRESS } from 'actions/ReadingSessionProgressAction';
 import { receiveMessageAction } from 'actions/MessageAction';
-import { receiveReadingSessionProgressAction } from 'actions/ReadingSessionProgressAction';
-import { FETCH_READING_SESSION_PROGRESS } from 'actions/ReadingSessionProgressAction';
 
 function* callFetchReadingSessionProgress(action) {
     try {
-        const {bookUuid, uuid} = action.payload;
+        const { bookUuid, uuid } = action.payload;
         const response = yield call(fetchReadingSessionProgress, bookUuid, uuid);
         yield put(receiveReadingSessionProgressAction(response.data));
     } catch (error) {
