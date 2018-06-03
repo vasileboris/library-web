@@ -39,17 +39,14 @@ class CurrentReadingSessionComponent extends React.Component {
         return (
             <div className="content">
                 <section className="results">
-                    {book ? (
-                        <ReadonlyBookComponent book={book}/>
-                    ) : null }
-                    {readingSessionProgress ? (
-                        <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
-                    ) : null}
+                    {book && (
+                        <ReadonlyBookComponent book={book}/>)}
+                    {readingSessionProgress && (
+                        <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>)}
                 </section>
                 <section>
-                    {message ? (
-                        <MessageComponent message={message}/>
-                    ) : null}
+                    {message && (
+                        <MessageComponent message={message}/>)}
                     <InputDateReadingSessionComponent
                         operation={this.props.operation}
                         dateReadingSession={this.props.dateReadingSession}
@@ -58,12 +55,11 @@ class CurrentReadingSessionComponent extends React.Component {
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
                 </section>
                 <section>
-                    {dateReadingSessions && dateReadingSessions.length > 0 ? (
+                    {dateReadingSessions && dateReadingSessions.length > 0 && (
                         <DateReadingSessionsComponent
                             dateReadingSessions={this.props.currentReadingSession.dateReadingSessions}
                             onEditClick={this.onEditDateReadingSessionClick}
-                            onDeleteClick={this.onDeleteDateReadingSessionClick}/>
-                    ) : null}
+                            onDeleteClick={this.onDeleteDateReadingSessionClick}/>)}
                 </section>
             </div>
         );
