@@ -4,7 +4,8 @@ import { watchFetchCurrentReadingSession } from 'sagas/ReadingSessionActionSagas
 import { watchFetchReadingSessionProgress } from 'sagas/ReadingSessionProgressSagas';
 import {
     watchCreateDateReadingSession,
-    watchUpdateDateReadingSession } from 'sagas/DateReadingSessionSagas';
+    watchUpdateDateReadingSession,
+    watchDeleteDateReadingSession } from 'sagas/DateReadingSessionSagas';
 
 export default function* rootSaga() {
     yield all([
@@ -12,6 +13,7 @@ export default function* rootSaga() {
         call(watchFetchCurrentReadingSession),
         call(watchFetchReadingSessionProgress),
         call(watchCreateDateReadingSession),
-        call(watchUpdateDateReadingSession)
+        call(watchUpdateDateReadingSession),
+        call(watchDeleteDateReadingSession)
     ]);
 }
