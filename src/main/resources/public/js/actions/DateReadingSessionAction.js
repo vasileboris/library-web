@@ -1,6 +1,4 @@
 import {
-    validateDateReadingSession,
-    updateDateReadingSession,
     deleteDateReadingSession
 } from 'api/DateReadingSessionApi';
 import { receiveMessageAction } from 'actions/MessageAction';
@@ -9,6 +7,7 @@ import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 
 export const CHANGE_DATE_READING_SESSION = 'CHANGE_DATE_READING_SESSION';
 export const CREATE_DATE_READING_SESSION = 'CREATE_DATE_READING_SESSION';
+export const UPDATE_DATE_READING_SESSION = 'UPDATE_DATE_READING_SESSION';
 
 export function changeDateReadingSessionFieldAction(field, value) {
     return {
@@ -35,11 +34,10 @@ export function createDateReadingSessionAction(bookUuid, uuid, dateReadingSessio
 }
 
 export function updateDateReadingSessionAction(bookUuid, uuid, dateReadingSession) {
-    return function (dispatch) {
-        validateDateReadingSession(dateReadingSession)
-            .then(() => updateDateReadingSession(bookUuid, uuid, dateReadingSession))
-            .then(() => dispatchCurrentReadingSessionData(dispatch, bookUuid))
-            .catch(error => dispatch(receiveMessageAction(error)));
+    return {
+        type: UPDATE_DATE_READING_SESSION,
+        payload: { bookUuid, uuid, dateReadingSession }
+
     }
 }
 
