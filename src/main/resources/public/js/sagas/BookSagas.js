@@ -3,6 +3,10 @@ import { fetchBook } from 'api/BookApi';
 import { receiveBookAction, FETCH_BOOK } from 'actions/BookAction';
 import { receiveMessageAction } from 'actions/MessageAction';
 
+export function* watchFetchBook() {
+    yield takeLatest(FETCH_BOOK, callFetchBook);
+}
+
 function* callFetchBook(action) {
     try {
         const bookUuid = action.payload;
@@ -11,8 +15,4 @@ function* callFetchBook(action) {
     } catch(error) {
         yield put(receiveMessageAction(error));
     }
-}
-
-export function* watchFetchBook() {
-    yield takeLatest(FETCH_BOOK, callFetchBook);
 }

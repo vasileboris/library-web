@@ -1,9 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchCurrentReadingSession } from 'api/ReadingSessionApi';
-import { receiveCurrentReadingSessionAction, FETCH_CURRENT_READING_SESSION } from 'actions/ReadingSessionAction';
+import {
+    receiveCurrentReadingSessionAction,
+    FETCH_CURRENT_READING_SESSION } from 'actions/ReadingSessionAction';
 import { fetchReadingSessionProgressAction } from 'actions/ReadingSessionProgressAction';
 import { receiveMessageAction } from 'actions/MessageAction';
 
+export function* watchFetchCurrentReadingSession() {
+    yield takeLatest(FETCH_CURRENT_READING_SESSION, callFetchCurrentReadingSession);
+}
 
 function* callFetchCurrentReadingSession(action) {
     try {
@@ -14,8 +19,4 @@ function* callFetchCurrentReadingSession(action) {
     } catch (error) {
         yield put(receiveMessageAction(error));
     }
-}
-
-export function* watchFetchCurrentReadingSession() {
-    yield takeLatest(FETCH_CURRENT_READING_SESSION, callFetchCurrentReadingSession);
 }
