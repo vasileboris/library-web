@@ -6,7 +6,6 @@ import {
     applyMiddleware
 } from 'redux';
 import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
-import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -20,7 +19,7 @@ const LibraryRouter = Backbone.Router.extend({
     initialize: function () {
         const sagaMiddleware = createSagaMiddleware();
 
-        this.store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)));
+        this.store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
         sagaMiddleware.run(rootSaga);
 
