@@ -1,3 +1,5 @@
+import React from 'react';
+import { render } from 'react-dom';
 import LibraryRouter from 'routers/LibraryRouter';
 
 jQuery.i18n.properties({
@@ -7,9 +9,6 @@ jQuery.i18n.properties({
     checkAvailableLanguages: true,
     async: true,
     callback: function() {
-        new LibraryRouter();
-        Backbone.history.start({
-            pushState: true,
-        });
+        render(<LibraryRouter/>, document.getElementById('app-div'));
     }
 });

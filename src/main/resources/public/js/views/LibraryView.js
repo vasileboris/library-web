@@ -1,6 +1,5 @@
 import Backbone from 'backbone';
 import BooksView from 'views/BooksView';
-import CurrentReadingSessionReactView from 'views/CurrentReadingSessionReactView';
 
 const LibraryView = Backbone.View.extend({
     el: '#content-div',
@@ -8,12 +7,6 @@ const LibraryView = Backbone.View.extend({
     manageBooks: function () {
         this.cleanup();
         this.currentView = new BooksView();
-        this.render();
-    },
-
-    manageCurrentReadingSession: function (bookUuid) {
-        this.cleanup();
-        this.currentView = new CurrentReadingSessionReactView(bookUuid);
         this.render();
     },
 
