@@ -1,31 +1,37 @@
-import Backbone from 'backbone';
-import HeaderView from 'views/HeaderView';
-import LibraryView from 'views/LibraryView';
+import React from 'react';
+import {
+    Router,
+    Route,
+    Redirect,
+    Switch
+} from 'react-router-dom';
+import HeaderComponent from 'components/HeaderComponent';
+import LibraryViewComponent from 'components/LibraryViewComponent';
+import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
+import history from 'routers/History';
 
-let LibraryRouter = Backbone.Router.extend({
-    routes: {
-        'books' : 'manageBooks',
-        'books/:bookUuid': 'manageCurrentReadingSession'
-    },
-
-    initialize: function () {
-        this.headerView = new HeaderView();
-        this.headerView.render();
-
-        this.libraryView = new LibraryView();
-        if('/' === window.location.pathname) {
-            this.manageBooks();
-        }
-    },
-
-    manageBooks: function () {
-        this.libraryView.manageBooks();
-    },
-
-    manageCurrentReadingSession: function (bookUuid) {
-        this.libraryView.manageCurrentReadingSession(bookUuid);
-    }
-
-});
+const LibraryRouter = () => (
+    <Router history={history}>
+        <div>
+            <div className="page-header">
+                <HeaderComponent/>
+            </div>
+            <div className="page-content">
+                <Switch>
+                    <Route exact path="/books" component={LibraryViewComponent}/>
+                    <Route path="/books/:uuid" component={ ({ match }) => (
+                        <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>
+                    )}/>
+                    {/*
+                        Without Switch I saw the following warning in console:
+                        Warning: You tried to redirect to the same route you're currently on: "/books"
+                    */}
+                    <Redirect exact from="/" to="/books"/>
+                </Switch>
+            </div>
+        </div>
+    </Router>
+);
 
 export default LibraryRouter;
+

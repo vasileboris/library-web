@@ -32,7 +32,7 @@ class CurrentReadingSessionComponent extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="content-div" className="content">
                 <div className="results">
                     {this.state.book ? (
                         <ReadonlyBookComponent book={this.state.book}/>
