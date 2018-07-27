@@ -44,7 +44,7 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 loader: require.resolve('babel-loader'),
                 query: {
-                    presets: ['env', 'react']
+                    presets: ['env', 'stage-2', 'react']
                 }
             }
         ]

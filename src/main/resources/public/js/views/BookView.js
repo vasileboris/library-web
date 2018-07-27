@@ -4,6 +4,7 @@ import BooksDispatcher from 'events/BooksDispatcher';
 import localizer from 'utils/Localizer';
 import urlUtil from 'utils/UrlUtil';
 import templateHtml from 'text!templates/Book.html';
+import history from 'routers/History';
 
 const BookView = Backbone.View.extend({
     tagName: 'article',
@@ -40,7 +41,7 @@ const BookView = Backbone.View.extend({
 
     readBook: function (e) {
         e.preventDefault();
-        Backbone.history.navigate('/books/' + this.book.get('uuid'), {trigger: true});
+        history.push('/books/' + this.book.get('uuid'));
     },
 
     deleteBook: function (e) {

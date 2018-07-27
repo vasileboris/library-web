@@ -1,45 +1,56 @@
-import Backbone from 'backbone';
-import HeaderView from 'views/HeaderView';
-import LibraryView from 'views/LibraryView';
+import React from 'react';
+import {
+    Router,
+    Route,
+    Redirect,
+    Switch
+} from 'react-router-dom';
 import {
     createStore,
     applyMiddleware
 } from 'redux';
-import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
-import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux';
+import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
+import HeaderComponent from 'components/HeaderComponent';
+import LibraryViewComponent from 'components/LibraryViewComponent';
+import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
+import history from 'routers/History';
 
-const LibraryRouter = Backbone.Router.extend({
-    routes: {
-        'books' : 'manageBooks',
-        'books/:bookUuid': 'manageCurrentReadingSession'
-    },
-
-    initialize: function () {
-        const sagaMiddleware = createSagaMiddleware();
 
         this.store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
         sagaMiddleware.run(rootSaga);
 
-        this.headerView = new HeaderView();
-        this.headerView.render();
+const LibraryRouter = function() {
+    const store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-        this.libraryView = new LibraryView();
-        if('/' === window.location.pathname) {
-            this.manageBooks();
-        }
-    },
-
-    manageBooks: function () {
-        this.libraryView.manageBooks();
-    },
-
-    manageCurrentReadingSession: function (bookUuid) {
-        this.libraryView.manageCurrentReadingSession(bookUuid, this.store);
-    }
-
-});
+    return (
+        <Router history={history}>
+            <div>
+                <div className="page-header">
+                    <HeaderComponent/>
+                </div>
+                <div className="page-content">
+                    <Switch>
+                        <Route exact path="/books" component={LibraryViewComponent}/>
+                        <Route path="/books/:uuid" component={({match}) => (
+                            <Provider store={store}>
+                                <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>
+                            </Provider>
+                        )}/>
+                        {/*
+                        Without Switch I saw the following warning in console:
+                        Warning: You tried to redirect to the same route you're currently on: "/books"
+                        */}
+                        <Redirect exact from="/" to="/books"/>
+                    </Switch>
+                </div>
+            </div>
+        </Router>
+    );
+}
 
 export default LibraryRouter;
