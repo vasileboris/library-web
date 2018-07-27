@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
 import MessageComponent from 'components/MessageComponent';
@@ -35,7 +36,7 @@ class CurrentReadingSessionComponent extends React.Component {
         const dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [];
 
         return (
-            <div className="content">
+            <div id="content-div" className="content">
                 <section className="results">
                     {book ? (
                         <ReadonlyBookComponent book={book}/>
@@ -120,4 +121,4 @@ const mapStateToProps = state => {
     return state
 };
 
-export default connect(mapStateToProps)(CurrentReadingSessionComponent);
+export default withRouter(connect(mapStateToProps)(CurrentReadingSessionComponent));
