@@ -2,6 +2,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchBook } from 'api/BookApi';
 import { receiveBookAction, FETCH_BOOK } from 'actions/BookAction';
 import { receiveMessageAction } from 'actions/MessageAction';
+//Needed for Uncaught ReferenceError: regeneratorRuntime is not defined
+import 'babel-polyfill';
 
 export function* watchFetchBook() {
     yield takeLatest(FETCH_BOOK, callFetchBook);

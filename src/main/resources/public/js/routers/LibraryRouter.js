@@ -9,9 +9,9 @@ import {
     createStore,
     applyMiddleware
 } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk'
 import { Provider } from 'react-redux';
 import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
 import HeaderComponent from 'components/HeaderComponent';
@@ -19,13 +19,10 @@ import LibraryViewComponent from 'components/LibraryViewComponent';
 import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
 import history from 'routers/History';
 
-
-        this.store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-
-        sagaMiddleware.run(rootSaga);
-
 const LibraryRouter = function() {
-    const store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(thunk)));
+    const sagaMiddleware = createSagaMiddleware();
+    const store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+    sagaMiddleware.run(rootSaga);
 
     return (
         <Router history={history}>
@@ -51,6 +48,6 @@ const LibraryRouter = function() {
             </div>
         </Router>
     );
-}
+};
 
 export default LibraryRouter;
