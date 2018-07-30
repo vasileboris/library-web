@@ -1,13 +1,10 @@
-import { fetchBook } from 'api/BookApi';
-import { receiveMessageAction } from 'actions/MessageAction';
-
+export const FETCH_BOOK = 'FETCH_BOOK';
 export const RECEIVE_BOOK = 'RECEIVE_BOOK';
 
 export function fetchBookAction(uuid) {
-    return function (dispatch) {
-        fetchBook(uuid)
-            .then(response => dispatch(receiveBookAction(response.data)))
-            .catch(error => dispatch(receiveMessageAction(error)));
+    return {
+        type: FETCH_BOOK,
+        payload: uuid
     }
 }
 

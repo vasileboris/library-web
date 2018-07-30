@@ -15,6 +15,8 @@ import messageHtml from 'text!templates/Message.html';
 const BooksView = Backbone.View.extend({
     tagName: 'div',
 
+    className: 'content',
+
     booksTemplate: _.template(booksHtml),
 
     searchBooksTemplate: _.template(searchBooksHtml),

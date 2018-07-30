@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
 import MessageComponent from 'components/MessageComponent';
@@ -35,30 +36,30 @@ class CurrentReadingSessionComponent extends React.Component {
         const dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [];
 
         return (
-            <div>
-                <div className="results">
-                    {book ? (
-                        <ReadonlyBookComponent book={book}/>
-                    ) : null }
-                    {readingSessionProgress ? (
-                        <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
-                    ) : null}
-                </div>
-                {message ? (
-                    <MessageComponent message={message}/>
-                ) : null}
-                <InputDateReadingSessionComponent
-                    operation={this.props.operation}
-                    dateReadingSession={this.props.dateReadingSession}
-                    onInputChange={this.onInputChange}
-                    onAddButtonClick={this.onAddDateReadingSessionClick}
-                    onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
-                {dateReadingSessions && dateReadingSessions.length > 0 ? (
+            <div id="content-div" className="content">
+                <section className="results">
+                    {book && (
+                        <ReadonlyBookComponent book={book}/>)}
+                    {readingSessionProgress && (
+                        <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>)}
+                </section>
+                <section>
+                    {message && (
+                        <MessageComponent message={message}/>)}
+                    <InputDateReadingSessionComponent
+                        operation={this.props.operation}
+                        dateReadingSession={this.props.dateReadingSession}
+                        onInputChange={this.onInputChange}
+                        onAddButtonClick={this.onAddDateReadingSessionClick}
+                        onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
+                </section>
+                <section>
+                    {dateReadingSessions && dateReadingSessions.length > 0 && (
                     <DateReadingSessionsComponent
                         dateReadingSessions={this.props.currentReadingSession.dateReadingSessions}
                         onEditClick={this.onEditDateReadingSessionClick}
-                        onDeleteClick={this.onDeleteDateReadingSessionClick}/>
-                ) : null}
+                            onDeleteClick={this.onDeleteDateReadingSessionClick}/>)}
+                </section>
             </div>
         );
     }
@@ -116,4 +117,4 @@ const mapStateToProps = state => {
     return state
 };
 
-export default connect(mapStateToProps)(CurrentReadingSessionComponent);
+export default withRouter(connect(mapStateToProps)(CurrentReadingSessionComponent));
