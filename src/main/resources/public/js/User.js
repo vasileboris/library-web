@@ -1,5 +1,5 @@
 const user = {
-    id: 'boris'
+    id: 'user'
 };
 
 export default user;
