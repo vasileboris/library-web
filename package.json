@@ -23,7 +23,7 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "start": "webpack --watch --mode development"
   },
   "devDependencies": {
