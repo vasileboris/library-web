@@ -2330,7 +2330,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-jquery@^3.3.1:
+jquery-i18n-properties@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/jquery-i18n-properties/-/jquery-i18n-properties-1.2.7.tgz#80e0673302c993a5597ad95f3f3b6543d3a0b97d"
+  integrity sha512-GpWQAATtVRdcR3I+4br3WXY41/TEJ/YoSzSh2uvIpwWzfhUPq35iClreG/Ivo1oulUGSeEG64t4iWzfXwRVXiA==
+  dependencies:
+    jquery ">=1.9.0"
+
+jquery@>=1.9.0, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==

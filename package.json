@@ -11,6 +11,7 @@
     "backbone": "^1.3.3",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
+    "jquery-i18n-properties": "^1.2.7",
     "prop-types": "^15.6.2",
     "raw-loader": "^0.5.1",
     "react": "^16.5.2",
@@ -22,7 +23,6 @@
     "redux-saga": "^0.16.2"
   },
   "scripts": {
-    "postinstall": "bower install",
     "build": "webpack --mode production",
     "start": "webpack --watch --mode development"
   },
