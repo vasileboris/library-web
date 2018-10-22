@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
     resolve: {
-        modules: ['src/main/resources/public/js', 'node_modules', 'bower_components'],
+        modules: ['src/main/resources/public/js', 'node_modules'],
         descriptionFiles: ['package.json', 'bower.json'],
         alias: {
             i18n: 'jquery-i18n-properties'
