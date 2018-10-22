@@ -8,10 +8,10 @@
   "dependencies": {
     "backbone": "^1.3.3",
     "jquery": "^3.3.1",
+    "jquery-i18n-properties": "^1.2.7",
     "raw-loader": "^0.5.1"
   },
   "scripts": {
-    "postinstall": "bower install",
     "build": "webpack --mode production",
     "start": "webpack --watch --mode development"
   },
