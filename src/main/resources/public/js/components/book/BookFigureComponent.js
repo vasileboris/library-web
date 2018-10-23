@@ -1,5 +1,5 @@
 import React from 'react';
-import BookImageComponent from 'components/BookImageComponent';
+import BookImageComponent from './BookImageComponent';
 import PropTypes from 'prop-types';
 
 function BookFigureComponent (props) {

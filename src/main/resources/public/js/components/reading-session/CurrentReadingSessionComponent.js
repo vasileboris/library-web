@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReadonlyBookComponent from 'components/ReadonlyBookComponent';
-import ReadingSessionProgressComponent from 'components/ReadingSessionProgressComponent'
-import MessageComponent from 'components/MessageComponent';
-import DateReadingSessionsComponent from 'components/DateReadingSessionsComponent';
-import InputDateReadingSessionComponent from 'components/InputDateReadingSessionComponent';
+import ReadonlyBookComponent from 'components/book/ReadonlyBookComponent';
+import ReadingSessionProgressComponent from './ReadingSessionProgressComponent'
+import MessageComponent from 'components/message/MessageComponent';
+import DateReadingSessionsComponent from './DateReadingSessionsComponent';
+import InputDateReadingSessionComponent from './InputDateReadingSessionComponent';
 import { fetchBook } from 'api/BookApi';
 import { fetchCurrentReadingSession } from 'api/ReadingSessionApi';
 import { fetchCurrentReadingSessionProgress } from 'api/ReadingSessionProgressApi';
