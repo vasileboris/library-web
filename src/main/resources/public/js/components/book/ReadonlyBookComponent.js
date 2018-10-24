@@ -1,6 +1,6 @@
 import React from 'react';
 import localizer from 'utils/Localizer';
-import BookFigureComponent from 'components/BookFigureComponent';
+import BookFigureComponent from './BookFigureComponent';
 import PropTypes from 'prop-types';
 
 function ReadonlyBookComponent(props) {

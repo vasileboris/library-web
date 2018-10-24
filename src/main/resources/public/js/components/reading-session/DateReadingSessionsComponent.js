@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DateReadingSessionComponent from 'components/DateReadingSessionComponent'
+import DateReadingSessionComponent from './DateReadingSessionComponent'
 
 function DateReadingSessionsComponent(props) {
     return (

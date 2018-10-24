@@ -14,9 +14,9 @@ import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
-import HeaderComponent from 'components/HeaderComponent';
+import HeaderComponent from 'components/header/HeaderComponent';
 import LibraryViewComponent from 'components/LibraryViewComponent';
-import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
+import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
 import history from 'routers/History';
 
 const LibraryRouter = function() {
