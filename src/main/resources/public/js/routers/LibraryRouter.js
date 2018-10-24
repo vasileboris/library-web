@@ -5,9 +5,9 @@ import {
     Redirect,
     Switch
 } from 'react-router-dom';
-import HeaderComponent from 'components/HeaderComponent';
+import HeaderComponent from 'components/header/HeaderComponent';
 import LibraryViewComponent from 'components/LibraryViewComponent';
-import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
+import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
 import history from 'routers/History';
 
 const LibraryRouter = () => (
