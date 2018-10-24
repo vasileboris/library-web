@@ -7,10 +7,12 @@ import BookView from 'views/BookView';
 import BooksDispatcher from 'events/BooksDispatcher';
 import localizer from 'utils/Localizer';
 import booksHtml from 'text!templates/Books.html';
-import searchBooksHtml from 'text!templates/SearchBooks.html';
 import addBooksHtml from 'text!templates/AddBooks.html';
 import editBookHtml from 'text!templates/EditBook.html';
 import messageHtml from 'text!templates/Message.html';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import SearchBooksComponent from 'components/book/SearchBooksComponent';
 
 const BooksView = Backbone.View.extend({
     tagName: 'div',
@@ -18,8 +20,6 @@ const BooksView = Backbone.View.extend({
     className: 'content',
 
     booksTemplate: _.template(booksHtml),
-
-    searchBooksTemplate: _.template(searchBooksHtml),
 
     addBooksTemplate: _.template(addBooksHtml),
 
@@ -30,13 +30,12 @@ const BooksView = Backbone.View.extend({
     events: {
         'click #book-cancel-add-link': 'renderSearchBooks',
         'click #book-cancel-edit-link': 'renderSearchBooks',
-        'click #books-search-button': 'searchBooks',
-        'click #books-add-link': 'renderAddBooks',
         'click #book-add-button': 'addBook',
         'click #book-update-button': 'updateBook'
     },
 
     initialize: function () {
+        this.booksSearchText = '';
         this.books = new Books();
         this.listenTo(this.books, 'add', this.renderBook);
         this.listenTo(this.books, 'reset', this.renderBooks);
@@ -46,20 +45,21 @@ const BooksView = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.booksTemplate());
-        this.renderSearchBooks();
+        setTimeout(this.renderSearchBooks.bind(this), 0);
         return this;
     },
 
     renderSearchBooks: function () {
         this.clearMessages();
-        this.$('#input-div').html(this.searchBooksTemplate({
-            localizer: localizer
-        }));
+        render(<SearchBooksComponent onInputChange={this.onBooksSearchInputChange.bind(this)}
+                                     onSearchClick={this.searchBooks.bind(this)}
+                                     onAddClick={this.renderAddBooks.bind(this)}/>, document.getElementById('input-div'));
     },
 
     renderAddBooks: function (event) {
         event.preventDefault();
         this.clearMessages();
+        this.clearSearchBooks();
         this.$('#input-div').html(this.addBooksTemplate({
             localizer: localizer
         }));
@@ -67,6 +67,7 @@ const BooksView = Backbone.View.extend({
 
     renderEditBook: function (book) {
         this.clearMessages();
+        this.clearSearchBooks();
         this.$('#input-div').html(this.editBookTemplate({
             book: book.attributes,
             localizer: localizer
@@ -79,11 +80,14 @@ const BooksView = Backbone.View.extend({
         }));
     },
 
+    onBooksSearchInputChange: function(e) {
+        this.booksSearchText = e.target.value;
+    },
+
     searchBooks: function() {
-        const searchText = this.$el.find('#books-search-text').val().trim();
         $('body').addClass('waiting');
         this.$('#books-div').html('');
-        this.books.changeSearchText(searchText);
+        this.books.changeSearchText(this.booksSearchText.trim());
         this.books.fetch({reset: true});
     },
 
@@ -170,6 +174,11 @@ const BooksView = Backbone.View.extend({
     clearMessages: function () {
         this.$el.find('#message-div').html('');
         this.$el.find('#results-message-div').html('');
+    },
+
+    clearSearchBooks: function() {
+        this.booksSearchText = '';
+        unmountComponentAtNode(document.getElementById('input-div'));
     }
 
 });
