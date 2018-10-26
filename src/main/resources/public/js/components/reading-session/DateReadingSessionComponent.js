@@ -13,7 +13,6 @@ function DateReadingSessionComponent(props) {
 
     return (
         <article className="result-date-reading-session">
-            <div className="message-item"></div>
             <a href="#" className="edit-item" onClick={onEditClick}>
                 <img src="/img/edit.png" alt="edit reading session" className="img-icon"/>
             </a>
