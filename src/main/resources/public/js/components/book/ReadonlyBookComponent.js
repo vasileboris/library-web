@@ -4,10 +4,10 @@ import BookFigureComponent from './BookFigureComponent';
 import PropTypes from 'prop-types';
 
 function ReadonlyBookComponent(props) {
-    const book = props.book;
+    const { book } = props;
     return (
         <article className="result-single">
-            <BookFigureComponent book={book}/>
+            <BookFigureComponent book={book} size="large"/>
             <div>{localizer.localize('book-by-label')} {book.authors}</div>
             <div>{book.pages} {localizer.localize('book-pages-label')}</div>
         </article>
@@ -16,7 +16,7 @@ function ReadonlyBookComponent(props) {
 
 ReadonlyBookComponent.propTypes = {
     book: PropTypes.shape({
-        image: PropTypes.string,
+        image: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         authors: PropTypes.arrayOf(PropTypes.string).isRequired,
         pages: PropTypes.number.isRequired

@@ -3,17 +3,17 @@ import localizer from 'utils/Localizer';
 import PropTypes from "prop-types";
 
 function SearchBooksComponent(props) {
+    const { onInputChange, onSearchClick, onAddClick } = props;
     return (
         <div className="entry">
             <input type="search"
                    className="text"
                    placeholder={localizer.localize('books-search-text')}
-                   value={props.searchText}
-                   onChange={props.onInputChange}/>
-            <button className="button" onClick={props.onSearchClick}>
+                   onChange={onInputChange}/>
+            <button className="button" onClick={onSearchClick}>
                 {localizer.localize('books-search-button')}
             </button>
-            <a href="#" onClick={props.onAddClick}>
+            <a href="#" onClick={onAddClick}>
                 <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon"/>
             </a>
         </div>
@@ -21,10 +21,9 @@ function SearchBooksComponent(props) {
 }
 
 SearchBooksComponent.propTypes = {
-    searchText: PropTypes.string,
-    onInputChange: PropTypes.func,
-    onSearchClick: PropTypes.func,
-    onAddClick: PropTypes.func
+    onInputChange: PropTypes.func.isRequired,
+    onSearchClick: PropTypes.func.isRequired,
+    onAddClick: PropTypes.func.isRequired
 };
 
 export default SearchBooksComponent;
