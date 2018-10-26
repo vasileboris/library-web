@@ -3,19 +3,21 @@ import BookImageComponent from './BookImageComponent';
 import PropTypes from 'prop-types';
 
 function BookFigureComponent (props) {
+    const { book, size } = props;
     return (
         <figure className="figure-book">
-            <BookImageComponent image={props.book.image}/>
-            <figcaption className="title">{props.book.title}</figcaption>
+            <BookImageComponent image={book.image} size={size}/>
+            <figcaption className="title">{book.title}</figcaption>
         </figure>
     );
 }
 
 BookFigureComponent.propTypes = {
     book: PropTypes.shape({
-        image: PropTypes.string,
+        image: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    size: PropTypes.string.isRequired
 };
 
 export default BookFigureComponent;

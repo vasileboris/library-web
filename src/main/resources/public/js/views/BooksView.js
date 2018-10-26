@@ -3,7 +3,6 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import Book from 'models/Book';
 import Books from 'collections/Books';
-import BookView from 'views/BookView';
 import BooksDispatcher from 'events/BooksDispatcher';
 import localizer from 'utils/Localizer';
 import booksHtml from 'text!templates/Books.html';
@@ -13,6 +12,7 @@ import messageHtml from 'text!templates/Message.html';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import SearchBooksComponent from 'components/book/SearchBooksComponent';
+import BooksComponent from 'components/book/BooksComponent';
 
 const BooksView = Backbone.View.extend({
     tagName: 'div',
@@ -35,7 +35,7 @@ const BooksView = Backbone.View.extend({
     initialize: function () {
         this.booksSearchText = '';
         this.books = new Books();
-        this.listenTo(this.books, 'add', this.renderBook);
+        this.listenTo(this.books, 'add', this.renderBooks);
         this.listenTo(this.books, 'reset', this.renderBooks);
         this.listenTo(BooksDispatcher, BooksDispatcher.Events.EDIT, this.renderEditBook);
         this.listenTo(BooksDispatcher, BooksDispatcher.Events.ERROR, this.renderErrorBook);
@@ -43,7 +43,7 @@ const BooksView = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.booksTemplate());
-        setTimeout(this.renderSearchBooks.bind(this), 0);
+        setTimeout(this.renderSearchBooks.bind(this));
         return this;
     },
 
@@ -67,7 +67,7 @@ const BooksView = Backbone.View.extend({
         this.clearMessages();
         this.clearSearchBooks();
         this.$('#input-div').html(this.editBookTemplate({
-            book: book.attributes,
+            book: book,
             localizer: localizer
         }));
     },
@@ -84,23 +84,18 @@ const BooksView = Backbone.View.extend({
 
     searchBooks: function() {
         $('body').addClass('waiting');
-        this.$('#books-div').html('');
+        unmountComponentAtNode(document.getElementById('books-div'));
         this.books.changeSearchText(this.booksSearchText.trim());
         this.books.fetch({reset: true});
     },
 
     renderBooks: function () {
-        this.$('#books-div').html('');
-        $('body').removeClass('waiting');
-        this.books.each(function (book) {
-            this.renderBook(book);
-        }, this);
+        unmountComponentAtNode(document.getElementById('books-div'));
+        const books = this.books.models.map(book => book.attributes);
+        render(<BooksComponent books={books}
+                               onEdit={this.renderEditBook.bind(this)}
+                               onDelete={this.deleteBook.bind(this)}/>, document.getElementById('books-div'));
         return this;
-    },
-
-    renderBook: function (book) {
-        const bookView = new BookView(book);
-        this.$('#books-div').append(bookView.render().el);
     },
 
     addBook: function () {
@@ -134,7 +129,10 @@ const BooksView = Backbone.View.extend({
         if(book) {
             this.listenTo(book, "invalid", _.bind(this.errorOnValidateBook, this));
             book.save(bookData)
-                .then(() => this.renderSearchBooks())
+                .then(() => {
+                    this.renderSearchBooks();
+                    this.renderBooks();
+                })
                 .catch(error => this.errorOnUpdateBook(error))
         } else {
             this.renderSearchBooks();
@@ -177,7 +175,21 @@ const BooksView = Backbone.View.extend({
     clearSearchBooks: function() {
         this.booksSearchText = '';
         unmountComponentAtNode(document.getElementById('input-div'));
+    },
+
+    deleteBook: function (book) {
+        BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, '');
+        const model = this.books.get(book.uuid);
+        model.destroy()
+            .then(() => this.renderBooks())
+            .catch(error => this.errorOnDeleteBook(error));
+    },
+
+    errorOnDeleteBook: function (error) {
+        const message = localizer.localize('book-delete-error', error.status);
+        BooksDispatcher.trigger(BooksDispatcher.Events.ERROR, message);
     }
+
 
 });
 
