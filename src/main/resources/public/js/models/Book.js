@@ -18,7 +18,7 @@ const Book = Backbone.Model.extend({
             return localizer.localize('book-title-validation');
         }
 
-        if(bookData.authors.length === 0) {
+        if(!bookData.authors || bookData.authors.length === 0) {
             return localizer.localize('book-authors-validation');
         }
 
