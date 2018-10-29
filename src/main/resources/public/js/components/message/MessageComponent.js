@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function MessageComponent (props) {
-    return (
-        <div className="message-entry">{props.message}</div>
+    const { message } = props;
+    return message && (
+        <div className="messages">
+            <div className="message-entry">{message}</div>
+        </div>
     );
 }
 

@@ -5,17 +5,21 @@ import PropTypes from "prop-types";
 function SearchBooksComponent(props) {
     const { onInputChange, onSearchClick, onAddClick } = props;
     return (
-        <div className="entry">
-            <input type="search"
-                   className="text"
-                   placeholder={localizer.localize('books-search-text')}
-                   onChange={onInputChange}/>
-            <button className="button" onClick={onSearchClick}>
-                {localizer.localize('books-search-button')}
-            </button>
-            <a href="#" onClick={onAddClick}>
-                <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon"/>
-            </a>
+        <div className="entries">
+            <div className="entry">
+                <input type="search"
+                       className="text"
+                       placeholder={localizer.localize('books-search-text')}
+                       onChange={onInputChange}/>
+            </div>
+            <div className="entry">
+                <button className="button" onClick={onSearchClick}>
+                    {localizer.localize('books-search-button')}
+                </button>
+                <a href="#" onClick={onAddClick}>
+                    <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon"/>
+                </a>
+            </div>
         </div>
     );
 }

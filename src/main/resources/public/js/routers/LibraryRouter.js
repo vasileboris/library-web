@@ -6,8 +6,8 @@ import {
     Switch
 } from 'react-router-dom';
 import HeaderComponent from 'components/header/HeaderComponent';
-import LibraryViewComponent from 'components/LibraryViewComponent';
 import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
+import BooksManagementComponent from 'components/book/BooksManagementComponent';
 import history from 'routers/History';
 
 const LibraryRouter = () => (
@@ -18,7 +18,7 @@ const LibraryRouter = () => (
             </div>
             <div className="page-content">
                 <Switch>
-                    <Route exact path="/books" component={LibraryViewComponent}/>
+                    <Route exact path="/books" component={BooksManagementComponent}/>
                     <Route path="/books/:uuid" component={ ({ match }) => (
                         <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>
                     )}/>
