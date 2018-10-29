@@ -20,7 +20,7 @@ const BooksView = Backbone.View.extend({
 
     messageTemplate: _.template(messageHtml),
 
-    initialize: function () {
+        initialize: function () {
         this.booksSearchText = '';
         this.book = {};
         this.books = new Books();
