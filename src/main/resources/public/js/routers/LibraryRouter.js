@@ -15,8 +15,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
 import HeaderComponent from 'components/header/HeaderComponent';
-import LibraryViewComponent from 'components/LibraryViewComponent';
 import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
+import BooksManagementComponent from 'components/book/BooksManagementComponent';
 import history from 'routers/History';
 
 const LibraryRouter = function() {
@@ -32,7 +32,7 @@ const LibraryRouter = function() {
                 </div>
                 <div className="page-content">
                     <Switch>
-                        <Route exact path="/books" component={LibraryViewComponent}/>
+                    <Route exact path="/books" component={BooksManagementComponent}/>
                         <Route path="/books/:uuid" component={({match}) => (
                             <Provider store={store}>
                                 <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>
