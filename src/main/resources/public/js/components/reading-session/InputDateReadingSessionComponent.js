@@ -41,6 +41,7 @@ function InputDateReadingSessionComponent(props) {
 }
 
 InputDateReadingSessionComponent.propTypes = {
+    operation: PropTypes.oneOf(['add', 'edit']).isRequired,
     dateReadingSession: PropTypes.shape({
         date: PropTypes.string,
         lastReadPage: PropTypes.oneOfType([
