@@ -12,7 +12,7 @@ import {
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux';
-import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
+import { readingSession }  from 'reducers/ReadingSessionReducer';
 import HeaderComponent from 'components/header/HeaderComponent';
 import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
 import BooksManagementComponent from 'components/book/BooksManagementComponent';
@@ -20,7 +20,7 @@ import history from 'routers/History';
 
 
 const LibraryRouter = function() {
-    const store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(thunk)));
+    const store = createStore(readingSession, composeWithDevTools(applyMiddleware(thunk)));
 
     return (
         <Router history={history}>
