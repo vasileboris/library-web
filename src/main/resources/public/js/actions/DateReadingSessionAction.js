@@ -5,7 +5,7 @@ import {
     deleteDateReadingSession
 } from 'api/DateReadingSessionApi';
 import { receiveMessageAction } from 'actions/MessageAction';
-import { changeOperationAction } from 'actions/OperationAction';
+import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 
 export const CHANGE_DATE_READING_SESSION = 'CHANGE_DATE_READING_SESSION';
@@ -55,7 +55,7 @@ export function deleteDateReadingSessionAction(bookUuid, uuid, date) {
 
 function dispatchCurrentReadingSessionData(dispatch, bookUuid) {
     dispatch(receiveMessageAction(null));
-    dispatch(changeOperationAction('add'))
+    dispatch(changeDateReadingSessionOperationAction('add'))
     dispatch(changeDateReadingSessionAction({
         date: null,
         lastReadPage: null,
