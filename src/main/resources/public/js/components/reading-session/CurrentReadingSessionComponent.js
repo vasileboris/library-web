@@ -118,7 +118,7 @@ CurrentReadingSessionComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-    return state
+    return state.readingSession
 };
 
 export default withRouter(connect(mapStateToProps)(CurrentReadingSessionComponent));
