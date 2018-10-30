@@ -13,7 +13,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
+import { readingSession }  from 'reducers/ReadingSessionReducer';
 import HeaderComponent from 'components/header/HeaderComponent';
 import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
 import BooksManagementComponent from 'components/book/BooksManagementComponent';
@@ -21,7 +21,7 @@ import history from 'routers/History';
 
 const LibraryRouter = function() {
     const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+    const store = createStore(readingSession, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(rootSaga);
 
     return (
