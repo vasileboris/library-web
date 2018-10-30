@@ -16,7 +16,7 @@ import {
 } from 'actions/DateReadingSessionAction';
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
-import { changeOperationAction } from 'actions/OperationAction';
+import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -92,7 +92,7 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onEditDateReadingSessionClick(dateReadingSession) {
-        this.props.dispatch(changeOperationAction('edit'));
+        this.props.dispatch(changeDateReadingSessionOperationAction('edit'));
         this.props.dispatch(changeDateReadingSessionAction(dateReadingSession));
     }
 

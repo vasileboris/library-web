@@ -10,7 +10,7 @@ import {
     UPDATE_DATE_READING_SESSION,
     DELETE_DATE_READING_SESSION } from 'actions/DateReadingSessionAction';
 import { receiveMessageAction } from 'actions/MessageAction';
-import { changeOperationAction } from 'actions/OperationAction';
+import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 
 
@@ -61,7 +61,7 @@ function* callDeleteDateReadingSession(action) {
 function* dispatchCurrentReadingSessionData(bookUuid) {
     yield all([
         put(receiveMessageAction(null)),
-        put(changeOperationAction('add')),
+        put(changeDateReadingSessionOperationAction('add')),
         put(changeDateReadingSessionAction({
             date: null,
             lastReadPage: null,
