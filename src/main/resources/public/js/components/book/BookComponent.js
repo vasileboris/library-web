@@ -1,7 +1,8 @@
 import React from 'react';
 import localizer from 'utils/Localizer';
-import BookFigureComponent from './BookFigureComponent';
+import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
+import BookFigureComponent from './BookFigureComponent';
 
 function BookComponent(props) {
     const { book, onEdit, onDelete } = props;
@@ -10,10 +11,9 @@ function BookComponent(props) {
             <a href="#" className="edit-item" onClick={() => onEdit(book)}>
                 <img src="/img/edit.png" alt={localizer.localize('book-update-button')} className="img-icon"/>
             </a>
-            {/* TODO - Use Link after all book handling is in react */}
-            <a href={`/books/${book.uuid}`} className="read-item">
+            <Link to={`/books/${book.uuid}`} className="read-item">
                 <img src="/img/read.png" alt={localizer.localize('book-read-button')} className="img-icon"/>
-            </a>
+            </Link>
             <a href="#" className="delete-item" onClick={() => onDelete(book)}>
                 <img src="/img/delete.png" alt={localizer.localize('book-delete-button')} className="img-icon"/>
             </a>
