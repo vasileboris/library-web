@@ -208,10 +208,19 @@ class CurrentReadingSessionComponent extends React.Component {
             yield deleteDateReadingSession(this.props.bookUuid,
                 this.state.currentReadingSession.uuid,
                 date);
-            run(this.retrieveDateReadingSessions);
+            this.successOnDeleteDateReadingSession();
         } catch(error) {
             this.errorOnApiOperation(error);
         }
+    }
+
+    successOnDeleteDateReadingSession() {
+        this.setState({
+            message: null,
+            operation: 'add',
+            dateReadingSession: {}
+        });
+        run(this.retrieveDateReadingSessions);
     }
 
     errorOnApiOperation(message) {
