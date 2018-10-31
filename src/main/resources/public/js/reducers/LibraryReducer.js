@@ -1,4 +1,4 @@
-import { readingSession } from 'reducers/ReadingSessionReducer';
+import { readingSessions } from 'reducers/ReadingSessionsReducer';
 import { combineReducers } from 'redux';
 import { message } from "./MessageReducer";
 import { books } from "./BooksReducer";
@@ -6,5 +6,5 @@ import { books } from "./BooksReducer";
 export const library = combineReducers({
     message,
     books,
-    readingSession
+    readingSessions
 });
