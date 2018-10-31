@@ -29,7 +29,9 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     render() {
-        const { message, bookUuid, books, operation, dateReadingSession, readingSessionProgress, currentReadingSession } = this.props,
+        const { message, operation, dateReadingSession, bookUuid, books, readingSessionsProgress, currentReadingSessions } = this.props,
+            readingSessionProgress = readingSessionsProgress[bookUuid],
+            currentReadingSession = currentReadingSessions[bookUuid],
             dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [],
             book = books[bookUuid];
 
@@ -91,7 +93,8 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onAddDateReadingSessionClick(dateReadingSession) {
-        const { dispatch, bookUuid, currentReadingSession } = this.props;
+        const { dispatch, bookUuid, currentReadingSessions } = this.props,
+            currentReadingSession = currentReadingSessions[bookUuid];
         dispatch(createDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession));
     }
 
@@ -102,12 +105,14 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onUpdateDateReadingSessionClick(dateReadingSession) {
-        const { dispatch, bookUuid, currentReadingSession } = this.props;
+        const { dispatch, bookUuid, currentReadingSessions } = this.props,
+            currentReadingSession = currentReadingSessions[bookUuid];
         dispatch(updateDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession));
     }
 
     onDeleteDateReadingSessionClick(date) {
-        const { dispatch, bookUuid, currentReadingSession } = this.props;
+        const { dispatch, bookUuid, currentReadingSessions } = this.props,
+            currentReadingSession = currentReadingSessions[bookUuid];
         dispatch(deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, date));
     }
 }
@@ -117,11 +122,11 @@ CurrentReadingSessionComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-    const { message, books, readingSession } = state;
+    const { message, books, readingSessions } = state;
     return {
         message,
         books,
-        ...readingSession
+        ...readingSessions
     };
 };
 
