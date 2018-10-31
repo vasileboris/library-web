@@ -17,6 +17,7 @@ import {
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
+import { receiveMessageAction } from "../../actions/MessageAction";
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -74,46 +75,54 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('Moving away from react!')
+        const { receiveMessageAction, changeDateReadingSessionOperationAction, changeDateReadingSessionAction } = this.props;
+        receiveMessageAction(null);
+        changeDateReadingSessionOperationAction('add');
+        changeDateReadingSessionAction({
+            date: null,
+            lastReadPage: null,
+            bookmark: null
+
+        });
     }
 
     onInputChange(e) {
-        const { dispatch } = this.props;
-        dispatch(changeDateReadingSessionFieldAction(e.target.name, e.target.value));
+        const { changeDateReadingSessionFieldAction } = this.props;
+        changeDateReadingSessionFieldAction(e.target.name, e.target.value);
     }
 
     retrieveBook() {
-        const { dispatch, bookUuid } = this.props;
-        dispatch(fetchBookAction(bookUuid))
+        const { fetchBookAction, bookUuid } = this.props;
+        fetchBookAction(bookUuid);
     }
 
     retrieveCurrentReadingSession() {
-        const { dispatch, bookUuid } = this.props;
-        dispatch(fetchCurrentReadingSessionAction(bookUuid))
+        const { fetchCurrentReadingSessionAction, bookUuid } = this.props;
+        fetchCurrentReadingSessionAction(bookUuid);
     }
 
     onAddDateReadingSessionClick(dateReadingSession) {
-        const { dispatch, bookUuid, currentReadingSessions } = this.props,
+        const { createDateReadingSessionAction, bookUuid, currentReadingSessions } = this.props,
             currentReadingSession = currentReadingSessions[bookUuid];
-        dispatch(createDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession));
+        createDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession);
     }
 
     onEditDateReadingSessionClick(dateReadingSession) {
-        const { dispatch } = this.props;
-        dispatch(changeDateReadingSessionOperationAction('edit'));
-        dispatch(changeDateReadingSessionAction(dateReadingSession));
+        const { changeDateReadingSessionOperationAction, changeDateReadingSessionAction } = this.props;
+        changeDateReadingSessionOperationAction('edit');
+        changeDateReadingSessionAction(dateReadingSession);
     }
 
     onUpdateDateReadingSessionClick(dateReadingSession) {
-        const { dispatch, bookUuid, currentReadingSessions } = this.props,
+        const { updateDateReadingSessionAction, bookUuid, currentReadingSessions } = this.props,
             currentReadingSession = currentReadingSessions[bookUuid];
-        dispatch(updateDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession));
+        updateDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession);
     }
 
     onDeleteDateReadingSessionClick(date) {
-        const { dispatch, bookUuid, currentReadingSessions } = this.props,
+        const { deleteDateReadingSessionAction, bookUuid, currentReadingSessions } = this.props,
             currentReadingSession = currentReadingSessions[bookUuid];
-        dispatch(deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, date));
+        deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, date);
     }
 }
 
@@ -130,4 +139,16 @@ const mapStateToProps = state => {
     };
 };
 
-export default withRouter(connect(mapStateToProps)(CurrentReadingSessionComponent));
+const mapDispatchToProps = {
+    receiveMessageAction,
+    changeDateReadingSessionFieldAction,
+    changeDateReadingSessionAction,
+    createDateReadingSessionAction,
+    updateDateReadingSessionAction,
+    deleteDateReadingSessionAction,
+    fetchBookAction,
+    fetchCurrentReadingSessionAction,
+    changeDateReadingSessionOperationAction
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CurrentReadingSessionComponent));
