@@ -29,40 +29,37 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     render() {
-        const book = this.props.book;
-        const readingSessionProgress = this.props.readingSessionProgress;
-        const message = this.props.message;
-        const currentReadingSession = this.props.currentReadingSession;
+        const { message, book, operation, dateReadingSession, readingSessionProgress, currentReadingSession } = this.props;
         const dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [];
 
         return (
             <div id="content-div" className="content">
                 <section className="results">
-                    {book ? (
+                    {book && (
                         <ReadonlyBookComponent book={book}/>
-                    ) : null }
-                    {readingSessionProgress ? (
+                    )}
+                    {readingSessionProgress && (
                         <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
-                    ) : null}
+                    )}
                 </section>
                 <section>
-                    {message ? (
+                    {message && (
                         <MessageComponent message={message}/>
-                    ) : null}
+                    )}
                     <InputDateReadingSessionComponent
-                        operation={this.props.operation}
-                        dateReadingSession={this.props.dateReadingSession}
+                        operation={operation}
+                        dateReadingSession={dateReadingSession}
                         onInputChange={this.onInputChange}
                         onAddButtonClick={this.onAddDateReadingSessionClick}
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
                 </section>
                 <section>
-                    {dateReadingSessions && dateReadingSessions.length > 0 ? (
+                    {dateReadingSessions && dateReadingSessions.length > 0 && (
                         <DateReadingSessionsComponent
-                            dateReadingSessions={this.props.currentReadingSession.dateReadingSessions}
+                            dateReadingSessions={currentReadingSession.dateReadingSessions}
                             onEditClick={this.onEditDateReadingSessionClick}
                             onDeleteClick={this.onDeleteDateReadingSessionClick}/>
-                    ) : null}
+                    )}
                 </section>
             </div>
         );
@@ -78,38 +75,39 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onInputChange(e) {
-        this.props.dispatch(changeDateReadingSessionFieldAction(e.target.name, e.target.value));
+        const { dispatch } = this.props;
+        dispatch(changeDateReadingSessionFieldAction(e.target.name, e.target.value));
     }
 
     retrieveBook() {
-        this.props.dispatch(fetchBookAction(this.props.bookUuid))
+        const { dispatch, bookUuid } = this.props;
+        dispatch(fetchBookAction(bookUuid))
     }
 
     retrieveCurrentReadingSession() {
-        this.props.dispatch(fetchCurrentReadingSessionAction(this.props.bookUuid))
+        const { dispatch, bookUuid } = this.props;
+        dispatch(fetchCurrentReadingSessionAction(bookUuid))
     }
 
     onAddDateReadingSessionClick(dateReadingSession) {
-        this.props.dispatch(createDateReadingSessionAction(this.props.bookUuid,
-            this.props.currentReadingSession.uuid,
-            dateReadingSession));
+        const { dispatch, bookUuid, currentReadingSession } = this.props;
+        dispatch(createDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession));
     }
 
     onEditDateReadingSessionClick(dateReadingSession) {
-        this.props.dispatch(changeDateReadingSessionOperationAction('edit'));
-        this.props.dispatch(changeDateReadingSessionAction(dateReadingSession));
+        const { dispatch } = this.props;
+        dispatch(changeDateReadingSessionOperationAction('edit'));
+        dispatch(changeDateReadingSessionAction(dateReadingSession));
     }
 
     onUpdateDateReadingSessionClick(dateReadingSession) {
-        this.props.dispatch(updateDateReadingSessionAction(this.props.bookUuid,
-            this.props.currentReadingSession.uuid,
-            dateReadingSession));
+        const { dispatch, bookUuid, currentReadingSession } = this.props;
+        dispatch(updateDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession));
     }
 
     onDeleteDateReadingSessionClick(date) {
-        this.props.dispatch(deleteDateReadingSessionAction(this.props.bookUuid,
-            this.props.currentReadingSession.uuid,
-            date));
+        const { dispatch, bookUuid, currentReadingSession } = this.props;
+        dispatch(deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, date));
     }
 }
 
@@ -118,7 +116,12 @@ CurrentReadingSessionComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-    return state.readingSession
+    const { message, book, readingSession } = state;
+    return {
+        message,
+        book,
+        ...readingSession
+    };
 };
 
 export default withRouter(connect(mapStateToProps)(CurrentReadingSessionComponent));

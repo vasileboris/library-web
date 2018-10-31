@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 
 function ReadingSessionProgressComponent (props) {
-    let readingSessionProgress = props.readingSessionProgress;
+    const  { readingSessionProgress } = props;
     return (
         <article className="result-single">
             <div>
