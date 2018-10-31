@@ -29,8 +29,9 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     render() {
-        const { message, book, operation, dateReadingSession, readingSessionProgress, currentReadingSession } = this.props;
-        const dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [];
+        const { message, bookUuid, books, operation, dateReadingSession, readingSessionProgress, currentReadingSession } = this.props,
+            dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [],
+            book = books[bookUuid];
 
         return (
             <div id="content-div" className="content">
@@ -116,10 +117,10 @@ CurrentReadingSessionComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-    const { message, book, readingSession } = state;
+    const { message, books, readingSession } = state;
     return {
         message,
-        book,
+        books,
         ...readingSession
     };
 };
