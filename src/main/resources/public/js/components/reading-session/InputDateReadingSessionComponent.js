@@ -3,36 +3,37 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 
 function InputDateReadingSessionComponent(props) {
+    const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick } = props;
     return (
         <div className="entry">
             <input type="date"
                    name="date"
                    className="text"
                    placeholder={localizer.localize('date-reading-session-date-text')}
-                   value={props.dateReadingSession.date ? props.dateReadingSession.date : ""}
-                   onChange={props.onInputChange}
-                   readOnly={props.operation !== 'add'}/>
+                   value={dateReadingSession.date ? dateReadingSession.date : ""}
+                   onChange={onInputChange}
+                   readOnly={operation !== 'add'}/>
             <input type="text"
                    name="lastReadPage"
                    className="text"
                    placeholder={localizer.localize('date-reading-session-last-read-page-text')}
-                   value={props.dateReadingSession.lastReadPage ? props.dateReadingSession.lastReadPage : ""}
-                   onChange={props.onInputChange}/>
+                   value={dateReadingSession.lastReadPage ? dateReadingSession.lastReadPage : ""}
+                   onChange={onInputChange}/>
             <input type="text"
                    name="bookmark"
                    className="text"
                    placeholder={localizer.localize('date-reading-session-bookmark-text')}
-                   value={props.dateReadingSession.bookmark ? props.dateReadingSession.bookmark : ""}
-                   onChange={props.onInputChange}/>
+                   value={dateReadingSession.bookmark ? dateReadingSession.bookmark : ""}
+                   onChange={onInputChange}/>
 
-            {props.operation === 'add' ? (
+            {operation === 'add' ? (
                 <button className="button"
-                        onClick={() => props.onAddButtonClick(props.dateReadingSession)}>
+                        onClick={() => onAddButtonClick(dateReadingSession)}>
                     {localizer.localize('date-reading-session-add-button')}
                 </button>
             ) :
                 <button className="button"
-                        onClick={() => props.onUpdateButtonClick(props.dateReadingSession)}>
+                        onClick={() => onUpdateButtonClick(dateReadingSession)}>
                     {localizer.localize('date-reading-session-update-button')}
                 </button>
             }
