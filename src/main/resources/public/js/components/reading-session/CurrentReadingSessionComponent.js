@@ -17,7 +17,7 @@ import {
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
-import { receiveMessageAction } from "../../actions/MessageAction";
+import { receiveMessageAction } from "actions/MessageAction";
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -127,7 +127,13 @@ class CurrentReadingSessionComponent extends React.Component {
 }
 
 CurrentReadingSessionComponent.propTypes = {
-    bookUuid: PropTypes.string.isRequired
+    bookUuid: PropTypes.string.isRequired,
+    message: PropTypes.string,
+    operation: PropTypes.oneOf(['add', 'edit']).isRequired,
+    dateReadingSession: PropTypes.object,
+    books: PropTypes.object,
+    readingSessionProgress: PropTypes.object,
+    currentReadingSessions: PropTypes.object
 };
 
 const mapStateToProps = state => {
