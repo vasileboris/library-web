@@ -3,13 +3,14 @@ import localizer from 'utils/Localizer';
 import PropTypes from "prop-types";
 
 function SearchBooksComponent(props) {
-    const { onInputChange, onSearchClick, onAddClick } = props;
+    const { booksSearchText, onInputChange, onSearchClick, onAddClick } = props;
     return (
         <div className="entries">
             <div className="entry">
                 <input type="search"
                        className="text"
                        placeholder={localizer.localize('books-search-text')}
+                       value={booksSearchText}
                        onChange={onInputChange}/>
             </div>
             <div className="entry">
@@ -25,6 +26,7 @@ function SearchBooksComponent(props) {
 }
 
 SearchBooksComponent.propTypes = {
+    booksSearchText: PropTypes.string.isRequired,
     onInputChange: PropTypes.func.isRequired,
     onSearchClick: PropTypes.func.isRequired,
     onAddClick: PropTypes.func.isRequired

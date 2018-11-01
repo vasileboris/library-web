@@ -32,7 +32,11 @@ const LibraryRouter = function() {
                 </div>
                 <div className="page-content">
                     <Switch>
-                    <Route exact path="/books" component={BooksManagementComponent}/>
+                        <Route exact path="/books" component={() => (
+                            <Provider store={store}>
+                                <BooksManagementComponent/>
+                            </Provider>
+                        )}/>
                         <Route path="/books/:uuid" component={({match}) => (
                             <Provider store={store}>
                                 <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>

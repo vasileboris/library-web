@@ -30,8 +30,8 @@ function BookComponent(props) {
 
 BookComponent.propTypes = {
     book: PropTypes.shape({
-        isbn10: PropTypes.string.isRequired,
-        isbn13: PropTypes.string.isRequired,
+        isbn10: PropTypes.string,
+        isbn13: PropTypes.string,
         image: PropTypes.string,
         title: PropTypes.string.isRequired,
         authors: PropTypes.arrayOf(PropTypes.string).isRequired,

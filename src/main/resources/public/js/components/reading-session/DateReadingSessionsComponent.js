@@ -21,9 +21,7 @@ function DateReadingSessionsComponent(props) {
 DateReadingSessionsComponent.propTypes = {
     dateReadingSessions: PropTypes.arrayOf(
         PropTypes.shape({
-            date: PropTypes.string.isRequired,
-            lastReadPage: PropTypes.number.isRequired,
-            bookmark: PropTypes.string
+            date: PropTypes.string.isRequired
         })
     ).isRequired,
     onEditClick: PropTypes.func.isRequired,
