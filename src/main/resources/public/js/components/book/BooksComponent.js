@@ -18,13 +18,9 @@ function BooksComponent(props) {
 BooksComponent.propTypes = {
     books: PropTypes.arrayOf(
         PropTypes.shape({
-            image: PropTypes.string,
-            title: PropTypes.string.isRequired,
-            authors: PropTypes.arrayOf(PropTypes.string).isRequired,
-            pages: PropTypes.oneOfType([
-                PropTypes.number,
-                PropTypes.string
-            ]).isRequired
+            isbn10: PropTypes.string,
+            isbn13: PropTypes.string,
+            title: PropTypes.string.isRequired
         })
     ).isRequired
 };

@@ -11,7 +11,7 @@ function MessageComponent (props) {
 }
 
 MessageComponent.propTypes = {
-    message: PropTypes.string.isRequired
+    message: PropTypes.string
 };
 
 export default MessageComponent;
