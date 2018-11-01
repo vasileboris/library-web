@@ -4,17 +4,16 @@ import connect from "react-redux/es/connect/connect";
 import MessageComponent from "../message/MessageComponent";
 import SearchBooksComponent from "./SearchBooksComponent";
 import BooksComponent from "./BooksComponent";
-import { fetchBooks } from 'api/BookApi';
 import { receiveMessageAction } from "actions/MessageAction";
 import { receiveBooksSearchTextAction } from "actions/BooksSearchAction";
+import { fetchBooksAction } from "actions/BookAction";
 import PropTypes from "prop-types";
 
 class BooksManagementComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            operation: 'search',
-            books: [],
+            operation: 'search'
         };
 
         this.onSearchInputChange = this.onSearchInputChange.bind(this);
@@ -23,8 +22,8 @@ class BooksManagementComponent extends React.Component {
     }
 
     render() {
-        const { message, booksSearchText } = this.props;
-        const { operation, books } = this.state;
+        const { message, booksSearchText, books } = this.props;
+        const { operation } = this.state;
         return (
             <div className="content">
                 {'search' === operation && (
@@ -51,46 +50,35 @@ class BooksManagementComponent extends React.Component {
     }
 
     searchBooks() {
-        const { booksSearchText } = this.props;
-        fetchBooks(booksSearchText)
-            .then(response => this.successOnRetrieveBooks(response.data))
-            .catch(error => this.errorOnApiOperation(error));
+        const { booksSearchText, fetchBooksAction } = this.props;
+        fetchBooksAction(booksSearchText);
     }
-
-    successOnRetrieveBooks(books) {
-        receiveMessageAction(null);
-        this.setState({
-            books
-        });
-    }
-
 
     switchToAddBook() {
 
-    }
-
-    errorOnApiOperation(message) {
-        receiveMessageAction(message);
     }
 
 }
 
 BooksManagementComponent.propTypes = {
     message: PropTypes.string,
-    booksSearchText: PropTypes.string.isRequired
+    booksSearchText: PropTypes.string.isRequired,
+    books: PropTypes.object
 };
 
 const mapStateToProps = state => {
-    const { message, booksSearchText } = state;
+    const { message, booksSearchText, books } = state;
     return {
         message,
-        booksSearchText
+        booksSearchText,
+        books
     };
 };
 
 const mapDispatchToProps = {
     receiveMessageAction,
-    receiveBooksSearchTextAction
+    receiveBooksSearchTextAction,
+    fetchBooksAction
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BooksManagementComponent));

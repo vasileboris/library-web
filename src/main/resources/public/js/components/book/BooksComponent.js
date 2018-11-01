@@ -6,7 +6,8 @@ function BooksComponent(props) {
     const { books } = props;
     return (
         <div className="results">
-            {books && books
+            {books && Object.entries(books)
+                .map(entry => entry[1])
                 .sort((b1, b2) => b1.title.toUpperCase().localeCompare(b2.title.toUpperCase()))
                 .map(book => (
                     <BookComponent key={`${book.isbn10}-${book.isbn13}`} book={book} {...props}/>
@@ -16,13 +17,7 @@ function BooksComponent(props) {
 }
 
 BooksComponent.propTypes = {
-    books: PropTypes.arrayOf(
-        PropTypes.shape({
-            isbn10: PropTypes.string,
-            isbn13: PropTypes.string,
-            title: PropTypes.string.isRequired
-        })
-    )
+    books: PropTypes.object
 };
 
 export default BooksComponent;
