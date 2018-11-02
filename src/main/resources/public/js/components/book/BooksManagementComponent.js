@@ -2,7 +2,10 @@ import React from 'react';
 import MessageComponent from "../message/MessageComponent";
 import SearchBooksComponent from "./SearchBooksComponent";
 import BooksComponent from "./BooksComponent";
-import {fetchBooks} from 'api/BookApi';
+import {
+    fetchBooks,
+    deleteBook
+} from 'api/BookApi';
 import { run } from 'middleware/PromiseGeneratorRunner';
 
 class BooksManagementComponent extends React.Component {
@@ -17,8 +20,10 @@ class BooksManagementComponent extends React.Component {
         };
 
         this.onSearchInputChange = this.onSearchInputChange.bind(this);
-        this.searchBooks = this.searchBooks.bind(this);
+        this.onSearchClick = this.onSearchClick.bind(this);
         this.switchToAddBook = this.switchToAddBook.bind(this);
+        this.onEditBookClick = this.onEditBookClick.bind(this);
+        this.onDeleteBookClick = this.onDeleteBookClick.bind(this);
     }
 
     render() {
@@ -28,11 +33,13 @@ class BooksManagementComponent extends React.Component {
                 {'search' === operation && (
                     <SearchBooksComponent value={booksSearchText}
                                           onInputChange={this.onSearchInputChange}
-                                          onSearchClick={() => run(this.searchBooks)}
+                                          onSearchClick={() => run(this.onSearchClick)}
                                           onAddClick={this.switchToAddBook}/>
                 )}
                 <MessageComponent message={message}/>
-                <BooksComponent books={books}/>
+                <BooksComponent books={books}
+                                onEditClick={this.onEditBookClick}
+                                onDeleteClick={(book) => run(this.onDeleteBookClick, book)}/>
             </div>
         );
     }
@@ -44,7 +51,7 @@ class BooksManagementComponent extends React.Component {
         });
     }
 
-    *searchBooks() {
+    *onSearchClick() {
         const { booksSearchText } = this.state;
         try {
             const books = yield fetchBooks(booksSearchText);
@@ -64,6 +71,19 @@ class BooksManagementComponent extends React.Component {
 
     switchToAddBook() {
 
+    }
+
+    onEditBookClick(book) {
+
+    }
+
+    *onDeleteBookClick(book) {
+        try {
+            yield deleteBook(book.uuid);
+            yield this.onSearchClick();
+        } catch(error) {
+            this.errorOnApiOperation(error);
+        }
     }
 
     errorOnApiOperation(message) {
