@@ -6,7 +6,7 @@ import SearchBooksComponent from "./SearchBooksComponent";
 import BooksComponent from "./BooksComponent";
 import { receiveMessageAction } from "actions/MessageAction";
 import { receiveBooksSearchTextAction } from "actions/BooksSearchAction";
-import { fetchBooksAction } from "actions/BookAction";
+import { fetchBooksAction, deleteBookAction } from "actions/BookAction";
 import PropTypes from "prop-types";
 
 class BooksManagementComponent extends React.Component {
@@ -17,8 +17,10 @@ class BooksManagementComponent extends React.Component {
         };
 
         this.onSearchInputChange = this.onSearchInputChange.bind(this);
-        this.searchBooks = this.searchBooks.bind(this);
+        this.onSearchClick = this.onSearchClick.bind(this);
         this.switchToAddBook = this.switchToAddBook.bind(this);
+        this.onEditBookClick = this.onEditBookClick.bind(this);
+        this.onDeleteBookClick = this.onDeleteBookClick.bind(this);
     }
 
     render() {
@@ -29,11 +31,13 @@ class BooksManagementComponent extends React.Component {
                 {'search' === operation && (
                     <SearchBooksComponent booksSearchText={booksSearchText}
                                           onInputChange={this.onSearchInputChange}
-                                          onSearchClick={this.searchBooks}
+                                          onSearchClick={this.onSearchClick}
                                           onAddClick={this.switchToAddBook}/>
                 )}
                 <MessageComponent message={message}/>
-                <BooksComponent books={books}/>
+                <BooksComponent books={books}
+                                onEditClick={this.onEditBookClick}
+                                onDeleteClick={this.onDeleteBookClick}/>
             </div>
         );
     }
@@ -49,13 +53,22 @@ class BooksManagementComponent extends React.Component {
         receiveBooksSearchTextAction(booksSearchText);
     }
 
-    searchBooks() {
+    onSearchClick() {
         const { booksSearchText, fetchBooksAction } = this.props;
         fetchBooksAction(booksSearchText);
     }
 
     switchToAddBook() {
 
+    }
+
+    onEditBookClick(book) {
+
+    }
+
+    onDeleteBookClick(book) {
+        const { booksSearchText, deleteBookAction } = this.props;
+        deleteBookAction(booksSearchText, book.uuid);
     }
 
 }
@@ -78,7 +91,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     receiveMessageAction,
     receiveBooksSearchTextAction,
-    fetchBooksAction
+    fetchBooksAction,
+    deleteBookAction
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BooksManagementComponent));

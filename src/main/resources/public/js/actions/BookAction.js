@@ -1,4 +1,8 @@
-import { fetchBook, fetchBooks } from 'api/BookApi';
+import {
+    fetchBook,
+    fetchBooks,
+    deleteBook
+} from 'api/BookApi';
 import { receiveMessageAction } from 'actions/MessageAction';
 
 export const RECEIVE_BOOK = 'RECEIVE_BOOK';
@@ -23,6 +27,7 @@ export function fetchBooksAction(searchText) {
     return function (dispatch) {
         fetchBooks(searchText)
             .then(response => dispatch(receiveBooksAction(response.data)))
+            .then(() => dispatch(receiveMessageAction(null)))
             .catch(error => dispatch(receiveMessageAction(error)));
     }
 }
@@ -32,4 +37,17 @@ export function receiveBooksAction(books) {
         type: RECEIVE_BOOKS,
         payload: books
     }
+}
+
+export function deleteBookAction(searchText, uuid) {
+    return function (dispatch) {
+        deleteBook(uuid)
+            .then(() => dispatch(dispatchBookSearchData(dispatch, searchText)))
+            .catch(error => dispatch(receiveMessageAction(error)));
+    }
+}
+
+function dispatchBookSearchData(dispatch, searchText) {
+    dispatch(receiveMessageAction(null));
+    dispatch(fetchBooksAction(searchText));
 }
