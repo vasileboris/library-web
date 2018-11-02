@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import BookFigureComponent from './BookFigureComponent';
 
 function BookComponent(props) {
-    const { book, onEdit, onDelete } = props;
+    const { book, onEditClick, onDeleteClick } = props;
     return (
         <article className="result-book">
-            <a href="#" className="edit-item" onClick={() => onEdit(book)}>
+            <a href="#" className="edit-item" onClick={() => onEditClick(book)}>
                 <img src="/img/edit.png" alt={localizer.localize('book-update-button')} className="img-icon"/>
             </a>
             <Link to={`/books/${book.uuid}`} className="read-item">
                 <img src="/img/read.png" alt={localizer.localize('book-read-button')} className="img-icon"/>
             </Link>
-            <a href="#" className="delete-item" onClick={() => onDelete(book)}>
+            <a href="#" className="delete-item" onClick={() => onDeleteClick(book)}>
                 <img src="/img/delete.png" alt={localizer.localize('book-delete-button')} className="img-icon"/>
             </a>
             <div className="result-detail">
@@ -40,8 +40,8 @@ BookComponent.propTypes = {
             PropTypes.string
         ]).isRequired,
     }).isRequired,
-    onEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onEditClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired
 };
 
 export default BookComponent;
