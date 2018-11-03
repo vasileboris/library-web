@@ -1,4 +1,4 @@
-import { operation } from 'reducers/OperationReducer';
+import { operation } from 'reducers/DateReadingSessionOperationReducer';
 import { dateReadingSession } from 'reducers/DateReadingSessionReducer';
 import { currentReadingSessions } from 'reducers/CurrentReadingSessionsReducer';
 import { readingSessionsProgress } from 'reducers/ReadingSessionsProgressReducer';

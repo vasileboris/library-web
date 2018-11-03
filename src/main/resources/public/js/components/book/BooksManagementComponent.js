@@ -1,31 +1,37 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
-import connect from "react-redux/es/connect/connect";
-import MessageComponent from "../message/MessageComponent";
+import { connect } from 'react-redux';
+import MessageComponent from "components/message/MessageComponent";
 import SearchBooksComponent from "./SearchBooksComponent";
+import InputBookComponent from './InputBookComponent';
 import BooksComponent from "./BooksComponent";
 import { receiveMessageAction } from "actions/MessageAction";
 import { receiveBooksSearchTextAction } from "actions/BooksSearchAction";
-import { fetchBooksAction, deleteBookAction } from "actions/BookAction";
+import {
+    fetchBooksAction,
+    deleteBookAction,
+    changeBookFieldAction,
+    resetBookAction,
+    addBookAction
+} from "actions/BookAction";
+import { changeBookOperationAction } from 'actions/OperationAction';
 import PropTypes from "prop-types";
 
 class BooksManagementComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            operation: 'search'
-        };
-
         this.onSearchInputChange = this.onSearchInputChange.bind(this);
         this.onSearchClick = this.onSearchClick.bind(this);
         this.switchToAddBook = this.switchToAddBook.bind(this);
         this.onEditBookClick = this.onEditBookClick.bind(this);
         this.onDeleteBookClick = this.onDeleteBookClick.bind(this);
+        this.onBookInputChange = this.onBookInputChange.bind(this);
+        this.onAddBookClick = this.onAddBookClick.bind(this);
+        this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
     }
 
     render() {
-        const { message, booksSearchText, books } = this.props;
-        const { operation } = this.state;
+        const { message, operation, book, booksSearchText, books } = this.props;
         return (
             <div className="content">
                 {'search' === operation && (
@@ -33,6 +39,15 @@ class BooksManagementComponent extends React.Component {
                                           onInputChange={this.onSearchInputChange}
                                           onSearchClick={this.onSearchClick}
                                           onAddClick={this.switchToAddBook}/>
+                )}
+                {['add', 'edit'].indexOf(operation) > -1 && (
+                    <InputBookComponent
+                        operation={operation}
+                        book={book}
+                        onInputChange={this.onBookInputChange}
+                        onAddButtonClick={this.onAddBookClick}
+                        onUpdateButtonClick={null}
+                        onCancelButtonClick={this.switchToSearchBooks}/>
                 )}
                 <MessageComponent message={message}/>
                 <BooksComponent books={books}
@@ -42,24 +57,58 @@ class BooksManagementComponent extends React.Component {
         );
     }
 
+    componentDidMount() {
+        const booksSearchText = this.props.booksSearchText,
+            { fetchBooksAction } = this.props;
+        fetchBooksAction(booksSearchText);
+    }
+
     componentWillUnmount() {
-        const { receiveMessageAction } = this.props;
-        receiveMessageAction(null);
+        this.switchToSearchBooks();
     }
 
     onSearchInputChange(e) {
-        const booksSearchText = e.target.value.trim(),
+        const booksSearchText = e.target.value,
             { receiveBooksSearchTextAction } = this.props;
         receiveBooksSearchTextAction(booksSearchText);
     }
 
     onSearchClick() {
-        const { booksSearchText, fetchBooksAction } = this.props;
+        const booksSearchText = this.props.booksSearchText.trim(),
+            { receiveBooksSearchTextAction, fetchBooksAction } = this.props;
+        receiveBooksSearchTextAction(booksSearchText);
         fetchBooksAction(booksSearchText);
     }
 
-    switchToAddBook() {
+    onBookInputChange(e) {
+        const { changeBookFieldAction } = this.props;
+        const { name } = e.target;
+        let value  = e.target.value;
+        if('authors' === name) {
+            value = value.split(',');
+        }
+        changeBookFieldAction(name, value);
+    }
 
+    onAddBookClick() {
+        const booksSearchText = this.props.booksSearchText.trim(),
+            { book, addBookAction } = this.props;
+
+        addBookAction(booksSearchText, book);
+    }
+
+    switchToAddBook() {
+        const { changeBookOperationAction, resetBookAction, receiveMessageAction } = this.props;
+        changeBookOperationAction('add');
+        resetBookAction({});
+        receiveMessageAction(null);
+    }
+
+    switchToSearchBooks() {
+        const { changeBookOperationAction, resetBookAction, receiveMessageAction } = this.props;
+        changeBookOperationAction('search');
+        resetBookAction({});
+        receiveMessageAction(null);
     }
 
     onEditBookClick(book) {
@@ -75,14 +124,18 @@ class BooksManagementComponent extends React.Component {
 
 BooksManagementComponent.propTypes = {
     message: PropTypes.string,
-    booksSearchText: PropTypes.string.isRequired,
+    operation: PropTypes.oneOf(['search', 'add', 'edit']),
+    book: PropTypes.object,
+    booksSearchText: PropTypes.string,
     books: PropTypes.object
 };
 
 const mapStateToProps = state => {
-    const { message, booksSearchText, books } = state;
+    const { message, operation, book, booksSearchText, books } = state;
     return {
         message,
+        operation,
+        book,
         booksSearchText,
         books
     };
@@ -92,7 +145,11 @@ const mapDispatchToProps = {
     receiveMessageAction,
     receiveBooksSearchTextAction,
     fetchBooksAction,
-    deleteBookAction
+    deleteBookAction,
+    resetBookAction,
+    changeBookFieldAction,
+    addBookAction,
+    changeBookOperationAction
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BooksManagementComponent));

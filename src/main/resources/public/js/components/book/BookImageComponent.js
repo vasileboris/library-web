@@ -20,7 +20,7 @@ function buildImgAttributes(image) {
 }
 
 BookImageComponent.propTypes = {
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     size: PropTypes.string.isRequired
 };
 
