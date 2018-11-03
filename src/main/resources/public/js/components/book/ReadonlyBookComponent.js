@@ -8,7 +8,7 @@ function ReadonlyBookComponent(props) {
     return book && (
         <article className="result-single">
             <BookFigureComponent book={book} size="large"/>
-            <div>{localizer.localize('book-by-label')} {book.authors}</div>
+            <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
             <div>{book.pages} {localizer.localize('book-pages-label')}</div>
         </article>
     );
