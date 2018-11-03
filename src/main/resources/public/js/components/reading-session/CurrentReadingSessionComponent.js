@@ -66,7 +66,6 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('Moving away from react!')
     }
 
     retrieveBook() {
@@ -126,11 +125,13 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     onInputChange(e) {
-        const dateReadingSession = Object.assign({}, this.state.dateReadingSession);
-        dateReadingSession[e.target.name] = e.target.value;
-        this.setState({
-            dateReadingSession
-        });
+        const { name, value } = e.target;
+        this.setState(state => ({
+            dateReadingSession: {
+                ...state.dateReadingSession,
+                [name]: value
+            }
+        }));
     }
 
     onAddDateReadingSessionClick() {
