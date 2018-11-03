@@ -20,7 +20,7 @@ function BookComponent(props) {
             <div className="result-detail">
                 <BookFigureComponent book={book} size="small"/>
             </div>
-            <div>{localizer.localize('book-by-label')} {book.authors}</div>
+            <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
             <div>{book.pages} {localizer.localize('book-pages-label')}</div>
             <div>{book.isbn10}</div>
             <div>{book.isbn13}</div>
