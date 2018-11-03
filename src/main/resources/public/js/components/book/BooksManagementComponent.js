@@ -60,6 +60,13 @@ class BooksManagementComponent extends React.Component {
         );
     }
 
+    componentDidMount() {
+        const booksSearchText = this.state.booksSearchText;
+        fetchBooks(booksSearchText)
+            .then(response => this.successOnRetrieveBooks(response.data))
+            .catch(error => this.errorOnApiOperation(error));
+    }
+
     onSearchInputChange(e) {
         const booksSearchText = e.target.value;
         this.setState({
