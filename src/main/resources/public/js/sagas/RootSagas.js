@@ -2,7 +2,7 @@ import { all, call } from 'redux-saga/effects';
 import {
     watchFetchBook,
     watchFetchBooks,
-    watchDeleteBook
+    watchDeleteBook, watchAddBook
 } from 'sagas/BookSagas';
 import { watchFetchCurrentReadingSession } from 'sagas/ReadingSessionActionSagas';
 import { watchFetchReadingSessionProgress } from 'sagas/ReadingSessionProgressSagas';
@@ -17,6 +17,7 @@ export default function* rootSaga() {
         call(watchFetchBook),
         call(watchFetchBooks),
         call(watchDeleteBook),
+        call(watchAddBook),
         call(watchFetchCurrentReadingSession),
         call(watchFetchReadingSessionProgress),
         call(watchCreateDateReadingSession),

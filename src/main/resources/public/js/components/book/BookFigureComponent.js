@@ -14,7 +14,7 @@ function BookFigureComponent (props) {
 
 BookFigureComponent.propTypes = {
     book: PropTypes.shape({
-        image: PropTypes.string.isRequired,
+        image: PropTypes.string,
         title: PropTypes.string.isRequired
     }).isRequired,
     size: PropTypes.string.isRequired

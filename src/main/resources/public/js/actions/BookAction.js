@@ -3,6 +3,9 @@ export const RECEIVE_BOOK = 'RECEIVE_BOOK';
 export const FETCH_BOOKS = 'FETCH_BOOKS';
 export const RECEIVE_BOOKS = 'RECEIVE_BOOKS';
 export const DELETE_BOOK = 'DELETE_BOOK';
+export const CHANGE_BOOK = 'CHANGE_BOOK';
+export const RESET_BOOK = 'RESET_BOOK';
+export const ADD_BOOK = 'ADD_BOOK';
 
 export function fetchBookAction(uuid) {
     return {
@@ -38,6 +41,31 @@ export function deleteBookAction(searchText, uuid) {
         payload: {
             searchText,
             uuid
+        }
+    }
+}
+
+export function changeBookFieldAction(field, value) {
+    return {
+        type: CHANGE_BOOK,
+        payload: {[field]: value}
+
+    }
+}
+
+export function resetBookAction(book) {
+    return {
+        type: RESET_BOOK,
+        payload: book
+    }
+}
+
+export function addBookAction(searchText, book) {
+    return {
+        type: ADD_BOOK,
+        payload: {
+            searchText,
+            book
         }
     }
 }

@@ -9,6 +9,7 @@ function SearchBooksComponent(props) {
             <div className="entry">
                 <input type="search"
                        className="text"
+                       value={booksSearchText}
                        placeholder={localizer.localize('books-search-text')}
                        value={booksSearchText}
                        onChange={onInputChange}/>
@@ -26,7 +27,7 @@ function SearchBooksComponent(props) {
 }
 
 SearchBooksComponent.propTypes = {
-    booksSearchText: PropTypes.string.isRequired,
+    booksSearchText: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
     onSearchClick: PropTypes.func.isRequired,
     onAddClick: PropTypes.func.isRequired

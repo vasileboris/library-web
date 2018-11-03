@@ -44,22 +44,16 @@ export function deleteDateReadingSession(bookUuid, uuid, date) {
 
 export function validateDateReadingSession(dateReadingSession) {
     return new Promise((resolve, reject) => {
-        let error = null;
-
         const dateRegexp = /^\d{4}-\d{2}-\d{2}$/;
         if(!dateRegexp.test(dateReadingSession.date)) {
-            error = localizer.localize('date-reading-session-date-validation');
+            reject(localizer.localize('date-reading-session-date-validation'));
         }
 
         const pagesRegexp = /^\d+$/;
         if(!pagesRegexp.test(dateReadingSession.lastReadPage) || dateReadingSession.lastReadPage < 1) {
-            error = localizer.localize('date-reading-session-last-read-page-validation');
+            reject(localizer.localize('date-reading-session-last-read-page-validation'));
         }
 
-        if(!error) {
-            resolve();
-        } else {
-            reject(error);
-        }
+        resolve();
     });
 }
