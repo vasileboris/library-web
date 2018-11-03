@@ -28,7 +28,7 @@ function InputBookComponent(props) {
                    name="authors"
                    className="text"
                    placeholder={localizer.localize('book-authors-text')}
-                   value={book.authors ? book.authors : ""}
+                   value={book.authors ? book.authors.join(',') : ""}
                    onChange={onInputChange}/>
             <input type="text"
                    name="image"
