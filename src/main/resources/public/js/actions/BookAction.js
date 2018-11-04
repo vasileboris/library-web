@@ -4,7 +4,8 @@ import {
     deleteBook,
     sanitizeBook,
     addBook,
-    validateBook
+    validateBook,
+    updateBook
 } from 'api/BookApi';
 import { receiveMessageAction } from './MessageAction';
 import { receiveBooksSearchTextAction } from './BooksSearchAction';
@@ -83,6 +84,17 @@ export function addBookAction(searchText, book) {
         dispatch(resetBookAction(sanitizedBook));
         validateBook(sanitizedBook)
             .then(() => addBook(sanitizedBook))
+            .then(() => dispatchBookSearchData(dispatch, searchText))
+            .catch(error => dispatch(receiveMessageAction(error)));
+    }
+}
+
+export function updateBookAction(searchText, book) {
+    return function (dispatch) {
+        const sanitizedBook = sanitizeBook(book);
+        dispatch(resetBookAction(sanitizedBook));
+        validateBook(sanitizedBook)
+            .then(() => updateBook(sanitizedBook))
             .then(() => dispatchBookSearchData(dispatch, searchText))
             .catch(error => dispatch(receiveMessageAction(error)));
     }
