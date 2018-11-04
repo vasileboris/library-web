@@ -8,7 +8,8 @@ import {
     deleteBook,
     addBook,
     validateBook,
-    sanitizeBook
+    sanitizeBook,
+    updateBook
 } from 'api/BookApi';
 
 class BooksManagementComponent extends React.Component {
@@ -30,6 +31,7 @@ class BooksManagementComponent extends React.Component {
         this.onBookInputChange = this.onBookInputChange.bind(this);
         this.onAddBookClick = this.onAddBookClick.bind(this);
         this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
+        this.onUpdateBookClick = this.onUpdateBookClick.bind(this);
     }
 
     render() {
@@ -48,7 +50,7 @@ class BooksManagementComponent extends React.Component {
                         book={book}
                         onInputChange={this.onBookInputChange}
                         onAddButtonClick={this.onAddBookClick}
-                        onUpdateButtonClick={null}
+                        onUpdateButtonClick={this.onUpdateBookClick}
                         onCancelButtonClick={this.switchToSearchBooks}/>
                 )}
                 <MessageComponent message={message}/>
@@ -136,7 +138,24 @@ class BooksManagementComponent extends React.Component {
     }
 
     onEditBookClick(book) {
+        this.setState({
+            operation: 'edit',
+            book,
+            message: ''
+        });
+    }
 
+    onUpdateBookClick() {
+        const book  = sanitizeBook(this.state.book);
+        this.setState({
+            book
+        });
+        validateBook(book)
+            .then(() => updateBook(book))
+            .then(() => this.onSearchClick())
+            .catch(error => {
+                this.errorOnApiOperation(error);
+            });
     }
 
     onDeleteBookClick(book) {
