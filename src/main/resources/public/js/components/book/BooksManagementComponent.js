@@ -8,7 +8,8 @@ import {
     deleteBook,
     addBook,
     validateBook,
-    sanitizeBook
+    sanitizeBook,
+    updateBook
 } from 'api/BookApi';
 import { run } from 'middleware/PromiseGeneratorRunner';
 
@@ -31,6 +32,7 @@ class BooksManagementComponent extends React.Component {
         this.onBookInputChange = this.onBookInputChange.bind(this);
         this.onAddBookClick = this.onAddBookClick.bind(this);
         this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
+        this.onUpdateBookClick = this.onUpdateBookClick.bind(this);
     }
 
     render() {
@@ -49,7 +51,7 @@ class BooksManagementComponent extends React.Component {
                         book={book}
                         onInputChange={this.onBookInputChange}
                         onAddButtonClick={() => run(this.onAddBookClick)}
-                        onUpdateButtonClick={null}
+                        onUpdateButtonClick={() => run(this.onUpdateBookClick)}
                         onCancelButtonClick={this.switchToSearchBooks}/>
                 )}
                 <MessageComponent message={message}/>
@@ -141,7 +143,25 @@ class BooksManagementComponent extends React.Component {
     }
 
     onEditBookClick(book) {
+        this.setState({
+            operation: 'edit',
+            book,
+            message: ''
+        });
+    }
 
+    *onUpdateBookClick() {
+        const book  = sanitizeBook(this.state.book);
+        this.setState({
+            book
+        });
+        try {
+            yield validateBook(book);
+            yield updateBook(book);
+            yield* this.onSearchClick();
+        } catch(error) {
+            this.errorOnApiOperation(error);
+        }
     }
 
     *onDeleteBookClick(book) {
