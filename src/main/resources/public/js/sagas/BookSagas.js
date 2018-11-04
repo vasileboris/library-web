@@ -9,7 +9,8 @@ import {
     deleteBook,
     sanitizeBook,
     validateBook,
-    addBook
+    addBook,
+    updateBook
 } from 'api/BookApi';
 import {
     receiveBookAction,
@@ -18,7 +19,8 @@ import {
     FETCH_BOOK,
     FETCH_BOOKS,
     DELETE_BOOK,
-    ADD_BOOK
+    ADD_BOOK,
+    UPDATE_BOOK
 } from 'actions/BookAction';
 import { receiveMessageAction } from 'actions/MessageAction';
 import { receiveBooksSearchTextAction } from 'actions/BooksSearchAction';
@@ -41,6 +43,10 @@ export function* watchDeleteBook() {
 
 export function* watchAddBook() {
     yield takeLatest(ADD_BOOK, callAddBook);
+}
+
+export function* watchUpdateBook() {
+    yield takeLatest(UPDATE_BOOK, callUpdateBook);
 }
 
 function* callFetchBook(action) {
@@ -88,6 +94,18 @@ function* callAddBook(action) {
     }
 }
 
+function* callUpdateBook(action) {
+    try {
+        yield put(receiveMessageAction(null));
+        const book = sanitizeBook(action.payload.book);
+        yield put(resetBookAction(book));
+        yield call(validateBook, book);
+        yield call(updateBook, book);
+        yield dispatchBookSearchData(action);
+    } catch(error) {
+        yield put(receiveMessageAction(error));
+    }
+}
 
 function* dispatchBookSearchData(action) {
     const searchText = action.payload.searchText;

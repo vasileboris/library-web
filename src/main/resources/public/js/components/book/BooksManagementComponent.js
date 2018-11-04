@@ -12,7 +12,8 @@ import {
     deleteBookAction,
     changeBookFieldAction,
     resetBookAction,
-    addBookAction
+    addBookAction,
+    updateBookAction
 } from "actions/BookAction";
 import { changeBookOperationAction } from 'actions/OperationAction';
 import PropTypes from "prop-types";
@@ -28,6 +29,7 @@ class BooksManagementComponent extends React.Component {
         this.onBookInputChange = this.onBookInputChange.bind(this);
         this.onAddBookClick = this.onAddBookClick.bind(this);
         this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
+        this.onUpdateBookClick = this.onUpdateBookClick.bind(this);
     }
 
     render() {
@@ -46,7 +48,7 @@ class BooksManagementComponent extends React.Component {
                         book={book}
                         onInputChange={this.onBookInputChange}
                         onAddButtonClick={this.onAddBookClick}
-                        onUpdateButtonClick={null}
+                        onUpdateButtonClick={this.onUpdateBookClick}
                         onCancelButtonClick={this.switchToSearchBooks}/>
                 )}
                 <MessageComponent message={message}/>
@@ -112,7 +114,17 @@ class BooksManagementComponent extends React.Component {
     }
 
     onEditBookClick(book) {
+        const { changeBookOperationAction, resetBookAction, receiveMessageAction } = this.props;
+        changeBookOperationAction('edit');
+        resetBookAction(book);
+        receiveMessageAction(null);
+    }
 
+    onUpdateBookClick() {
+        const booksSearchText = this.props.booksSearchText.trim(),
+            { book, updateBookAction } = this.props;
+
+        updateBookAction(booksSearchText, book);
     }
 
     onDeleteBookClick(book) {
@@ -149,7 +161,8 @@ const mapDispatchToProps = {
     resetBookAction,
     changeBookFieldAction,
     addBookAction,
-    changeBookOperationAction
+    changeBookOperationAction,
+    updateBookAction
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BooksManagementComponent));

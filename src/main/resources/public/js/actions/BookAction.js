@@ -6,6 +6,7 @@ export const DELETE_BOOK = 'DELETE_BOOK';
 export const CHANGE_BOOK = 'CHANGE_BOOK';
 export const RESET_BOOK = 'RESET_BOOK';
 export const ADD_BOOK = 'ADD_BOOK';
+export const UPDATE_BOOK = 'UPDATE_BOOK';
 
 export function fetchBookAction(uuid) {
     return {
@@ -63,6 +64,16 @@ export function resetBookAction(book) {
 export function addBookAction(searchText, book) {
     return {
         type: ADD_BOOK,
+        payload: {
+            searchText,
+            book
+        }
+    }
+}
+
+export function updateBookAction(searchText, book) {
+    return {
+        type: UPDATE_BOOK,
         payload: {
             searchText,
             book
