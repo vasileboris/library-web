@@ -1,7 +1,15 @@
-import i18n from 'i18n';
+import i18n from 'i18next';
 
-export default {
-    localize: function (key) {
-        return jQuery.i18n.prop.apply(jQuery.i18n, arguments);
+const Localizer = {
+
+    localize: function (key, ...args) {
+        const values = args.reduce((values, value, idx) => ({
+            ...values,
+            [idx]: value
+        }) , {});
+        return i18n.t(key, values);
     }
+
 };
+
+export default Localizer;

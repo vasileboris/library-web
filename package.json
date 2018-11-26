@@ -8,8 +8,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "history": "^4.7.2",
-    "jquery": "^3.3.1",
-    "jquery-i18n-properties": "^1.2.7",
+    "i18next": "^12.1.0",
+    "i18next-fetch-backend": "^2.0.0",
     "prop-types": "^15.6.2",
     "raw-loader": "^0.5.1",
     "react": "^16.5.2",
