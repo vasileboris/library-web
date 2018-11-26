@@ -2108,6 +2108,16 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
+i18next-fetch-backend@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/i18next-fetch-backend/-/i18next-fetch-backend-2.0.0.tgz#6f62c3419ad824f9471baef9d5adf2eccc9d1ca4"
+  integrity sha512-GebY3fmoHCOhfcQiGptMz0gUb1jpuRuA5w7r8VgqTSAoXxTOPQzKqQCUIOk0uhJX9BJMlW/rM9H6/s/D/ryL7g==
+
+i18next@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-12.1.0.tgz#387bf4b94d05b0160b6a41d001a6b360e384bdb1"
+  integrity sha512-AexmwGkKxwKfo5fGeXTWEY4xqzRPigQ1S/0InOUUVziGO54cd4fKyYK8ED1Thx9fd+WA3fRSZ+1iekvFQMbsFw==
+
 iconv-lite@^0.4.4:
   version "0.4.23"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.23.tgz#297871f63be507adcfbfca715d0cd0eed84e9a63"
@@ -2377,18 +2387,6 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
-
-jquery-i18n-properties@^1.2.7:
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/jquery-i18n-properties/-/jquery-i18n-properties-1.2.7.tgz#80e0673302c993a5597ad95f3f3b6543d3a0b97d"
-  integrity sha512-GpWQAATtVRdcR3I+4br3WXY41/TEJ/YoSzSh2uvIpwWzfhUPq35iClreG/Ivo1oulUGSeEG64t4iWzfXwRVXiA==
-  dependencies:
-    jquery ">=1.9.0"
-
-jquery@>=1.9.0, jquery@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
