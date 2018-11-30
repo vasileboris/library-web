@@ -9,7 +9,10 @@ i18next
     .use(Fetch)
     .init({
         backend: {
-            loadPath: '/js/bundle/Messages_{lng}.properties',
+            loadPath: lng => {
+                const suffix = 'en' !== lng ? `_${lng}` : '';
+                return `/js/bundle/Messages${suffix}.properties`
+            },
             parse: data => PROP.parse(data)
         },
         lng: "en",
