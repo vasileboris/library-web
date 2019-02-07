@@ -17,7 +17,7 @@ import {
 import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
-import { receiveMessageAction } from "actions/MessageAction";
+import { receiveMessageAction } from 'actions/MessageAction';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {

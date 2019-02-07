@@ -1,6 +1,6 @@
 import React from 'react';
 import localizer from 'utils/Localizer';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function SearchBooksComponent(props) {
     const { booksSearchText, onInputChange, onSearchClick, onAddClick } = props;

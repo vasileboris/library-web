@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
     resolve: {
-        modules: ['src/main/resources/public/js', 'node_modules'],
+        modules: ['src/js', 'node_modules'],
         descriptionFiles: ['package.json', 'bower.json'],
         alias: {
             i18n: 'jquery-i18n-properties'
@@ -15,12 +15,12 @@ module.exports = {
             text: 'raw-loader'
         }
     },
-    context: __dirname + '/src/main/resources/public/js',
+    context: __dirname + '/src/js',
     entry: [
         'Library.js'
     ],
     output: {
-        path: __dirname + '/dist/public',
+        path: __dirname + '/dist',
         publicPath: '/',
         filename: 'index.js'
     },

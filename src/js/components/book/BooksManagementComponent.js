@@ -1,12 +1,12 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import MessageComponent from "components/message/MessageComponent";
-import SearchBooksComponent from "./SearchBooksComponent";
+import MessageComponent from 'components/message/MessageComponent';
+import SearchBooksComponent from './SearchBooksComponent';
 import InputBookComponent from './InputBookComponent';
-import BooksComponent from "./BooksComponent";
-import { receiveMessageAction } from "actions/MessageAction";
-import { receiveBooksSearchTextAction } from "actions/BooksSearchAction";
+import BooksComponent from './BooksComponent';
+import { receiveMessageAction } from 'actions/MessageAction';
+import { receiveBooksSearchTextAction } from 'actions/BooksSearchAction';
 import {
     fetchBooksAction,
     deleteBookAction,
@@ -14,9 +14,9 @@ import {
     resetBookAction,
     addBookAction,
     updateBookAction
-} from "actions/BookAction";
+} from 'actions/BookAction';
 import { changeBookOperationAction } from 'actions/OperationAction';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 class BooksManagementComponent extends React.Component {
     constructor(props) {
