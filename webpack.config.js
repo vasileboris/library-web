@@ -5,15 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     resolve: {
         modules: ['src/js', 'node_modules'],
-        descriptionFiles: ['package.json'],
-        alias: {
-            i18n: 'jquery-i18n-properties'
-        }
-    },
-    resolveLoader: {
-        alias: {
-            text: 'raw-loader'
-        }
+        descriptionFiles: ['package.json']
     },
     context: __dirname + '/src/js',
     entry: [
@@ -30,10 +22,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: '../index.html'
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
         })
     ],
     module: {
