@@ -13,15 +13,15 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'sagas/RootSagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import { currentReadingSessionReducer }  from 'reducers/CurrentReadingSessionReducer';
-import HeaderComponent from 'components/HeaderComponent';
-import LibraryViewComponent from 'components/LibraryViewComponent';
-import CurrentReadingSessionComponent from 'components/CurrentReadingSessionComponent';
+import { library }  from 'reducers/LibraryReducer';
+import HeaderComponent from 'components/header/HeaderComponent';
+import CurrentReadingSessionComponent from 'components/reading-session/CurrentReadingSessionComponent';
+import BooksManagementComponent from 'components/book/BooksManagementComponent';
 import history from 'routers/History';
 
 const LibraryRouter = function() {
     const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(currentReadingSessionReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+    const store = createStore(library, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(rootSaga);
 
     return (
@@ -32,7 +32,11 @@ const LibraryRouter = function() {
                 </div>
                 <div className="page-content">
                     <Switch>
-                        <Route exact path="/books" component={LibraryViewComponent}/>
+                        <Route exact path="/books" component={() => (
+                            <Provider store={store}>
+                                <BooksManagementComponent/>
+                            </Provider>
+                        )}/>
                         <Route path="/books/:uuid" component={({match}) => (
                             <Provider store={store}>
                                 <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>

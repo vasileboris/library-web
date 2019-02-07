@@ -1,0 +1,35 @@
+import React from 'react';
+import localizer from 'utils/Localizer';
+import PropTypes from 'prop-types';
+
+function DateReadingSessionComponent(props) {
+    const { dateReadingSession, onEditClick, onDeleteClick } = props;
+
+    return (
+        <article className="result-date-reading-session">
+            <a href="#" className="edit-item" onClick={() => onEditClick(dateReadingSession)}>
+                <img src="/img/edit.png" alt="edit reading session" className="img-icon"/>
+            </a>
+            <a href="#" className="delete-item" onClick={() => onDeleteClick(dateReadingSession.date)}>
+                <img src="/img/delete.png" alt="delete reading session" className="img-icon"/>
+            </a>
+            <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
+            <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>
+            {dateReadingSession.bookmark && (
+                <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
+            )}
+        </article>
+    );
+}
+
+DateReadingSessionComponent.propTypes = {
+    dateReadingSession: PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        lastReadPage: PropTypes.number.isRequired,
+        bookmark: PropTypes.string
+    }).isRequired,
+    onEditClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired
+};
+
+export default DateReadingSessionComponent;
