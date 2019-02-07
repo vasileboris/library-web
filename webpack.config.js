@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     resolve: {
         modules: ['src/js', 'node_modules'],
-        descriptionFiles: ['package.json', 'bower.json'],
+        descriptionFiles: ['package.json'],
         alias: {
             i18n: 'jquery-i18n-properties'
         }
@@ -41,7 +41,7 @@ module.exports = {
             {
                 test: /\.(js)$/,
                 include: __dirname,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules)/,
                 loader: require.resolve('babel-loader'),
                 query: {
                     presets: ['env', 'react']
