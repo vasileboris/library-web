@@ -11,7 +11,7 @@ i18next
         backend: {
             loadPath: lng => {
                 const suffix = 'en' !== lng ? `_${lng}` : '';
-                return `/js/bundle/Messages${suffix}.properties`
+                return `/translations/Messages${suffix}.properties`
             },
             parse: data => PROP.parse(data)
         },
