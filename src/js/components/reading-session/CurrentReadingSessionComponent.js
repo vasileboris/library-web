@@ -38,15 +38,15 @@ class CurrentReadingSessionComponent extends React.Component {
 
         return (
             <div className="content">
-                <section className="results">
+                <div className="results">
                     {book && (
                         <ReadonlyBookComponent book={book}/>
                     )}
                     {readingSessionProgress && (
                         <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
                     )}
-                </section>
-                <section>
+                </div>
+                <div>
                     {message && (
                         <MessageComponent message={message}/>
                     )}
@@ -56,15 +56,15 @@ class CurrentReadingSessionComponent extends React.Component {
                         onInputChange={this.onInputChange}
                         onAddButtonClick={this.onAddDateReadingSessionClick}
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
-                </section>
-                <section>
+                </div>
+                <div>
                     {dateReadingSessions && dateReadingSessions.length > 0 && (
                         <DateReadingSessionsComponent
                             dateReadingSessions={currentReadingSession.dateReadingSessions}
                             onEditClick={this.onEditDateReadingSessionClick}
                             onDeleteClick={this.onDeleteDateReadingSessionClick}/>
                     )}
-                </section>
+                </div>
             </div>
         );
     }
