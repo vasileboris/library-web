@@ -16,7 +16,7 @@ function SearchBooksComponent(props) {
             </div>
             <div className="entry">
                 <a href="#" onClick={onAddClick}>
-                    <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon"/>
+                    <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon-large"/>
                 </a>
             </div>
         </div>

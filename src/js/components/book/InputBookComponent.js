@@ -58,7 +58,7 @@ function InputBookComponent(props) {
             </div>
             <div className="entry">
                 <a href="#" onClick={onCancelButtonClick}>
-                    <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon"/>
+                    <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon-large"/>
                 </a>
             </div>
         </div>
