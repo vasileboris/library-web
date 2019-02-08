@@ -15,9 +15,6 @@ function SearchBooksComponent(props) {
                        onChange={onInputChange}/>
             </div>
             <div className="entry">
-                <button className="button" onClick={onSearchClick}>
-                    {localizer.localize('books-search-button')}
-                </button>
                 <a href="#" onClick={onAddClick}>
                     <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon"/>
                 </a>
@@ -29,7 +26,6 @@ function SearchBooksComponent(props) {
 SearchBooksComponent.propTypes = {
     booksSearchText: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
-    onSearchClick: PropTypes.func.isRequired,
     onAddClick: PropTypes.func.isRequired
 };
 

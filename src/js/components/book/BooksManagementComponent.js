@@ -22,7 +22,6 @@ class BooksManagementComponent extends React.Component {
     constructor(props) {
         super(props);
         this.onSearchInputChange = this.onSearchInputChange.bind(this);
-        this.onSearchClick = this.onSearchClick.bind(this);
         this.switchToAddBook = this.switchToAddBook.bind(this);
         this.onEditBookClick = this.onEditBookClick.bind(this);
         this.onDeleteBookClick = this.onDeleteBookClick.bind(this);
@@ -39,7 +38,6 @@ class BooksManagementComponent extends React.Component {
                 {'search' === operation && (
                     <SearchBooksComponent booksSearchText={booksSearchText}
                                           onInputChange={this.onSearchInputChange}
-                                          onSearchClick={this.onSearchClick}
                                           onAddClick={this.switchToAddBook}/>
                 )}
                 {['add', 'edit'].indexOf(operation) > -1 && (
@@ -71,15 +69,9 @@ class BooksManagementComponent extends React.Component {
 
     onSearchInputChange(e) {
         const booksSearchText = e.target.value,
-            { receiveBooksSearchTextAction } = this.props;
-        receiveBooksSearchTextAction(booksSearchText);
-    }
-
-    onSearchClick() {
-        const booksSearchText = this.props.booksSearchText.trim(),
             { receiveBooksSearchTextAction, fetchBooksAction } = this.props;
         receiveBooksSearchTextAction(booksSearchText);
-        fetchBooksAction(booksSearchText);
+        fetchBooksAction(booksSearchText.trim());
     }
 
     onBookInputChange(e) {

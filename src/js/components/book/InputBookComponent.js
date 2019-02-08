@@ -5,58 +5,62 @@ import localizer from 'utils/Localizer';
 function InputBookComponent(props) {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
-        <div className="entry">
-            <input type="text"
-                   name="isbn10"
-                   className="text"
-                   placeholder={localizer.localize('book-isbn10-text')}
-                   value={book.isbn10 ? book.isbn10 : ""}
-                   onChange={onInputChange}/>
-            <input type="text"
-                   name="isbn13"
-                   className="text"
-                   placeholder={localizer.localize('book-isbn13-text')}
-                   value={book.isbn13 ? book.isbn13 : ""}
-                   onChange={onInputChange}/>
-            <input type="text"
-                   name="title"
-                   className="text"
-                   placeholder={localizer.localize('book-title-text')}
-                   value={book.title ? book.title : ""}
-                   onChange={onInputChange}/>
-            <input type="text"
-                   name="authors"
-                   className="text"
-                   placeholder={localizer.localize('book-authors-text')}
-                   value={book.authors ? book.authors.join(',') : ""}
-                   onChange={onInputChange}/>
-            <input type="text"
-                   name="image"
-                   className="text"
-                   placeholder={localizer.localize('book-image-text')}
-                   value={book.image ? book.image : ""}
-                   onChange={onInputChange}/>
-            <input type="text"
-                   name="pages"
-                   className="text"
-                   placeholder={localizer.localize('book-pages-text')}
-                   value={book.pages ? book.pages : ""}
-                   onChange={onInputChange}/>
+        <div className="entries">
+            <div className="entry">
+                <input type="text"
+                       name="isbn10"
+                       className="text"
+                       placeholder={localizer.localize('book-isbn10-text')}
+                       value={book.isbn10 ? book.isbn10 : ""}
+                       onChange={onInputChange}/>
+                <input type="text"
+                       name="isbn13"
+                       className="text"
+                       placeholder={localizer.localize('book-isbn13-text')}
+                       value={book.isbn13 ? book.isbn13 : ""}
+                       onChange={onInputChange}/>
+                <input type="text"
+                       name="title"
+                       className="text"
+                       placeholder={localizer.localize('book-title-text')}
+                       value={book.title ? book.title : ""}
+                       onChange={onInputChange}/>
+                <input type="text"
+                       name="authors"
+                       className="text"
+                       placeholder={localizer.localize('book-authors-text')}
+                       value={book.authors ? book.authors.join(',') : ""}
+                       onChange={onInputChange}/>
+                <input type="text"
+                       name="image"
+                       className="text"
+                       placeholder={localizer.localize('book-image-text')}
+                       value={book.image ? book.image : ""}
+                       onChange={onInputChange}/>
+                <input type="text"
+                       name="pages"
+                       className="text"
+                       placeholder={localizer.localize('book-pages-text')}
+                       value={book.pages ? book.pages : ""}
+                       onChange={onInputChange}/>
 
-            {operation === 'add' ? (
-                <button className="button"
-                        onClick={onAddButtonClick}>
-                    {localizer.localize('book-add-button')}
-                </button>
-            ) :
-                <button className="button"
-                        onClick={onUpdateButtonClick}>
-                    {localizer.localize('book-update-button')}
-                </button>
-            }
-            <a href="#" onClick={onCancelButtonClick}>
-                <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon"/>
-            </a>
+                {operation === 'add' ? (
+                        <button className="button"
+                                onClick={onAddButtonClick}>
+                            {localizer.localize('book-add-button')}
+                        </button>
+                    ) :
+                    <button className="button"
+                            onClick={onUpdateButtonClick}>
+                        {localizer.localize('book-update-button')}
+                    </button>
+                }
+            </div>
+            <div className="entry">
+                <a href="#" onClick={onCancelButtonClick}>
+                    <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon"/>
+                </a>
+            </div>
         </div>
     );
 }
