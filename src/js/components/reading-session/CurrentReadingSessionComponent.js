@@ -37,7 +37,7 @@ class CurrentReadingSessionComponent extends React.Component {
             book = books[bookUuid];
 
         return (
-            <div id="content-div" className="content">
+            <div className="content">
                 <section className="results">
                     {book && (
                         <ReadonlyBookComponent book={book}/>

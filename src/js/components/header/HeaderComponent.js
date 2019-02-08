@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function HeaderComponent () {
     return (
-        <header id="header-div" className="header">
+        <header className="header">
             <div>
                 <Link to='/books'>
                     <img src="/img/logo.svg" alt="Book Library" className="img-logo"/>
