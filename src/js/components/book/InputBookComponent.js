@@ -5,8 +5,11 @@ import localizer from 'utils/Localizer';
 function InputBookComponent(props) {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
-        <div className="entries">
+        <React.Fragment>
             <div className="entry">
+                <a className="cancel" href="#" onClick={onCancelButtonClick}>
+                    <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon-small"/>
+                </a>
                 <input type="text"
                        name="isbn10"
                        className="text"
@@ -56,12 +59,7 @@ function InputBookComponent(props) {
                     </button>
                 }
             </div>
-            <div className="entry">
-                <a href="#" onClick={onCancelButtonClick}>
-                    <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon-large"/>
-                </a>
-            </div>
-        </div>
+        </React.Fragment>
     );
 }
 

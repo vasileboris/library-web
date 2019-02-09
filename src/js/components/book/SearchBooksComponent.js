@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function SearchBooksComponent(props) {
     const { booksSearchText, onInputChange, onSearchClick, onAddClick } = props;
     return (
-        <div className="entries">
+        <React.Fragment>
             <div className="entry">
                 <input type="search"
                        className="text"
@@ -19,7 +19,7 @@ function SearchBooksComponent(props) {
                     <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon-large"/>
                 </a>
             </div>
-        </div>
+        </React.Fragment>
     );
 }
 
