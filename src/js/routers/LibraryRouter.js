@@ -26,7 +26,7 @@ const LibraryRouter = function() {
 
     return (
         <Router history={history}>
-            <div>
+            <React.Fragment>
                 <div className="page-header">
                     <HeaderComponent/>
                 </div>
@@ -49,7 +49,7 @@ const LibraryRouter = function() {
                         <Redirect exact from="/" to="/books"/>
                     </Switch>
                 </div>
-            </div>
+            </React.Fragment>
         </Router>
     );
 };
