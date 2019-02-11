@@ -47,15 +47,15 @@ class CurrentReadingSessionComponent extends React.Component {
                     )}
                 </div>
                 <div>
-                    {message && (
-                        <MessageComponent message={message}/>
-                    )}
                     <InputDateReadingSessionComponent
                         operation={operation}
                         dateReadingSession={dateReadingSession}
                         onInputChange={this.onInputChange}
                         onAddButtonClick={this.onAddDateReadingSessionClick}
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
+                    {message && (
+                        <MessageComponent message={message}/>
+                    )}
                 </div>
                 <div>
                     {dateReadingSessions && dateReadingSessions.length > 0 && (
