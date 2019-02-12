@@ -7,9 +7,6 @@ function InputBookComponent(props) {
     return (
         <React.Fragment>
             <div className="entry">
-                <a className="cancel" href="#" onClick={onCancelButtonClick}>
-                    <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon-small"/>
-                </a>
                 <input type="text"
                        name="isbn10"
                        className="text"
@@ -58,6 +55,10 @@ function InputBookComponent(props) {
                     {localizer.localize('book-update-button')}
                 </button>
                 }
+                <button className="button"
+                        onClick={onCancelButtonClick}>
+                    {localizer.localize('cancel-edit-book-button')}
+                </button>
             </div>
         </React.Fragment>
     );

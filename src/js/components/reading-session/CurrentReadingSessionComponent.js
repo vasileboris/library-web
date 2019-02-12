@@ -18,7 +18,6 @@ import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
 import { receiveMessageAction } from 'actions/MessageAction';
-import localizer from "../../utils/Localizer";
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -39,11 +38,6 @@ class CurrentReadingSessionComponent extends React.Component {
 
         return (
             <div className="content">
-                <div className="entry">
-                    <a className="cancel" href="#">
-                        <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon-small"/>
-                    </a>
-                </div>
                 <div className="results">
                     <ReadonlyBookComponent book={book}/>
                     <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>

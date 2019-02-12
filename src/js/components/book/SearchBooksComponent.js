@@ -15,9 +15,10 @@ function SearchBooksComponent(props) {
                        onChange={onInputChange}/>
             </div>
             <div className="entry">
-                <a href="#" onClick={onAddClick}>
-                    <img src="/img/new.png" alt={localizer.localize('book-add-button')} className="img-icon-large"/>
-                </a>
+                <button className="button"
+                        onClick={onAddClick}>
+                    {localizer.localize('book-add-button')}
+                </button>
             </div>
         </React.Fragment>
     );
