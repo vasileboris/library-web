@@ -16,9 +16,7 @@ function* callFetchReadingSessionProgress(action) {
         const response = yield call(fetchReadingSessionProgress, bookUuid, uuid);
         yield put(receiveReadingSessionProgressAction(response.data));
     } catch (error) {
-        if (error.response.status === 404) {
-            yield put(receiveReadingSessionProgressAction(null));
-        } else {
+        if (error.response.status !== 404) {
             yield put(receiveMessageAction(localizer.localize('reading-session-progress-retrieve-error', error.response.status)));
         }
     }

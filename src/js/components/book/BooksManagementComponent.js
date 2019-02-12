@@ -36,18 +36,18 @@ class BooksManagementComponent extends React.Component {
         return (
             <div className="content">
                 {'search' === operation && (
-                    <SearchBooksComponent booksSearchText={booksSearchText}
-                                          onInputChange={this.onSearchInputChange}
-                                          onAddClick={this.switchToAddBook}/>
+                <SearchBooksComponent booksSearchText={booksSearchText}
+                                      onInputChange={this.onSearchInputChange}
+                                      onAddClick={this.switchToAddBook}/>
                 )}
                 {['add', 'edit'].indexOf(operation) > -1 && (
-                    <InputBookComponent
-                        operation={operation}
-                        book={book}
-                        onInputChange={this.onBookInputChange}
-                        onAddButtonClick={this.onAddBookClick}
-                        onUpdateButtonClick={this.onUpdateBookClick}
-                        onCancelButtonClick={this.switchToSearchBooks}/>
+                <InputBookComponent
+                    operation={operation}
+                    book={book}
+                    onInputChange={this.onBookInputChange}
+                    onAddButtonClick={this.onAddBookClick}
+                    onUpdateButtonClick={this.onUpdateBookClick}
+                    onCancelButtonClick={this.switchToSearchBooks}/>
                 )}
                 <MessageComponent message={message}/>
                 <BooksComponent books={books}

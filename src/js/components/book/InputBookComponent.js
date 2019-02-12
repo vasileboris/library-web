@@ -48,15 +48,15 @@ function InputBookComponent(props) {
                        onChange={onInputChange}/>
 
                 {operation === 'add' ? (
-                        <button className="button"
-                                onClick={onAddButtonClick}>
-                            {localizer.localize('book-add-button')}
-                        </button>
-                    ) :
-                    <button className="button"
-                            onClick={onUpdateButtonClick}>
-                        {localizer.localize('book-update-button')}
-                    </button>
+                <button className="button"
+                        onClick={onAddButtonClick}>
+                    {localizer.localize('book-add-button')}
+                </button>
+                ) :
+                <button className="button"
+                        onClick={onUpdateButtonClick}>
+                    {localizer.localize('book-update-button')}
+                </button>
                 }
             </div>
         </React.Fragment>

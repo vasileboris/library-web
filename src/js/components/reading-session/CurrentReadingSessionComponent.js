@@ -18,6 +18,7 @@ import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
 import { receiveMessageAction } from 'actions/MessageAction';
+import localizer from "../../utils/Localizer";
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -38,13 +39,14 @@ class CurrentReadingSessionComponent extends React.Component {
 
         return (
             <div className="content">
+                <div className="entry">
+                    <a className="cancel" href="#">
+                        <img src="/img/cancel.png" alt={localizer.localize('cancel-edit-book-button')} className="img-icon-small"/>
+                    </a>
+                </div>
                 <div className="results">
-                    {book && (
-                        <ReadonlyBookComponent book={book}/>
-                    )}
-                    {readingSessionProgress && (
-                        <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
-                    )}
+                    <ReadonlyBookComponent book={book}/>
+                    <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
                 </div>
                 <div>
                     <InputDateReadingSessionComponent
@@ -53,17 +55,13 @@ class CurrentReadingSessionComponent extends React.Component {
                         onInputChange={this.onInputChange}
                         onAddButtonClick={this.onAddDateReadingSessionClick}
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
-                    {message && (
-                        <MessageComponent message={message}/>
-                    )}
+                    <MessageComponent message={message}/>
                 </div>
                 <div>
-                    {dateReadingSessions && dateReadingSessions.length > 0 && (
-                        <DateReadingSessionsComponent
-                            dateReadingSessions={currentReadingSession.dateReadingSessions}
-                            onEditClick={this.onEditDateReadingSessionClick}
-                            onDeleteClick={this.onDeleteDateReadingSessionClick}/>
-                    )}
+                    <DateReadingSessionsComponent
+                        dateReadingSessions={dateReadingSessions}
+                        onEditClick={this.onEditDateReadingSessionClick}
+                        onDeleteClick={this.onDeleteDateReadingSessionClick}/>
                 </div>
             </div>
         );

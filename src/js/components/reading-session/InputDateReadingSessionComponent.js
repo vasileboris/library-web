@@ -27,15 +27,15 @@ function InputDateReadingSessionComponent(props) {
                    onChange={onInputChange}/>
 
             {operation === 'add' ? (
-                <button className="button"
-                        onClick={() => onAddButtonClick(dateReadingSession)}>
-                    {localizer.localize('date-reading-session-add-button')}
-                </button>
+            <button className="button"
+                    onClick={() => onAddButtonClick(dateReadingSession)}>
+                {localizer.localize('date-reading-session-add-button')}
+            </button>
             ) :
-                <button className="button"
-                        onClick={() => onUpdateButtonClick(dateReadingSession)}>
-                    {localizer.localize('date-reading-session-update-button')}
-                </button>
+            <button className="button"
+                    onClick={() => onUpdateButtonClick(dateReadingSession)}>
+                {localizer.localize('date-reading-session-update-button')}
+            </button>
             }
         </div>
     );

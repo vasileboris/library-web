@@ -5,46 +5,49 @@ import localizer from 'utils/Localizer';
 function ReadingSessionProgressComponent (props) {
     const  { readingSessionProgress } = props;
     return (
-        <article className="result-single">
-            <div>
-                {localizer.localize('reading-session-progress-status-label')}
-                &nbsp;
-                <span className="result-important">{readingSessionProgress.readPercentage}%</span>
-            </div>
-            <div>
-                <span className="result-important">{readingSessionProgress.averagePagesPerDay}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-average-pages-label')}
-            </div>
-            <div>
-                <span className="result-important">{readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-estimated-pages-left-label')}
-             </div>
-            <div>
-                <span className="result-important">{readingSessionProgress.estimatedReadDaysLeft}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-estimated-read-days-left-label')}
-                &nbsp;
-                /
-                &nbsp;
-                <span className="result-important">{readingSessionProgress.estimatedDaysLeft}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-estimated-days-left-label')}
-            </div>
-            <div>
-                {localizer.localize('reading-session-progress-estimated-finish-date-label')}
-                &nbsp;
-                <span className="result-important ">{readingSessionProgress.estimatedFinishDate}</span>
-            </div>
-            {readingSessionProgress.deadline ? (
+        <React.Fragment>
+            { readingSessionProgress && (
+            <article className="result-single">
+                <div>
+                    {localizer.localize('reading-session-progress-status-label')}
+                    &nbsp;
+                    <span className="result-important">{readingSessionProgress.readPercentage}%</span>
+                </div>
+                <div>
+                    <span className="result-important">{readingSessionProgress.averagePagesPerDay}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-average-pages-label')}
+                </div>
+                <div>
+                    <span className="result-important">{readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-estimated-pages-left-label')}
+                </div>
+                <div>
+                    <span className="result-important">{readingSessionProgress.estimatedReadDaysLeft}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-estimated-read-days-left-label')}
+                    &nbsp;
+                    /
+                    &nbsp;
+                    <span className="result-important">{readingSessionProgress.estimatedDaysLeft}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-estimated-days-left-label')}
+                </div>
+                <div>
+                    {localizer.localize('reading-session-progress-estimated-finish-date-label')}
+                    &nbsp;
+                    <span className="result-important ">{readingSessionProgress.estimatedFinishDate}</span>
+                </div>
+                {readingSessionProgress.deadline ? (
                 <div>
                     {localizer.localize('reading-session-progress-deadline-label')}
                     &nbsp;
                     <span className="result-important ">{readingSessionProgress.deadline}</span>
                 </div>
-            ) : null}
-        </article>
+                ) : null}
+            </article>)}
+        </React.Fragment>
     );
 }
 
@@ -58,7 +61,7 @@ ReadingSessionProgressComponent.propTypes = {
         estimatedDaysLeft: PropTypes.number.isRequired,
         estimatedFinishDate: PropTypes.string.isRequired,
         deadline: PropTypes.string
-    }).isRequired
+    })
 };
 
 export default ReadingSessionProgressComponent;

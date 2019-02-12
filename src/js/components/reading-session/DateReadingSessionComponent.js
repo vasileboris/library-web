@@ -16,7 +16,7 @@ function DateReadingSessionComponent(props) {
             <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
             <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>
             {dateReadingSession.bookmark && (
-                <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
+            <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
             )}
         </article>
     );
