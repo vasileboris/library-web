@@ -49,15 +49,15 @@ function InputBookComponent(props) {
                         onClick={onAddButtonClick}>
                     {localizer.localize('book-add-button')}
                 </button>
-                ) :
+                ) : (
                 <button className="button"
                         onClick={onUpdateButtonClick}>
                     {localizer.localize('book-update-button')}
                 </button>
-                }
+                )}
                 <button className="button"
                         onClick={onCancelButtonClick}>
-                    {localizer.localize('cancel-edit-book-button')}
+                    {localizer.localize('cancel')}
                 </button>
             </div>
         </React.Fragment>

@@ -31,15 +31,15 @@ function InputDateReadingSessionComponent(props) {
                     onClick={() => onAddButtonClick(dateReadingSession)}>
                 {localizer.localize('date-reading-session-add-button')}
             </button>
-            ) :
+            ) : (
             <button className="button"
                     onClick={() => onUpdateButtonClick(dateReadingSession)}>
                 {localizer.localize('date-reading-session-update-button')}
             </button>
-            }
+            )}
             <button className="button"
                     onClick={onCancelButtonClick}>
-                {localizer.localize('cancel-edit-book-button')}
+                {operation === 'add' ? localizer.localize('clear') : localizer.localize('cancel')}
             </button>
         </div>
     );
