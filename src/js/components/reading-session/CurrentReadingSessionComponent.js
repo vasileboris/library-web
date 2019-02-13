@@ -10,6 +10,7 @@ import InputDateReadingSessionComponent from './InputDateReadingSessionComponent
 import {
     changeDateReadingSessionFieldAction,
     changeDateReadingSessionAction,
+    clearDateReadingSessionAction,
     createDateReadingSessionAction,
     updateDateReadingSessionAction,
     deleteDateReadingSessionAction
@@ -27,6 +28,7 @@ class CurrentReadingSessionComponent extends React.Component {
         this.onEditDateReadingSessionClick = this.onEditDateReadingSessionClick.bind(this);
         this.onUpdateDateReadingSessionClick = this.onUpdateDateReadingSessionClick.bind(this);
         this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
+        this.switchToAddDateReadingSession = this.switchToAddDateReadingSession.bind(this);
     }
 
     render() {
@@ -48,7 +50,8 @@ class CurrentReadingSessionComponent extends React.Component {
                         dateReadingSession={dateReadingSession}
                         onInputChange={this.onInputChange}
                         onAddButtonClick={this.onAddDateReadingSessionClick}
-                        onUpdateButtonClick={this.onUpdateDateReadingSessionClick}/>
+                        onUpdateButtonClick={this.onUpdateDateReadingSessionClick}
+                        onCancelButtonClick={this.switchToAddDateReadingSession}/>
                     <MessageComponent message={message}/>
                 </div>
                 <div>
@@ -116,6 +119,14 @@ class CurrentReadingSessionComponent extends React.Component {
             currentReadingSession = currentReadingSessions[bookUuid];
         deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, date);
     }
+
+    switchToAddDateReadingSession() {
+        const { changeDateReadingSessionOperationAction, clearDateReadingSessionAction, receiveMessageAction } = this.props;
+        changeDateReadingSessionOperationAction('add');
+        clearDateReadingSessionAction();
+        receiveMessageAction(null);
+    }
+
 }
 
 CurrentReadingSessionComponent.propTypes = {
@@ -141,6 +152,7 @@ const mapDispatchToProps = {
     receiveMessageAction,
     changeDateReadingSessionFieldAction,
     changeDateReadingSessionAction,
+    clearDateReadingSessionAction,
     createDateReadingSessionAction,
     updateDateReadingSessionAction,
     deleteDateReadingSessionAction,

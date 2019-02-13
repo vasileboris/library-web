@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 
 function InputDateReadingSessionComponent(props) {
-    const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick } = props;
+    const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
         <div className="entry">
             <input type="date"
@@ -37,6 +37,10 @@ function InputDateReadingSessionComponent(props) {
                 {localizer.localize('date-reading-session-update-button')}
             </button>
             }
+            <button className="button"
+                    onClick={onCancelButtonClick}>
+                {localizer.localize('cancel-edit-book-button')}
+            </button>
         </div>
     );
 }
@@ -56,7 +60,8 @@ InputDateReadingSessionComponent.propTypes = {
     }),
     onInputChange: PropTypes.func,
     onAddButtonClick: PropTypes.func,
-    onUpdateButtonClick: PropTypes.func
+    onUpdateButtonClick: PropTypes.func,
+    onCancelButtonClick: PropTypes.func
 };
 
 export default InputDateReadingSessionComponent;
