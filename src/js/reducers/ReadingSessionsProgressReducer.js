@@ -1,4 +1,7 @@
-import { RECEIVE_READING_SESSION_PROGRESS } from 'actions/ReadingSessionProgressAction';
+import {
+    RECEIVE_READING_SESSION_PROGRESS,
+    CLEAR_READING_SESSION_PROGRESS
+} from 'actions/ReadingSessionProgressAction';
 
 export function readingSessionsProgress(readingSessionsProgress = {}, action) {
     switch(action.type) {
@@ -6,6 +9,11 @@ export function readingSessionsProgress(readingSessionsProgress = {}, action) {
             return {
                 ...readingSessionsProgress,
                 [action.payload.bookUuid]: action.payload
+            };
+        case CLEAR_READING_SESSION_PROGRESS:
+            return {
+                ...readingSessionsProgress,
+                [action.payload.bookUuid]: null
             };
         default:
             return readingSessionsProgress;
