@@ -10,7 +10,7 @@ function InputDateReadingSessionComponent(props) {
         <div className="entry">
             <DateInput name="date"
                    placeholder={localizer.localize('date-reading-session-date-text')}
-                   value={dateReadingSession.date ? dateReadingSession.date : new Date().toISOString().split('T')[0]}
+                   value={dateReadingSession.date ? dateReadingSession.date : ''}
                    onChange={onInputChange}
                    readOnly={operation !== 'add'}/>
             <TextInput name="lastReadPage"
