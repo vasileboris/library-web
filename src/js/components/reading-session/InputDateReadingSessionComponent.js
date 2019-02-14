@@ -1,27 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
+import TextInput from 'components/controls/TextInput';
+import DateInput from 'components/controls/DateInput';
 
 function InputDateReadingSessionComponent(props) {
     const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
         <div className="entry">
-            <input type="date"
-                   name="date"
-                   className="text"
+            <DateInput name="date"
                    placeholder={localizer.localize('date-reading-session-date-text')}
-                   value={dateReadingSession.date ? dateReadingSession.date : ""}
+                   value={dateReadingSession.date ? dateReadingSession.date : new Date().toISOString().split('T')[0]}
                    onChange={onInputChange}
                    readOnly={operation !== 'add'}/>
-            <input type="text"
-                   name="lastReadPage"
-                   className="text"
+            <TextInput name="lastReadPage"
                    placeholder={localizer.localize('date-reading-session-last-read-page-text')}
                    value={dateReadingSession.lastReadPage ? dateReadingSession.lastReadPage : ""}
                    onChange={onInputChange}/>
-            <input type="text"
-                   name="bookmark"
-                   className="text"
+            <TextInput name="bookmark"
                    placeholder={localizer.localize('date-reading-session-bookmark-text')}
                    value={dateReadingSession.bookmark ? dateReadingSession.bookmark : ""}
                    onChange={onInputChange}/>

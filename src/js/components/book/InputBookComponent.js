@@ -1,66 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
+import TextInput from 'components/controls/TextInput';
 
 function InputBookComponent(props) {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
-        <React.Fragment>
-            <div className="entry">
-                <input type="text"
-                       name="isbn10"
-                       className="text"
-                       placeholder={localizer.localize('book-isbn10-text')}
-                       value={book.isbn10 ? book.isbn10 : ""}
-                       onChange={onInputChange}/>
-                <input type="text"
-                       name="isbn13"
-                       className="text"
-                       placeholder={localizer.localize('book-isbn13-text')}
-                       value={book.isbn13 ? book.isbn13 : ""}
-                       onChange={onInputChange}/>
-                <input type="text"
-                       name="title"
-                       className="text"
-                       placeholder={localizer.localize('book-title-text')}
-                       value={book.title ? book.title : ""}
-                       onChange={onInputChange}/>
-                <input type="text"
-                       name="authors"
-                       className="text"
-                       placeholder={localizer.localize('book-authors-text')}
-                       value={book.authors ? book.authors.join(',') : ""}
-                       onChange={onInputChange}/>
-                <input type="text"
-                       name="image"
-                       className="text"
-                       placeholder={localizer.localize('book-image-text')}
-                       value={book.image ? book.image : ""}
-                       onChange={onInputChange}/>
-                <input type="text"
-                       name="pages"
-                       className="text"
-                       placeholder={localizer.localize('book-pages-text')}
-                       value={book.pages ? book.pages : ""}
-                       onChange={onInputChange}/>
+        <div className="entry">
+            <TextInput name="isbn10"
+                   placeholder={localizer.localize('book-isbn10-text')}
+                   value={book.isbn10 ? book.isbn10 : ""}
+                   onChange={onInputChange}/>
+            <TextInput name="isbn13"
+                   placeholder={localizer.localize('book-isbn13-text')}
+                   value={book.isbn13 ? book.isbn13 : ""}
+                   onChange={onInputChange}/>
+            <TextInput name="title"
+                   placeholder={localizer.localize('book-title-text')}
+                   value={book.title ? book.title : ""}
+                   onChange={onInputChange}/>
+            <TextInput name="authors"
+                   placeholder={localizer.localize('book-authors-text')}
+                   value={book.authors ? book.authors.join(',') : ""}
+                   onChange={onInputChange}/>
+            <TextInput name="image"
+                   placeholder={localizer.localize('book-image-text')}
+                   value={book.image ? book.image : ""}
+                   onChange={onInputChange}/>
+            <TextInput name="pages"
+                   placeholder={localizer.localize('book-pages-text')}
+                   value={book.pages ? book.pages : ""}
+                   onChange={onInputChange}/>
 
-                {operation === 'add' ? (
-                <button className="button"
-                        onClick={onAddButtonClick}>
-                    {localizer.localize('book-add-button')}
-                </button>
-                ) : (
-                <button className="button"
-                        onClick={onUpdateButtonClick}>
-                    {localizer.localize('book-update-button')}
-                </button>
-                )}
-                <button className="button"
-                        onClick={onCancelButtonClick}>
-                    {localizer.localize('cancel')}
-                </button>
-            </div>
-        </React.Fragment>
+            {operation === 'add' ? (
+            <button className="button"
+                    onClick={onAddButtonClick}>
+                {localizer.localize('book-add-button')}
+            </button>
+            ) : (
+            <button className="button"
+                    onClick={onUpdateButtonClick}>
+                {localizer.localize('book-update-button')}
+            </button>
+            )}
+            <button className="button"
+                    onClick={onCancelButtonClick}>
+                {localizer.localize('cancel')}
+            </button>
+        </div>
     );
 }
 
