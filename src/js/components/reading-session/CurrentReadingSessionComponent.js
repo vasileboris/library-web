@@ -70,15 +70,10 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        const { receiveMessageAction, changeDateReadingSessionOperationAction, changeDateReadingSessionAction } = this.props;
+        const { receiveMessageAction, changeDateReadingSessionOperationAction, clearDateReadingSessionAction } = this.props;
         receiveMessageAction(null);
         changeDateReadingSessionOperationAction('add');
-        changeDateReadingSessionAction({
-            date: null,
-            lastReadPage: null,
-            bookmark: null
-
-        });
+        clearDateReadingSessionAction();
     }
 
     onInputChange(e) {
