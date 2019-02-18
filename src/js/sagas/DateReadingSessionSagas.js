@@ -1,10 +1,12 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import {
+    sanitizeDateReadingSession,
     validateDateReadingSession,
     createDateReadingSession,
     updateDateReadingSession,
     deleteDateReadingSession } from 'api/DateReadingSessionApi';
 import {
+    changeDateReadingSessionAction,
     clearDateReadingSessionAction,
     CREATE_DATE_READING_SESSION,
     UPDATE_DATE_READING_SESSION,
@@ -28,7 +30,9 @@ export function* watchDeleteDateReadingSession() {
 
 function* callCreateDateReadingSession(action) {
     try {
-        const {bookUuid, uuid, dateReadingSession} = action.payload;
+        const {bookUuid, uuid} = action.payload;
+        const dateReadingSession = sanitizeDateReadingSession(action.payload.dateReadingSession);
+        yield put(changeDateReadingSessionAction(dateReadingSession));
         yield call(validateDateReadingSession, dateReadingSession);
         yield call(createDateReadingSession, bookUuid, uuid, dateReadingSession);
         yield call(dispatchCurrentReadingSessionData, bookUuid);
@@ -39,7 +43,9 @@ function* callCreateDateReadingSession(action) {
 
 function* callUpdateDateReadingSession(action) {
     try {
-        const {bookUuid, uuid, dateReadingSession} = action.payload;
+        const {bookUuid, uuid} = action.payload;
+        const dateReadingSession = sanitizeDateReadingSession(action.payload.dateReadingSession);
+        yield put(changeDateReadingSessionAction(dateReadingSession));
         yield call(validateDateReadingSession, dateReadingSession);
         yield call(updateDateReadingSession, bookUuid, uuid, dateReadingSession);
         yield call(dispatchCurrentReadingSessionData, bookUuid);

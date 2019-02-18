@@ -9,8 +9,8 @@ import {
 } from 'validation/Sanitizer';
 import {
     isRequired,
-    isPositiveNumber }
-    from 'validation/Rule';
+    isPositiveNumber
+} from 'validation/Rule';
 import validate from 'validation/Validator';
 
 export const BOOKS_ENDPOINT = `/users/${user.id}/books`;

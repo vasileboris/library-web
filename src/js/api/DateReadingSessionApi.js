@@ -2,6 +2,16 @@ import { BOOKS_ENDPOINT } from './BookApi';
 import axios from 'axios';
 import localizer from 'utils/Localizer';
 import Error from 'utils/Error';
+import {
+    sanitize,
+    sanitizeNumber
+} from 'validation/Sanitizer';
+import {
+    isRequired,
+    isPositiveNumber,
+    isDate
+} from 'validation/Rule';
+import validate from 'validation/Validator';
 
 function dateReadingSessionsEndpoint(bookUuid, uuid) {
     return `${BOOKS_ENDPOINT}/${bookUuid}/reading-sessions/${uuid}/date-reading-sessions`;
@@ -45,16 +55,27 @@ export function deleteDateReadingSession(bookUuid, uuid, date) {
 
 export function validateDateReadingSession(dateReadingSession) {
     return new Promise((resolve, reject) => {
-        const dateRegexp = /^\d{4}-\d{2}-\d{2}$/;
-        if(!dateRegexp.test(dateReadingSession.date)) {
-            reject(localizer.localize('date-reading-session-date-validation'));
+        let message = validate(dateReadingSession.date, [isRequired, isDate]);
+        if(message) {
+            reject(localizer.localize(message, localizer.localize('date-reading-session-date-text')));
         }
 
-        const pagesRegexp = /^\d+$/;
-        if(!pagesRegexp.test(dateReadingSession.lastReadPage) || dateReadingSession.lastReadPage < 1) {
-            reject(localizer.localize('date-reading-session-last-read-page-validation'));
+        message = validate(dateReadingSession.lastReadPage, [isRequired, isPositiveNumber]);
+        if(message) {
+            reject(localizer.localize(message, localizer.localize('date-reading-session-last-read-page-text')));
         }
 
         resolve();
     });
+}
+
+export function sanitizeDateReadingSession(dateReadingSession) {
+    const { date, lastReadPage, bookmark } = dateReadingSession;
+    const sanitizedDateReadingSession = {
+        ...dateReadingSession,
+        date: sanitize(date),
+        lastReadPage: sanitizeNumber(lastReadPage),
+        bookmark: sanitize(bookmark)
+    };
+    return sanitizedDateReadingSession;
 }
