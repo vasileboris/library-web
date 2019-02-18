@@ -7,6 +7,11 @@ import {
     sanitizeArray,
     sanitizeNumber
 } from 'validation/Sanitizer';
+import {
+    isRequired,
+    isPositiveNumber }
+    from 'validation/Rule';
+import validate from 'validation/Validator';
 
 export const BOOKS_ENDPOINT = `/users/${user.id}/books`;
 
@@ -62,21 +67,19 @@ function searchEndpoint(searchText) {
 
 export function validateBook(book) {
     return new Promise((resolve, reject) => {
-        if(!book.isbn10 && !book.isbn13) {
-            reject(localizer.localize('book-isbn-validation'));
+        let message = validate(book.title, [isRequired]);
+        if(message) {
+            reject(localizer.localize(message, localizer.localize('book-title-text')));
         }
 
-        if(!book.title) {
-            reject(localizer.localize('book-title-validation'));
+        message = validate(book.authors, [isRequired]);
+        if(message) {
+            reject(localizer.localize(message, localizer.localize('book-authors-text')));
         }
 
-        if(!book.authors || 0 === book.authors.length) {
-            reject(localizer.localize('book-authors-validation'));
-        }
-
-        const pagesRegexp = /^\d+$/;
-        if(!book || !pagesRegexp.test(book.pages) || book.pages < 1) {
-            reject(localizer.localize('book-pages-validation'));
+        message = validate(book.pages, [isRequired, isPositiveNumber]);
+        if(message) {
+            reject(localizer.localize(message, localizer.localize('book-pages-text')));
         }
 
         resolve();
