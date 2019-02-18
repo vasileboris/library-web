@@ -2,6 +2,11 @@ import axios from 'axios';
 import user from 'User';
 import localizer from 'utils/Localizer';
 import Error from 'utils/Error';
+import {
+    sanitize,
+    sanitizeArray,
+    sanitizeNumber
+} from 'validation/Sanitizer';
 
 export const BOOKS_ENDPOINT = `/users/${user.id}/books`;
 
@@ -82,54 +87,12 @@ export function sanitizeBook(book) {
     const { isbn10, isbn13, title, authors, image, pages } = book;
     const sanitizedBook = {
         ...book,
-        isbn10: sanitizeString(isbn10),
-        isbn13: sanitizeString(isbn13),
-        title: sanitizeString(title),
-        authors: sanitizeStringArray(authors),
-        image: sanitizeString(image),
+        isbn10: sanitize(isbn10),
+        isbn13: sanitize(isbn13),
+        title: sanitize(title),
+        authors: sanitizeArray(authors),
+        image: sanitize(image),
         pages: sanitizeNumber(pages)
     };
     return sanitizedBook;
-}
-
-function sanitizeString(value) {
-    if(!value) {
-        return '';
-    }
-
-    if('string' === typeof value) {
-        return value.trim();
-    }
-
-    return '';
-}
-
-function sanitizeStringArray(value) {
-    if(!value) {
-        return [];
-    }
-
-    if(Array.isArray(value)) {
-        return value
-            .map(v => sanitizeString(v))
-            .filter(v => v);
-    }
-
-    return [];
-}
-
-function sanitizeNumber(value) {
-    if(!value) {
-        return '';
-    }
-
-    if('number' === typeof value) {
-        return value;
-    }
-
-    if('string' === typeof value) {
-        return value.trim();
-    }
-
-    return '';
 }
