@@ -1,7 +1,9 @@
 import axios from 'axios';
 import user from 'User';
 import localizer from 'utils/Localizer';
-import Error from 'utils/Error';
+import {
+    getReason
+} from 'utils/Error';
 import {
     sanitize,
     sanitizeArray,
@@ -19,7 +21,7 @@ export function fetchBook(uuid) {
     return new Promise((resolve, reject) => {
         axios.get(bookEndpoint(uuid))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-retrieve-error', Error.getReason(error))))
+            .catch(error => reject(localizer.localize('book-retrieve-error', getReason(error))))
     });
 }
 
@@ -27,7 +29,7 @@ export function fetchBooks(searchText) {
     return new Promise((resolve, reject) => {
         axios.get(searchEndpoint(searchText))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('books-search-error', Error.getReason(error))))
+            .catch(error => reject(localizer.localize('books-search-error', getReason(error))))
     });
 }
 
@@ -35,7 +37,7 @@ export function deleteBook(uuid) {
     return new Promise((resolve, reject) => {
         axios.delete(bookEndpoint(uuid))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-delete-error', Error.getReason(error))));
+            .catch(error => reject(localizer.localize('book-delete-error', getReason(error))));
     });
 }
 
@@ -43,7 +45,7 @@ export function addBook(book) {
     return new Promise((resolve, reject) => {
         axios.post(BOOKS_ENDPOINT, book)
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-add-error', Error.getReason(error))))
+            .catch(error => reject(localizer.localize('book-add-error', getReason(error))))
     });
 }
 
@@ -51,7 +53,7 @@ export function updateBook(book) {
     return new Promise((resolve, reject) => {
         axios.put(bookEndpoint(book.uuid), book)
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-update-error', Error.getReason(error))))
+            .catch(error => reject(localizer.localize('book-update-error', getReason(error))))
     });
 }
 

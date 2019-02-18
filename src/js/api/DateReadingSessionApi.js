@@ -1,7 +1,9 @@
 import { BOOKS_ENDPOINT } from './BookApi';
 import axios from 'axios';
 import localizer from 'utils/Localizer';
-import Error from 'utils/Error';
+import {
+    getReason
+} from 'utils/Error';
 import {
     sanitize,
     sanitizeNumber
@@ -25,7 +27,7 @@ export function fetchDateReadingSessions(bookUuid, uuid) {
     return new Promise((resolve, reject) => {
         axios.get(dateReadingSessionsEndpoint(bookUuid, uuid))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('date-reading-sessions-retrieve-error', Error.getReason(error))));
+            .catch(error => reject(localizer.localize('date-reading-sessions-retrieve-error', getReason(error))));
     });
 }
 
@@ -33,7 +35,7 @@ export function createDateReadingSession(bookUuid, uuid, dateReadingSession) {
     return new Promise((resolve, reject) => {
         axios.post(dateReadingSessionsEndpoint(bookUuid, uuid), dateReadingSession)
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('date-reading-session-add-error', Error.getReason(error))));
+            .catch(error => reject(localizer.localize('date-reading-session-add-error', getReason(error))));
     });
 }
 
@@ -41,7 +43,7 @@ export function updateDateReadingSession(bookUuid, uuid, dateReadingSession) {
     return new Promise((resolve, reject) => {
         axios.put(dateReadingSessionEndpoint(bookUuid, uuid, dateReadingSession.date), dateReadingSession)
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('date-reading-session-update-error', Error.getReason(error))));
+            .catch(error => reject(localizer.localize('date-reading-session-update-error', getReason(error))));
     });
 }
 
@@ -49,7 +51,7 @@ export function deleteDateReadingSession(bookUuid, uuid, date) {
     return new Promise((resolve, reject) => {
         axios.delete(dateReadingSessionEndpoint(bookUuid, uuid, date))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('date-reading-session-delete-error', Error.getReason(error))));
+            .catch(error => reject(localizer.localize('date-reading-session-delete-error', getReason(error))));
     });
 }
 

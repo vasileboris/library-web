@@ -1,4 +1,4 @@
-export function     isRequired(value) {
+export function isRequired(value) {
     if(!value) {
         return 'validation-value-is-required';
     }
