@@ -65,10 +65,14 @@ function* callDeleteDateReadingSession(action) {
 }
 
 function* dispatchCurrentReadingSessionData(bookUuid) {
-    yield all([
-        put(receiveMessageAction(null)),
-        put(changeDateReadingSessionOperationAction('add')),
-        put(clearDateReadingSessionAction()),
-        put(fetchCurrentReadingSessionAction(bookUuid))
-    ]);
+    try {
+        yield all([
+            put(receiveMessageAction(null)),
+            put(changeDateReadingSessionOperationAction('add')),
+            put(clearDateReadingSessionAction()),
+            put(fetchCurrentReadingSessionAction(bookUuid))
+        ]);
+    } catch (error) {
+        yield put(receiveMessageAction(error));
+    }
 }

@@ -108,11 +108,15 @@ function* callUpdateBook(action) {
 }
 
 function* dispatchBookSearchData(action) {
-    const searchText = action.payload.searchText;
-    yield put(receiveMessageAction(null));
-    yield put(changeBookOperationAction('search'));
-    yield put(resetBookAction({}));
-    yield put(receiveBooksSearchTextAction(searchText));
-    const response = yield call(fetchBooks, searchText);
-    yield put(receiveBooksAction(response.data));
+    try {
+        const searchText = action.payload.searchText;
+        yield put(receiveMessageAction(null));
+        yield put(changeBookOperationAction('search'));
+        yield put(resetBookAction({}));
+        yield put(receiveBooksSearchTextAction(searchText));
+        const response = yield call(fetchBooks, searchText);
+        yield put(receiveBooksAction(response.data));
+    } catch(error) {
+        yield put(receiveMessageAction(error));
+    }
 }
