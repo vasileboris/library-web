@@ -21,10 +21,20 @@ export function fetchCurrentReadingSession(bookUuid) {
                 if(404 === getReason(error)) {
                     axios.post(readingSessionsEndpoint(bookUuid), { bookUuid })
                         .then(response => resolve(response))
-                        .catch(error => reject(localizer.localize('reading-session-retrieve-error', getReason(error))));
+                        .catch(error => reject(fetchCurrentReadingSessionMessage(error)))
                 } else {
-                    reject(localizer.localize('reading-session-retrieve-error', getReason(error)))
+                    reject(fetchCurrentReadingSessionMessage(error));
                 }
             });
     });
+}
+
+function fetchCurrentReadingSessionMessage(error) {
+    const reason = getReason(error);
+    switch (reason) {
+        case 404:
+            return localizer.localize('book-reading-session-not-found-error');
+        default:
+            return localizer.localize('reading-session-retrieve-error');
+    }
 }
