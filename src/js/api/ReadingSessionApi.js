@@ -33,8 +33,8 @@ function fetchCurrentReadingSessionMessage(error) {
     const reason = getReason(error);
     switch (reason) {
         case 404:
-            return localizer.localize('book-reading-session-not-found-error');
+            return localizer.localize('current-reading-session-not-found-error');
         default:
-            return localizer.localize('reading-session-retrieve-error');
+            return localizer.localize('current-reading-session-retrieve-error');
     }
 }
