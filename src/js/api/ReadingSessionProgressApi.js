@@ -1,5 +1,7 @@
 import { BOOKS_ENDPOINT } from './BookApi';
 import axios from 'axios';
+import {getReason} from "../utils/Error";
+import localizer from "../utils/Localizer";
 
 function readingSessionProgressEndpoint(bookUuid, uuid) {
     return `${BOOKS_ENDPOINT}/${bookUuid}/reading-sessions/${uuid}/progress`;
@@ -9,6 +11,16 @@ export function fetchReadingSessionProgress(bookUuid, uuid) {
     return new Promise((resolve, reject) => {
         axios.get(readingSessionProgressEndpoint(bookUuid, uuid))
             .then(response => resolve(response))
-            .catch(error => reject(error));
+            .catch(error => reject(fetchReadingSessionProgressMessage(error)))
     });
+}
+
+function fetchReadingSessionProgressMessage(error) {
+    const reason = getReason(error);
+    switch (reason) {
+        case 404:
+            return localizer.localize('book-reading-session-not-found-error');
+        default:
+            return localizer.localize('reading-session-retrieve-error');
+    }
 }
