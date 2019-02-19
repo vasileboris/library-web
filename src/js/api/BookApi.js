@@ -21,7 +21,7 @@ export function fetchBook(uuid) {
     return new Promise((resolve, reject) => {
         axios.get(bookEndpoint(uuid))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-retrieve-error', getReason(error))))
+            .catch(error => reject(fetchBookErrorMessage(error)))
     });
 }
 
@@ -29,7 +29,7 @@ export function fetchBooks(searchText) {
     return new Promise((resolve, reject) => {
         axios.get(searchEndpoint(searchText))
             .then(response => resolve(response))
-            .catch(error => reject(searchBooksErrorMessage()))
+            .catch(error => reject(fetchBooksErrorMessage(error)))
     });
 }
 
@@ -102,7 +102,17 @@ export function sanitizeBook(book) {
     return sanitizedBook;
 }
 
-function searchBooksErrorMessage() {
+function fetchBookErrorMessage(error) {
+    const reason = getReason(error);
+    switch (reason) {
+        case 404:
+            return localizer.localize('book-not-found-error');
+        default:
+            return localizer.localize('book-retrieve-error');
+    }
+}
+
+function fetchBooksErrorMessage(error) {
     return localizer.localize('books-search-error');
 }
 
