@@ -53,7 +53,7 @@ export function updateBook(book) {
     return new Promise((resolve, reject) => {
         axios.put(bookEndpoint(book.uuid), book)
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-update-error', getReason(error))))
+            .catch(error => reject(updateBookErrorMessage(error)))
     });
 }
 
@@ -122,6 +122,18 @@ function addBookErrorMessage(error) {
         case 403:
             return localizer.localize('book-isbn-already-exists-error');
         default:
-            return localizer.localize('book-add-error');
+            return localizer.localize('book-save-error');
+    }
+}
+
+function updateBookErrorMessage(error) {
+    const reason = getReason(error);
+    switch (reason) {
+        case 403:
+            return localizer.localize('book-isbn-already-exists-error');
+        case 404:
+            return localizer.localize('book-not-found-error');
+        default:
+            return localizer.localize('book-save-error');
     }
 }
