@@ -7,4 +7,4 @@ export const getReason = function (error) {
         }
     }
     return reason;
-}
+};

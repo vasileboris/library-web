@@ -10,8 +10,8 @@ import {
     sanitizeNumber
 } from 'validation/Sanitizer';
 import {
-    isRequired,
-    isPositiveNumber
+    isPositiveNumber,
+    isRequired
 } from 'validation/Rule';
 import validate from 'validation/Validator';
 
@@ -37,7 +37,7 @@ export function deleteBook(uuid) {
     return new Promise((resolve, reject) => {
         axios.delete(bookEndpoint(uuid))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-delete-error', getReason(error))));
+            .catch(error => reject(deleteBookErrorMessage(error)))
     });
 }
 
@@ -90,7 +90,7 @@ export function validateBook(book) {
 
 export function sanitizeBook(book) {
     const { isbn10, isbn13, title, authors, image, pages } = book;
-    const sanitizedBook = {
+    return {
         ...book,
         isbn10: sanitize(isbn10),
         isbn13: sanitize(isbn13),
@@ -99,7 +99,6 @@ export function sanitizeBook(book) {
         image: sanitize(image),
         pages: sanitizeNumber(pages)
     };
-    return sanitizedBook;
 }
 
 function fetchBookErrorMessage(error) {
@@ -112,7 +111,7 @@ function fetchBookErrorMessage(error) {
     }
 }
 
-function fetchBooksErrorMessage(error) {
+function fetchBooksErrorMessage() {
     return localizer.localize('books-search-error');
 }
 
@@ -135,5 +134,17 @@ function updateBookErrorMessage(error) {
             return localizer.localize('book-not-found-error');
         default:
             return localizer.localize('book-save-error');
+    }
+}
+
+function deleteBookErrorMessage(error) {
+    const reason = getReason(error);
+    switch (reason) {
+        case 403:
+            return localizer.localize('book-has-reading-session-error');
+        case 404:
+            return localizer.localize('book-not-found-error');
+        default:
+            return localizer.localize('book-delete-error');
     }
 }
