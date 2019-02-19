@@ -45,7 +45,7 @@ export function addBook(book) {
     return new Promise((resolve, reject) => {
         axios.post(BOOKS_ENDPOINT, book)
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('book-add-error', getReason(error))))
+            .catch(error => reject(addBookErrorMessage(error)))
     });
 }
 
@@ -100,4 +100,14 @@ export function sanitizeBook(book) {
         pages: sanitizeNumber(pages)
     };
     return sanitizedBook;
+}
+
+function addBookErrorMessage(error) {
+    const reason = getReason(error);
+    switch (reason) {
+        case 403:
+            return localizer.localize('book-isbn-already-exists-error');
+        default:
+            return localizer.localize('book-server-error');
+    }
 }
