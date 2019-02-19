@@ -29,7 +29,7 @@ export function fetchBooks(searchText) {
     return new Promise((resolve, reject) => {
         axios.get(searchEndpoint(searchText))
             .then(response => resolve(response))
-            .catch(error => reject(localizer.localize('books-search-error', getReason(error))))
+            .catch(error => reject(searchBooksErrorMessage()))
     });
 }
 
@@ -102,12 +102,16 @@ export function sanitizeBook(book) {
     return sanitizedBook;
 }
 
+function searchBooksErrorMessage() {
+    return localizer.localize('books-search-error');
+}
+
 function addBookErrorMessage(error) {
     const reason = getReason(error);
     switch (reason) {
         case 403:
             return localizer.localize('book-isbn-already-exists-error');
         default:
-            return localizer.localize('book-server-error');
+            return localizer.localize('book-add-error');
     }
 }
