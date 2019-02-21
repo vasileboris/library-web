@@ -4,7 +4,7 @@ import DateReadingSessionComponent from './DateReadingSessionComponent'
 
 function DateReadingSessionsComponent(props) {
     return (
-        <div className="results">
+        <div className="results container horizontal">
             {props.dateReadingSessions
                 .sort((drs1, drs2) => drs2.date.localeCompare(drs1.date))
                 .map(drs => (

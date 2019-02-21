@@ -40,11 +40,11 @@ class CurrentReadingSessionComponent extends React.Component {
 
         return (
             <div className="content">
-                <div className="results">
+                <div className="results container horizontal">
                     <ReadonlyBookComponent book={book}/>
                     <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
                 </div>
-                <div>
+                <div className="entries container horizontal">
                     <InputDateReadingSessionComponent
                         operation={operation}
                         dateReadingSession={dateReadingSession}
@@ -52,14 +52,12 @@ class CurrentReadingSessionComponent extends React.Component {
                         onAddButtonClick={this.onAddDateReadingSessionClick}
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}
                         onCancelButtonClick={this.switchToAddDateReadingSession}/>
-                    <MessageComponent message={message}/>
                 </div>
-                <div>
-                    <DateReadingSessionsComponent
-                        dateReadingSessions={dateReadingSessions}
-                        onEditClick={this.onEditDateReadingSessionClick}
-                        onDeleteClick={this.onDeleteDateReadingSessionClick}/>
-                </div>
+                <MessageComponent message={message}/>
+                <DateReadingSessionsComponent
+                    dateReadingSessions={dateReadingSessions}
+                    onEditClick={this.onEditDateReadingSessionClick}
+                    onDeleteClick={this.onDeleteDateReadingSessionClick}/>
             </div>
         );
     }

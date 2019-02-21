@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function BooksComponent(props) {
     const { books, onEditClick, onDeleteClick } = props;
     return (
-        <div className="results">
+        <div className="results container horizontal">
             {books && Object.entries(books)
                 .map(entry => entry[1])
                 .sort((b1, b2) => b1.title.toUpperCase().localeCompare(b2.title.toUpperCase()))
