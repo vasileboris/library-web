@@ -40,11 +40,9 @@ class CurrentReadingSessionComponent extends React.Component {
 
         return (
             <div className="content">
-                <div className="results container horizontal">
+                <div className="entries container horizontal">
                     <ReadonlyBookComponent book={book}/>
                     <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
-                </div>
-                <div className="entries container horizontal">
                     <InputDateReadingSessionComponent
                         operation={operation}
                         dateReadingSession={dateReadingSession}
