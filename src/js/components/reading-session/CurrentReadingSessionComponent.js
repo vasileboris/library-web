@@ -43,6 +43,7 @@ class CurrentReadingSessionComponent extends React.Component {
                 <div className="entries container horizontal">
                     <ReadonlyBookComponent book={book}/>
                     <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
+                    <MessageComponent message={message}/>
                     <InputDateReadingSessionComponent
                         operation={operation}
                         dateReadingSession={dateReadingSession}
@@ -51,7 +52,6 @@ class CurrentReadingSessionComponent extends React.Component {
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}
                         onCancelButtonClick={this.switchToAddDateReadingSession}/>
                 </div>
-                <MessageComponent message={message}/>
                 <DateReadingSessionsComponent
                     dateReadingSessions={dateReadingSessions}
                     onEditClick={this.onEditDateReadingSessionClick}

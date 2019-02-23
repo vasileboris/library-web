@@ -42,16 +42,18 @@ class BooksManagementComponent extends React.Component {
                                           onAddClick={this.switchToAddBook}/>
                     )}
                     {['add', 'edit'].indexOf(operation) > -1 && (
-                    <InputBookComponent
-                        operation={operation}
-                        book={book}
-                        onInputChange={this.onBookInputChange}
-                        onAddButtonClick={this.onAddBookClick}
-                        onUpdateButtonClick={this.onUpdateBookClick}
-                        onCancelButtonClick={this.switchToSearchBooks}/>
+                    <React.Fragment>
+                        <MessageComponent message={message}/>
+                        <InputBookComponent
+                            operation={operation}
+                            book={book}
+                            onInputChange={this.onBookInputChange}
+                            onAddButtonClick={this.onAddBookClick}
+                            onUpdateButtonClick={this.onUpdateBookClick}
+                            onCancelButtonClick={this.switchToSearchBooks}/>
+                    </React.Fragment>
                     )}
                 </div>
-                <MessageComponent message={message}/>
                 <BooksComponent books={books}
                                 onEditClick={this.onEditBookClick}
                                 onDeleteClick={this.onDeleteBookClick}/>
