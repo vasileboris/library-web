@@ -10,7 +10,7 @@ function BookImageComponent(props) {
 }
 
 function buildImgAttributes(image) {
-    let src = '/img/no-image-available.png',
+    let src = '/img/book.svg',
         alt = localizer.localize('book-no-image-available');
     if (image) {
         src = image;

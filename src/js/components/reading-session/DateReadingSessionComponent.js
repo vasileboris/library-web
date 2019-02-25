@@ -8,10 +8,10 @@ function DateReadingSessionComponent(props) {
     return (
         <article className="result-date-reading-session">
             <a href="#" className="edit-item" onClick={() => onEditClick(dateReadingSession)}>
-                <img src="/img/edit.png" alt={localizer.localize('date-reading-session-update-button')} className="img-icon-large"/>
+                <img src="/img/edit.svg" alt={localizer.localize('date-reading-session-update-button')} className="img-icon-large"/>
             </a>
             <a href="#" className="delete-item" onClick={() => onDeleteClick(dateReadingSession.date)}>
-                <img src="/img/delete.png" alt={localizer.localize('date-reading-session-delete-button')} className="img-icon-large"/>
+                <img src="/img/delete.svg" alt={localizer.localize('date-reading-session-delete-button')} className="img-icon-large"/>
             </a>
             <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
             <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>

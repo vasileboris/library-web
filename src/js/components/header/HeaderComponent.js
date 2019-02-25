@@ -7,7 +7,7 @@ function HeaderComponent () {
         <header className="header">
             <div>
                 <Link to='/books'>
-                    <img src="/img/logo.svg" alt={localizer.localize('app-title')} className="img-logo"/>
+                    <img src="/img/book.svg" alt={localizer.localize('app-title')} className="img-logo"/>
                 </Link>
             </div>
         </header>
