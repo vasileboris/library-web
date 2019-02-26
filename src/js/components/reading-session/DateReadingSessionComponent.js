@@ -13,11 +13,13 @@ function DateReadingSessionComponent(props) {
             <a href="#" className="delete-item" onClick={() => onDeleteClick(dateReadingSession.date)}>
                 <img src="/img/delete.svg" alt={localizer.localize('date-reading-session-delete-button')} className="img-icon-large"/>
             </a>
-            <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
-            <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>
-            {dateReadingSession.bookmark && (
-            <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
-            )}
+            <div className="result-detail">
+                <div>{localizer.localize('date-reading-session-last-read-page-label')} {dateReadingSession.lastReadPage}</div>
+                <div>{localizer.localize('date-reading-session-last-read-date-label')} {dateReadingSession.date}</div>
+                {dateReadingSession.bookmark && (
+                    <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
+                )}
+            </div>
         </article>
     );
 }

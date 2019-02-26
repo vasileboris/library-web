@@ -19,11 +19,11 @@ function BookComponent(props) {
             </a>
             <div className="result-detail">
                 <BookFigureComponent book={book} size="small"/>
+                <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
+                <div>{book.pages} {localizer.localize('book-pages-label')}</div>
+                <div>{book.isbn10}</div>
+                <div>{book.isbn13}</div>
             </div>
-            <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
-            <div>{book.pages} {localizer.localize('book-pages-label')}</div>
-            <div>{book.isbn10}</div>
-            <div>{book.isbn13}</div>
         </article>
     );
 }
