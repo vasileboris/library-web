@@ -7,7 +7,8 @@ import BookFigureComponent from './BookFigureComponent';
 function BookComponent(props) {
     const { book, onEditClick, onDeleteClick } = props;
     return (
-        <article className="result-book">
+        <article className="result">
+{/*
             <a href="#" className="edit-item" onClick={() => onEditClick(book)}>
                 <img src="/img/edit.svg" alt={localizer.localize('book-update-button')} className="img-icon-large"/>
             </a>
@@ -17,12 +18,10 @@ function BookComponent(props) {
             <a href="#" className="delete-item" onClick={() => onDeleteClick(book)}>
                 <img src="/img/delete.svg" alt={localizer.localize('book-delete-button')} className="img-icon-large"/>
             </a>
-            <div className="result-detail">
+*/}
+            <div className="result-detail" onClick={() => onEditClick(book)}>
                 <BookFigureComponent book={book} size="small"/>
                 <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
-                <div>{book.pages} {localizer.localize('book-pages-label')}</div>
-                <div>{book.isbn10}</div>
-                <div>{book.isbn13}</div>
             </div>
         </article>
     );
