@@ -7,7 +7,7 @@ function BookFigureComponent (props) {
     return (
         <figure className="figure-book">
             <BookImageComponent image={book.image} size={size}/>
-            <figcaption className="title result-detail">{book.title}</figcaption>
+            <figcaption className="title result-important result-detail">{book.title}</figcaption>
         </figure>
     );
 }

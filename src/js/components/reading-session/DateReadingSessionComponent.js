@@ -12,13 +12,11 @@ function DateReadingSessionComponent(props) {
                 <img src="/img/delete.svg" alt={localizer.localize('date-reading-session-delete-button')} className="img-icon-large"/>
             </a>
 */}
-            <h1 className="result-important">{new Date(dateReadingSession.date).toLocaleDateString()}</h1>
-            <div className="result-detail">
-                <div>{localizer.localize('date-reading-session-last-read-page-label', dateReadingSession.lastReadPage)}</div>
-                {dateReadingSession.bookmark && (
-                    <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
-                )}
-            </div>
+            <div className="title result-important">{new Date(dateReadingSession.date).toLocaleDateString()}</div>
+            <div>{localizer.localize('date-reading-session-last-read-page-label', dateReadingSession.lastReadPage)}</div>
+            {dateReadingSession.bookmark && (
+                <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
+            )}
         </article>
     );
 }

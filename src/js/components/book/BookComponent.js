@@ -23,7 +23,7 @@ function BookComponent(props) {
                 <BookImageComponent image={book.image} size="small"/>
             </Link>
             <div className="result-detail" onClick={() => onEditClick(book)}>
-                <div className="title">{book.title}</div>
+                <div className="title result-important">{book.title}</div>
                 <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
                 <div>{book.pages} {localizer.localize('book-pages-label')}</div>
                 <div>{book.isbn10}</div>
