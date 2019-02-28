@@ -6,14 +6,14 @@ function DateReadingSessionComponent(props) {
     const { dateReadingSession, onEditClick, onDeleteClick } = props;
 
     return (
-        <article className="result">
+        <article className="result" onClick={() => onEditClick(dateReadingSession)}>
 {/*
             <a href="#" className="delete-item" onClick={() => onDeleteClick(dateReadingSession.date)}>
                 <img src="/img/delete.svg" alt={localizer.localize('date-reading-session-delete-button')} className="img-icon-large"/>
             </a>
 */}
             <h1 className="result-important">{new Date(dateReadingSession.date).toLocaleDateString()}</h1>
-            <div className="result-detail" onClick={() => onEditClick(dateReadingSession)}>
+            <div className="result-detail">
                 <div>{localizer.localize('date-reading-session-last-read-page-label', dateReadingSession.lastReadPage)}</div>
                 {dateReadingSession.bookmark && (
                     <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
