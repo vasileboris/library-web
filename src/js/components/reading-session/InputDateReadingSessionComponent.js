@@ -35,7 +35,7 @@ function InputDateReadingSessionComponent(props) {
             )}
             <button className="button"
                     onClick={onCancelButtonClick}>
-                {operation === 'add' ? localizer.localize('clear') : localizer.localize('cancel')}
+                {operation === 'add' ? localizer.localize('clear-button') : localizer.localize('cancel-button')}
             </button>
         </div>
     );

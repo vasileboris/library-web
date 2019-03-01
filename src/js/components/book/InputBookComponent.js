@@ -45,7 +45,7 @@ function InputBookComponent(props) {
             )}
             <button className="button"
                     onClick={onCancelButtonClick}>
-                {localizer.localize('cancel')}
+                {localizer.localize('cancel-button')}
             </button>
         </div>
     );
