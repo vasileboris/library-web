@@ -32,21 +32,23 @@ function InputBookComponent(props) {
                    value={book.pages ? book.pages : ""}
                    onChange={onInputChange}/>
 
-            {operation === 'add' ? (
-            <button className="button"
-                    onClick={onAddButtonClick}>
-                {localizer.localize('book-add-button')}
-            </button>
-            ) : (
-            <button className="button"
-                    onClick={onUpdateButtonClick}>
-                {localizer.localize('book-update-button')}
-            </button>
-            )}
-            <button className="button"
-                    onClick={onCancelButtonClick}>
-                {localizer.localize('cancel-button')}
-            </button>
+            <div className="buttons container horizontal">
+                {operation === 'add' ? (
+                <button className="button"
+                        onClick={onAddButtonClick}>
+                    {localizer.localize('book-add-button')}
+                </button>
+                ) : (
+                <button className="button"
+                        onClick={onUpdateButtonClick}>
+                    {localizer.localize('book-update-button')}
+                </button>
+                )}
+                <button className="button"
+                        onClick={onCancelButtonClick}>
+                    {localizer.localize('cancel-button')}
+                </button>
+            </div>
         </div>
     );
 }

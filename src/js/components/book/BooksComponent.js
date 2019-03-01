@@ -3,7 +3,7 @@ import BookComponent from './BookComponent';
 import PropTypes from 'prop-types';
 
 function BooksComponent(props) {
-    const { books, onEditClick, onDeleteClick } = props;
+    const { books, onReadClick, onEditClick, onDeleteClick } = props;
     return (
         <div className="results container horizontal">
             {books && Object.entries(books)
@@ -13,6 +13,7 @@ function BooksComponent(props) {
                     <BookComponent
                         key={`${book.isbn10}-${book.isbn13}`}
                         book={book}
+                        onReadClick={onReadClick}
                         onEditClick={onEditClick}
                         onDeleteClick={onDeleteClick}/>
                 ))}
@@ -22,6 +23,7 @@ function BooksComponent(props) {
 
 BooksComponent.propTypes = {
     books: PropTypes.object,
+    onReadClick: PropTypes.func.isRequired,
     onEditClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired
 };

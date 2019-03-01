@@ -16,6 +16,7 @@ import {
     updateBookAction
 } from 'actions/BookAction';
 import { changeBookOperationAction } from 'actions/OperationAction';
+import history from 'routers/History'
 import PropTypes from 'prop-types';
 
 class BooksManagementComponent extends React.Component {
@@ -23,6 +24,7 @@ class BooksManagementComponent extends React.Component {
         super(props);
         this.onSearchInputChange = this.onSearchInputChange.bind(this);
         this.switchToAddBook = this.switchToAddBook.bind(this);
+        this.onReadBookClick = this.onReadBookClick.bind(this);
         this.onEditBookClick = this.onEditBookClick.bind(this);
         this.onDeleteBookClick = this.onDeleteBookClick.bind(this);
         this.onBookInputChange = this.onBookInputChange.bind(this);
@@ -53,6 +55,7 @@ class BooksManagementComponent extends React.Component {
                     )}
                 </div>
                 <BooksComponent books={books}
+                                onReadClick={this.onReadBookClick}
                                 onEditClick={this.onEditBookClick}
                                 onDeleteClick={this.onDeleteBookClick}/>
             </div>
@@ -105,6 +108,10 @@ class BooksManagementComponent extends React.Component {
         changeBookOperationAction('search');
         resetBookAction({});
         receiveMessageAction(null);
+    }
+
+    onReadBookClick(book) {
+        history.push('/books/' + book.uuid);
     }
 
     onEditBookClick(book) {

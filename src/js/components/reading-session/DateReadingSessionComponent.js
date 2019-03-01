@@ -14,11 +14,11 @@ function DateReadingSessionComponent(props) {
             )}
 
             <div className="buttons small container horizontal">
-                <button className="edit-item button"
+                <button className="button"
                         onClick={() => onEditClick(dateReadingSession)}>
                     {localizer.localize('edit-button')}
                 </button>
-                <button className="delete-item button"
+                <button className="button"
                         onClick={() => onDeleteClick(dateReadingSession.date)}>
                     {localizer.localize('delete-button')}
                 </button>

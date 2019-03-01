@@ -5,29 +5,34 @@ import PropTypes from 'prop-types';
 import BookImageComponent from './BookImageComponent';
 
 function BookComponent(props) {
-    const { book, onEditClick, onDeleteClick } = props;
+    const { book, onReadClick, onEditClick, onDeleteClick } = props;
     return (
-        <article className="result">
-{/*
-            <a href="#" className="edit-item" onClick={() => onEditClick(book)}>
-                <img src="/img/edit.svg" alt={localizer.localize('book-update-button')} className="img-icon large"/>
-            </a>
+        <article className="result container vertical">
+            <BookImageComponent image={book.image} size="small"/>
+            <button className="button"
+                    onClick={() => onReadClick(book)}>
+                {localizer.localize('read-button')}
+            </button>
             <Link to={`/books/${book.uuid}`} className="read-item">
-                <img src="/img/read.svg" alt={localizer.localize('book-read-button')} className="img-icon large"/>
             </Link>
-            <a href="#" className="delete-item" onClick={() => onDeleteClick(book)}>
-                <img src="/img/delete.svg" alt={localizer.localize('book-delete-button')} className="img-icon large"/>
-            </a>
-*/}
-            <Link to={`/books/${book.uuid}`} className="read-item">
-                <BookImageComponent image={book.image} size="small"/>
-            </Link>
-            <div className="result-detail" onClick={() => onEditClick(book)}>
-                <div className="title result-important">{book.title}</div>
-                <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
-                <div>{book.pages} {localizer.localize('book-pages-label')}</div>
-                <div>{book.isbn10}</div>
-                <div>{book.isbn13}</div>
+            <div className="result-detail container vertical" onClick={() => onEditClick(book)}>
+                <div>
+                    <div className="title result-important">{book.title}</div>
+                    <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
+                    <div>{book.pages} {localizer.localize('book-pages-label')}</div>
+                    <div>{book.isbn10}</div>
+                    <div>{book.isbn13}</div>
+                </div>
+                <div className="buttons small container horizontal">
+                    <button className="button"
+                            onClick={() => onEditClick(book)}>
+                        {localizer.localize('edit-button')}
+                    </button>
+                    <button className="button"
+                            onClick={() => onDeleteClick(book)}>
+                        {localizer.localize('delete-button')}
+                    </button>
+                </div>
             </div>
         </article>
     );
