@@ -22,21 +22,23 @@ function InputDateReadingSessionComponent(props) {
                    value={dateReadingSession.bookmark ? dateReadingSession.bookmark : ""}
                    onChange={onInputChange}/>
 
-            {operation === 'add' ? (
-            <button className="button"
-                    onClick={() => onAddButtonClick(dateReadingSession)}>
-                {localizer.localize('date-reading-session-add-button')}
-            </button>
-            ) : (
-            <button className="button"
-                    onClick={() => onUpdateButtonClick(dateReadingSession)}>
-                {localizer.localize('date-reading-session-update-button')}
-            </button>
-            )}
-            <button className="button"
-                    onClick={onCancelButtonClick}>
-                {operation === 'add' ? localizer.localize('clear-button') : localizer.localize('cancel-button')}
-            </button>
+           <div className="buttons container horizontal">
+               {operation === 'add' ? (
+                   <button className="button"
+                           onClick={() => onAddButtonClick(dateReadingSession)}>
+                       {localizer.localize('add-button')}
+                   </button>
+               ) : (
+                   <button className="button"
+                           onClick={() => onUpdateButtonClick(dateReadingSession)}>
+                       {localizer.localize('update-button')}
+                   </button>
+               )}
+               <button className="button"
+                       onClick={onCancelButtonClick}>
+                   {operation === 'add' ? localizer.localize('clear-button') : localizer.localize('cancel-button')}
+               </button>
+           </div>
         </div>
     );
 }

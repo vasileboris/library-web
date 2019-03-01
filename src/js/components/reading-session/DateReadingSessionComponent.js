@@ -13,7 +13,7 @@ function DateReadingSessionComponent(props) {
                 <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
             )}
 
-            <div className="buttons container horizontal">
+            <div className="buttons small container horizontal">
                 <button className="edit-item button"
                         onClick={() => onEditClick(dateReadingSession)}>
                     {localizer.localize('edit-button')}
