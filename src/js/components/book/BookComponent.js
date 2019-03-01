@@ -10,13 +10,13 @@ function BookComponent(props) {
         <article className="result">
 {/*
             <a href="#" className="edit-item" onClick={() => onEditClick(book)}>
-                <img src="/img/edit.svg" alt={localizer.localize('book-update-button')} className="img-icon-large"/>
+                <img src="/img/edit.svg" alt={localizer.localize('book-update-button')} className="img-icon large"/>
             </a>
             <Link to={`/books/${book.uuid}`} className="read-item">
-                <img src="/img/read.svg" alt={localizer.localize('book-read-button')} className="img-icon-large"/>
+                <img src="/img/read.svg" alt={localizer.localize('book-read-button')} className="img-icon large"/>
             </Link>
             <a href="#" className="delete-item" onClick={() => onDeleteClick(book)}>
-                <img src="/img/delete.svg" alt={localizer.localize('book-delete-button')} className="img-icon-large"/>
+                <img src="/img/delete.svg" alt={localizer.localize('book-delete-button')} className="img-icon large"/>
             </a>
 */}
             <Link to={`/books/${book.uuid}`} className="read-item">

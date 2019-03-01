@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 function BookImageComponent(props) {
     const { image, size } = props;
     const imgAttributes = buildImgAttributes(image);
-    return <img src={imgAttributes.src} alt={imgAttributes.alt} className={`img-book-${size}`}/>;
+    return <img src={imgAttributes.src} alt={imgAttributes.alt} className={`img-book ${size}`}/>;
 }
 
 function buildImgAttributes(image) {
