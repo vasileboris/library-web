@@ -143,12 +143,11 @@ class BooksManagementComponent extends React.Component {
 
     scrollToInput() {
         const { operation, message } = this.props;
+        if(message) {
+            scrollIntoView(this.messageRef);
+            return;
+        }
         switch (operation) {
-            case 'search':
-                if(message) {
-                    scrollIntoView(this.messageRef);
-                }
-                break;
             case 'edit':
             case 'delete':
                 scrollIntoView(this.inputRef);

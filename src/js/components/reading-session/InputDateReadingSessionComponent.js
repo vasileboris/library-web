@@ -4,10 +4,10 @@ import localizer from 'utils/Localizer';
 import TextInput from 'components/controls/TextInput';
 import DateInput from 'components/controls/DateInput';
 
-function InputDateReadingSessionComponent(props) {
+const InputDateReadingSessionComponent = React.forwardRef((props, ref) => {
     const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
-        <div className="entry">
+        <div ref={ref} className="entry">
             <DateInput name="date"
                    placeholder={localizer.localize('date-reading-session-date-text')}
                    value={dateReadingSession.date ? dateReadingSession.date : ''}
@@ -41,7 +41,7 @@ function InputDateReadingSessionComponent(props) {
            </div>
         </div>
     );
-}
+});
 
 InputDateReadingSessionComponent.propTypes = {
     operation: PropTypes.oneOf(['add', 'edit']).isRequired,

@@ -19,6 +19,7 @@ import { fetchBookAction } from 'actions/BookAction';
 import { fetchCurrentReadingSessionAction } from 'actions/ReadingSessionAction';
 import { changeDateReadingSessionOperationAction } from 'actions/OperationAction';
 import { receiveMessageAction } from 'actions/MessageAction';
+import { scrollIntoView } from 'utils/Scroll';
 
 class CurrentReadingSessionComponent extends React.Component {
     constructor(props) {
@@ -29,6 +30,8 @@ class CurrentReadingSessionComponent extends React.Component {
         this.onUpdateDateReadingSessionClick = this.onUpdateDateReadingSessionClick.bind(this);
         this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
         this.switchToAddDateReadingSession = this.switchToAddDateReadingSession.bind(this);
+        this.messageRef = React.createRef();
+        this.inputRef = React.createRef();
     }
 
     render() {
@@ -43,8 +46,9 @@ class CurrentReadingSessionComponent extends React.Component {
                 <div className="entries container horizontal">
                     <ReadonlyBookComponent book={book}/>
                     <ReadingSessionProgressComponent readingSessionProgress={readingSessionProgress}/>
-                    <MessageComponent message={message}/>
+                    <MessageComponent ref={this.messageRef} message={message}/>
                     <InputDateReadingSessionComponent
+                        ref={this.inputRef}
                         operation={operation}
                         dateReadingSession={dateReadingSession}
                         onInputChange={this.onInputChange}
@@ -63,6 +67,10 @@ class CurrentReadingSessionComponent extends React.Component {
     componentDidMount() {
         this.retrieveBook();
         this.retrieveCurrentReadingSession();
+    }
+
+    componentDidUpdate() {
+        this.scrollToInput();
     }
 
     componentWillUnmount() {
@@ -118,6 +126,19 @@ class CurrentReadingSessionComponent extends React.Component {
         receiveMessageAction(null);
     }
 
+    scrollToInput() {
+        const { operation, message } = this.props;
+        if(message) {
+            scrollIntoView(this.messageRef);
+            return;
+        }
+        switch (operation) {
+            case 'edit':
+            case 'delete':
+                scrollIntoView(this.inputRef);
+                break;
+        }
+    }
 }
 
 CurrentReadingSessionComponent.propTypes = {
