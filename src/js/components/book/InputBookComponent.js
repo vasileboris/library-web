@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 import TextInput from 'components/controls/TextInput';
 
-const InputBookComponent = (props) => {
+const InputBookComponent = React.forwardRef((props, ref) => {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
-        <div className="entry">
+        <div ref={ref} className="entry">
             <TextInput name="isbn10"
                    placeholder={localizer.localize('book-isbn10-text')}
                    value={book.isbn10 ? book.isbn10 : ""}
@@ -51,7 +51,7 @@ const InputBookComponent = (props) => {
             </div>
         </div>
     );
-}
+});
 
 InputBookComponent.propTypes = {
     operation: PropTypes.oneOf(['add', 'edit']).isRequired,

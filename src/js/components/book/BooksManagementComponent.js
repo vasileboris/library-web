@@ -16,7 +16,8 @@ import {
     updateBookAction
 } from 'actions/BookAction';
 import { changeBookOperationAction } from 'actions/OperationAction';
-import history from 'routers/History'
+import history from 'routers/History';
+import { scrollIntoView } from 'utils/Scroll';
 import PropTypes from 'prop-types';
 
 class BooksManagementComponent extends React.Component {
@@ -31,6 +32,7 @@ class BooksManagementComponent extends React.Component {
         this.onAddBookClick = this.onAddBookClick.bind(this);
         this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
         this.onUpdateBookClick = this.onUpdateBookClick.bind(this);
+        this.inputRef = React.createRef();
     }
 
     render() {
@@ -46,6 +48,7 @@ class BooksManagementComponent extends React.Component {
                     )}
                     {['add', 'edit'].indexOf(operation) > -1 && (
                     <InputBookComponent
+                        ref={this.inputRef}
                         operation={operation}
                         book={book}
                         onInputChange={this.onBookInputChange}
@@ -66,6 +69,10 @@ class BooksManagementComponent extends React.Component {
         const booksSearchText = this.props.booksSearchText,
             { fetchBooksAction } = this.props;
         fetchBooksAction(booksSearchText);
+    }
+
+    componentDidUpdate() {
+        this.scrollToInput();
     }
 
     componentWillUnmount() {
@@ -133,6 +140,15 @@ class BooksManagementComponent extends React.Component {
         deleteBookAction(booksSearchText, book.uuid);
     }
 
+    scrollToInput() {
+        const { operation } = this.props;
+        switch (operation) {
+            case 'edit':
+            case 'delete':
+                scrollIntoView(this.inputRef);
+                break;
+        }
+    }
 }
 
 BooksManagementComponent.propTypes = {

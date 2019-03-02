@@ -13,8 +13,6 @@ function SearchBooksComponent(props) {
                        placeholder={localizer.localize('books-search-text')}
                        value={booksSearchText}
                        onChange={onInputChange}/>
-            </div>
-            <div className="entry">
                 <button className="button"
                         onClick={onAddClick}>
                     {localizer.localize('book-add-button')}
