@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function MessageComponent (props) {
+const MessageComponent = React.forwardRef((props, ref) => {
     const { message } = props;
     return message && (
-        <div className="message entry">{message}</div>
+        <div ref={ref} className="message entry">{message}</div>
     );
-}
+});
 
 MessageComponent.propTypes = {
     message: PropTypes.string

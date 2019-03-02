@@ -32,6 +32,7 @@ class BooksManagementComponent extends React.Component {
         this.onAddBookClick = this.onAddBookClick.bind(this);
         this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
         this.onUpdateBookClick = this.onUpdateBookClick.bind(this);
+        this.messageRef = React.createRef();
         this.inputRef = React.createRef();
     }
 
@@ -40,7 +41,7 @@ class BooksManagementComponent extends React.Component {
         return (
             <div className="content">
                 <div className="entries container horizontal">
-                    <MessageComponent message={message}/>
+                    <MessageComponent ref={this.messageRef} message={message}/>
                     {'search' === operation && (
                     <SearchBooksComponent booksSearchText={booksSearchText}
                                           onInputChange={this.onSearchInputChange}
@@ -141,8 +142,13 @@ class BooksManagementComponent extends React.Component {
     }
 
     scrollToInput() {
-        const { operation } = this.props;
+        const { operation, message } = this.props;
         switch (operation) {
+            case 'search':
+                if(message) {
+                    scrollIntoView(this.messageRef);
+                }
+                break;
             case 'edit':
             case 'delete':
                 scrollIntoView(this.inputRef);

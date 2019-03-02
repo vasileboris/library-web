@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import localizer from "../../utils/Localizer";
 
-function HeaderComponent () {
+const HeaderComponent = () => {
     return (
         <header className="header">
             <nav>
@@ -12,6 +12,6 @@ function HeaderComponent () {
             </nav>
         </header>
     );
-}
+};
 
 export default HeaderComponent;
