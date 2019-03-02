@@ -15,7 +15,7 @@ function BookComponent(props) {
             </button>
             <Link to={`/books/${book.uuid}`} className="read-item">
             </Link>
-            <div className="result-detail container vertical" onClick={() => onEditClick(book)}>
+            <div className="result-detail container vertical">
                 <div>
                     <div className="title result-important">{book.title}</div>
                     <div>{localizer.localize('book-by-label')} {book.authors.join(', ')}</div>
