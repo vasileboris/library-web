@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 import TextInput from 'components/controls/TextInput';
 
-function InputBookComponent(props) {
+const InputBookComponent = (props) => {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
     return (
         <div className="entry">
