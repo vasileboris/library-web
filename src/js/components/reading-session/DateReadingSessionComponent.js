@@ -8,11 +8,12 @@ function DateReadingSessionComponent(props) {
     return (
         <article className="result container vertical">
             <div className="title result-important">{new Date(dateReadingSession.date).toLocaleDateString()}</div>
-            <div>{localizer.localize('date-reading-session-last-read-page-label', dateReadingSession.lastReadPage)}</div>
-            {dateReadingSession.bookmark && (
-                <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
-            )}
-
+            <div className="result-detail container vertical">
+                <div>{localizer.localize('date-reading-session-last-read-page-label', dateReadingSession.lastReadPage)}</div>
+                {dateReadingSession.bookmark && (
+                    <div>{localizer.localize('date-reading-session-bookmark-label')} {dateReadingSession.bookmark};</div>
+                )}
+            </div>
             <div className="buttons small container horizontal">
                 <button className="button"
                         onClick={() => onEditClick(dateReadingSession)}>
