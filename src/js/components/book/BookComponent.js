@@ -1,6 +1,5 @@
 import React from 'react';
 import localizer from 'utils/Localizer';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BookImageComponent from './BookImageComponent';
 
@@ -13,8 +12,6 @@ function BookComponent(props) {
                     onClick={() => onReadClick(book)}>
                 {localizer.localize('read-button')}
             </button>
-            <Link to={`/books/${book.uuid}`} className="read-item">
-            </Link>
             <div className="result-detail container vertical">
                 <div>
                     <div className="title result-important">{book.title}</div>
