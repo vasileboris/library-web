@@ -32,6 +32,7 @@ class BooksManagementComponent extends React.Component {
         this.onAddBookClick = this.onAddBookClick.bind(this);
         this.switchToSearchBooks = this.switchToSearchBooks.bind(this);
         this.onUpdateBookClick = this.onUpdateBookClick.bind(this);
+        this.onConfirmDeleteBookClick = this.onConfirmDeleteBookClick.bind(this);
         this.messageRef = React.createRef();
         this.inputRef = React.createRef();
     }
@@ -47,7 +48,7 @@ class BooksManagementComponent extends React.Component {
                                           onInputChange={this.onSearchInputChange}
                                           onAddClick={this.switchToAddBook}/>
                     )}
-                    {['add', 'edit'].indexOf(operation) > -1 && (
+                    {['add', 'edit', 'delete'].indexOf(operation) > -1 && (
                     <InputBookComponent
                         ref={this.inputRef}
                         operation={operation}
@@ -55,6 +56,7 @@ class BooksManagementComponent extends React.Component {
                         onInputChange={this.onBookInputChange}
                         onAddButtonClick={this.onAddBookClick}
                         onUpdateButtonClick={this.onUpdateBookClick}
+                        onDeleteButtonClick={this.onConfirmDeleteBookClick}
                         onCancelButtonClick={this.switchToSearchBooks}/>
                     )}
                 </div>
@@ -137,7 +139,14 @@ class BooksManagementComponent extends React.Component {
     }
 
     onDeleteBookClick(book) {
-        const { booksSearchText, deleteBookAction } = this.props;
+        const { changeBookOperationAction, resetBookAction, receiveMessageAction } = this.props;
+        changeBookOperationAction('delete');
+        resetBookAction(book);
+        receiveMessageAction(null);
+    }
+
+    onConfirmDeleteBookClick() {
+        const { book, booksSearchText, deleteBookAction } = this.props;
         deleteBookAction(booksSearchText, book.uuid);
     }
 
@@ -158,7 +167,7 @@ class BooksManagementComponent extends React.Component {
 
 BooksManagementComponent.propTypes = {
     message: PropTypes.string,
-    operation: PropTypes.oneOf(['search', 'add', 'edit']),
+    operation: PropTypes.oneOf(['search', 'add', 'edit', 'delete']),
     book: PropTypes.object,
     booksSearchText: PropTypes.string,
     books: PropTypes.object
