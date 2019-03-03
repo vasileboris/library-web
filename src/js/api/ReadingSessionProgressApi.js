@@ -19,7 +19,7 @@ function fetchReadingSessionProgressMessage(error) {
     const reason = getReason(error);
     switch (reason) {
         case 404:
-            return localizer.localize('current-reading-session-not-found-error');
+            return null;
         default:
             return localizer.localize('current-reading-session-retrieve-error');
     }
