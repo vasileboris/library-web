@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 import TextInput from 'components/controls/TextInput';
 import DateInput from 'components/controls/DateInput';
+import NumberInput from 'components/controls/NumberInput';
 
 const InputDateReadingSessionComponent = React.forwardRef((props, ref) => {
     const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick, onDeleteButtonClick, onCancelButtonClick } = props;
@@ -13,7 +14,7 @@ const InputDateReadingSessionComponent = React.forwardRef((props, ref) => {
                    value={dateReadingSession.date ? dateReadingSession.date : ''}
                    onChange={onInputChange}
                    readOnly={'add' !== operation}/>
-            <TextInput name="lastReadPage"
+            <NumberInput name="lastReadPage"
                    placeholder={localizer.localize('date-reading-session-last-read-page-text')}
                    value={dateReadingSession.lastReadPage ? dateReadingSession.lastReadPage : ""}
                    onChange={onInputChange}

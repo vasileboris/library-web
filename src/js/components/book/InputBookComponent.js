@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import localizer from 'utils/Localizer';
 import TextInput from 'components/controls/TextInput';
+import NumberInput from 'components/controls/NumberInput';
 
 const InputBookComponent = React.forwardRef((props, ref) => {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onDeleteButtonClick, onCancelButtonClick } = props;
@@ -32,7 +33,7 @@ const InputBookComponent = React.forwardRef((props, ref) => {
                    value={book.image ? book.image : ""}
                    onChange={onInputChange}
                    readOnly={'delete' === operation}/>
-            <TextInput name="pages"
+            <NumberInput name="pages"
                    placeholder={localizer.localize('book-pages-text')}
                    value={book.pages ? book.pages : ""}
                    onChange={onInputChange}
