@@ -21,7 +21,7 @@ function DateReadingSessionComponent(props) {
                         {localizer.localize('edit-button')}
                     </button>
                     <button className="button"
-                            onClick={() => onDeleteClick(dateReadingSession.date)}>
+                            onClick={() => onDeleteClick(dateReadingSession)}>
                         {localizer.localize('delete-button')}
                     </button>
                 </div>

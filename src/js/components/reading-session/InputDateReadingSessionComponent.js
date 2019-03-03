@@ -5,33 +5,42 @@ import TextInput from 'components/controls/TextInput';
 import DateInput from 'components/controls/DateInput';
 
 const InputDateReadingSessionComponent = React.forwardRef((props, ref) => {
-    const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick, onCancelButtonClick } = props;
+    const { dateReadingSession, operation, onInputChange, onAddButtonClick, onUpdateButtonClick, onDeleteButtonClick, onCancelButtonClick } = props;
     return (
         <div ref={ref} className="entry">
             <DateInput name="date"
                    placeholder={localizer.localize('date-reading-session-date-text')}
                    value={dateReadingSession.date ? dateReadingSession.date : ''}
                    onChange={onInputChange}
-                   readOnly={operation !== 'add'}/>
+                   readOnly={'add' !== operation}/>
             <TextInput name="lastReadPage"
                    placeholder={localizer.localize('date-reading-session-last-read-page-text')}
                    value={dateReadingSession.lastReadPage ? dateReadingSession.lastReadPage : ""}
-                   onChange={onInputChange}/>
+                   onChange={onInputChange}
+                   readOnly={'delete' === operation}/>
             <TextInput name="bookmark"
                    placeholder={localizer.localize('date-reading-session-bookmark-text')}
                    value={dateReadingSession.bookmark ? dateReadingSession.bookmark : ""}
-                   onChange={onInputChange}/>
+                   onChange={onInputChange}
+                   readOnly={'delete' === operation}/>
 
            <div className="buttons container horizontal">
-               {operation === 'add' ? (
-                   <button className="button"
-                           onClick={() => onAddButtonClick(dateReadingSession)}>
-                       {localizer.localize('add-button')}
-                   </button>
-               ) : (
-                   <button className="button"
-                           onClick={() => onUpdateButtonClick(dateReadingSession)}>
-                       {localizer.localize('update-button')}
+               {'add' === operation && (
+               <button className="button"
+                       onClick={() => onAddButtonClick(dateReadingSession)}>
+                   {localizer.localize('add-button')}
+               </button>
+               )}
+               {'edit' === operation && (
+               <button className="button"
+                       onClick={() => onUpdateButtonClick(dateReadingSession)}>
+                   {localizer.localize('update-button')}
+               </button>
+               )}
+               {'delete' === operation && (
+                   <button className="button delete"
+                           onClick={() => onDeleteButtonClick(dateReadingSession)}>
+                       {localizer.localize('delete-button')}
                    </button>
                )}
                <button className="button"
@@ -44,7 +53,7 @@ const InputDateReadingSessionComponent = React.forwardRef((props, ref) => {
 });
 
 InputDateReadingSessionComponent.propTypes = {
-    operation: PropTypes.oneOf(['add', 'edit']).isRequired,
+    operation: PropTypes.oneOf(['add', 'edit', 'delete']).isRequired,
     dateReadingSession: PropTypes.shape({
         date: PropTypes.string,
         lastReadPage: PropTypes.oneOfType([
@@ -59,6 +68,7 @@ InputDateReadingSessionComponent.propTypes = {
     onInputChange: PropTypes.func,
     onAddButtonClick: PropTypes.func,
     onUpdateButtonClick: PropTypes.func,
+    onDeleteButtonClick: PropTypes.func,
     onCancelButtonClick: PropTypes.func
 };
 

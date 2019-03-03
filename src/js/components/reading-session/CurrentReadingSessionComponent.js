@@ -30,6 +30,7 @@ class CurrentReadingSessionComponent extends React.Component {
         this.onUpdateDateReadingSessionClick = this.onUpdateDateReadingSessionClick.bind(this);
         this.onDeleteDateReadingSessionClick = this.onDeleteDateReadingSessionClick.bind(this);
         this.switchToAddDateReadingSession = this.switchToAddDateReadingSession.bind(this);
+        this.onConfirmDeleteDateReadingSessionClick = this.onConfirmDeleteDateReadingSessionClick.bind(this);
         this.messageRef = React.createRef();
         this.inputRef = React.createRef();
     }
@@ -54,6 +55,7 @@ class CurrentReadingSessionComponent extends React.Component {
                         onInputChange={this.onInputChange}
                         onAddButtonClick={this.onAddDateReadingSessionClick}
                         onUpdateButtonClick={this.onUpdateDateReadingSessionClick}
+                        onDeleteButtonClick={this.onConfirmDeleteDateReadingSessionClick}
                         onCancelButtonClick={this.switchToAddDateReadingSession}/>
                 </div>
                 <DateReadingSessionsComponent
@@ -113,10 +115,16 @@ class CurrentReadingSessionComponent extends React.Component {
         updateDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession);
     }
 
-    onDeleteDateReadingSessionClick(date) {
+    onDeleteDateReadingSessionClick(dateReadingSession) {
+        const { changeDateReadingSessionOperationAction, changeDateReadingSessionAction } = this.props;
+        changeDateReadingSessionOperationAction('delete');
+        changeDateReadingSessionAction(dateReadingSession);
+    }
+
+    onConfirmDeleteDateReadingSessionClick(dateReadingSession) {
         const { deleteDateReadingSessionAction, bookUuid, currentReadingSessions } = this.props,
             currentReadingSession = currentReadingSessions[bookUuid];
-        deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, date);
+        deleteDateReadingSessionAction(bookUuid, currentReadingSession.uuid, dateReadingSession.date);
     }
 
     switchToAddDateReadingSession() {
@@ -144,7 +152,7 @@ class CurrentReadingSessionComponent extends React.Component {
 CurrentReadingSessionComponent.propTypes = {
     bookUuid: PropTypes.string.isRequired,
     message: PropTypes.string,
-    operation: PropTypes.oneOf(['add', 'edit']).isRequired,
+    operation: PropTypes.oneOf(['add', 'edit', 'delete']).isRequired,
     dateReadingSession: PropTypes.object,
     books: PropTypes.object,
     readingSessionProgress: PropTypes.object,

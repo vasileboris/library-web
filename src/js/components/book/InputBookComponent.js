@@ -39,23 +39,23 @@ const InputBookComponent = React.forwardRef((props, ref) => {
                    readOnly={'delete' === operation}/>
 
             <div className="buttons container horizontal">
-                {operation === 'add' && (
+                {'add' === operation && (
                 <button className="button"
                         onClick={onAddButtonClick}>
                     {localizer.localize('add-button')}
                 </button>
                 )}
-                {operation === 'edit' && (
+                {'edit' === operation && (
                 <button className="button"
                         onClick={onUpdateButtonClick}>
                     {localizer.localize('update-button')}
                 </button>
                 )}
-                {operation === 'delete' && (
-                    <button className="button delete"
-                            onClick={onDeleteButtonClick}>
-                        {localizer.localize('delete-button')}
-                    </button>
+                {'delete' === operation && (
+                <button className="button delete"
+                        onClick={onDeleteButtonClick}>
+                    {localizer.localize('delete-button')}
+                </button>
                 )}
                 <button className="button"
                         onClick={onCancelButtonClick}>
