@@ -7,7 +7,7 @@ const HeaderComponent = () => {
         <header className="header">
             <nav>
                 <Link to='/books'>
-                    <img src="/img/logo-one-line.png" alt={localizer.localize('app-title')} className="logo"/>
+                    <img src="/img/logo-one-line.png" alt={localizer.localize('app-title')} className="img-logo"/>
                 </Link>
             </nav>
         </header>
