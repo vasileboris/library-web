@@ -8,16 +8,6 @@ const InputBookComponent = React.forwardRef((props, ref) => {
     const { operation, book, onInputChange, onAddButtonClick, onUpdateButtonClick, onDeleteButtonClick, onCancelButtonClick } = props;
     return (
         <div ref={ref} className="entry">
-            <TextInput name="isbn10"
-                   placeholder={localizer.localize('book-isbn10-text')}
-                   value={book.isbn10 ? book.isbn10 : ""}
-                   onChange={onInputChange}
-                   readOnly={'delete' === operation}/>
-            <TextInput name="isbn13"
-                   placeholder={localizer.localize('book-isbn13-text')}
-                   value={book.isbn13 ? book.isbn13 : ""}
-                   onChange={onInputChange}
-                   readOnly={'delete' === operation}/>
             <TextInput name="title"
                    placeholder={localizer.localize('book-title-text')}
                    value={book.title ? book.title : ""}
@@ -26,11 +16,6 @@ const InputBookComponent = React.forwardRef((props, ref) => {
             <TextInput name="authors"
                    placeholder={localizer.localize('book-authors-text')}
                    value={book.authors ? book.authors.join(',') : ""}
-                   onChange={onInputChange}
-                   readOnly={'delete' === operation}/>
-            <TextInput name="image"
-                   placeholder={localizer.localize('book-image-text')}
-                   value={book.image ? book.image : ""}
                    onChange={onInputChange}
                    readOnly={'delete' === operation}/>
             <NumberInput name="pages"
