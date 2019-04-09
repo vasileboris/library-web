@@ -11,7 +11,7 @@ function BooksComponent(props) {
                 .sort((b1, b2) => b1.title.toUpperCase().localeCompare(b2.title.toUpperCase()))
                 .map(book => (
                     <BookComponent
-                        key={`${book.isbn10}-${book.isbn13}`}
+                        key={`${book.isbn10}-${book.isbn13}-${book.title}`}
                         book={book}
                         onReadClick={onReadClick}
                         onEditClick={onEditClick}

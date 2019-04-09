@@ -45,6 +45,7 @@ BookComponent.propTypes = {
             PropTypes.string
         ]).isRequired,
     }).isRequired,
+    onReadClick: PropTypes.func.isRequired,
     onEditClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired
 };
