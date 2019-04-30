@@ -19,34 +19,38 @@ function ReadingSessionProgressComponent (props) {
                 &nbsp;
                 {localizer.localize('reading-session-progress-average-pages-label')}
             </div>
-            <div>
-                <span className="result-important">{readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-estimated-pages-left-label')}
-            </div>
-            <div>
-                <span className="result-important">{readingSessionProgress.estimatedReadDaysLeft}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-estimated-read-days-left-label')}
-                &nbsp;
-                /
-                &nbsp;
-                <span className="result-important">{readingSessionProgress.estimatedDaysLeft}</span>
-                &nbsp;
-                {localizer.localize('reading-session-progress-estimated-days-left-label')}
-            </div>
-            <div>
-                {localizer.localize('reading-session-progress-estimated-finish-date-label')}
-                &nbsp;
-                <span className="result-important ">{readingSessionProgress.estimatedFinishDate}</span>
-            </div>
-            {readingSessionProgress.deadline ? (
-            <div>
-                {localizer.localize('reading-session-progress-deadline-label')}
-                &nbsp;
-                <span className="result-important ">{readingSessionProgress.deadline}</span>
-            </div>
-            ) : null}
+            { readingSessionProgress.estimatedReadDaysLeft > 0 && (
+            <React.Fragment>
+                <div>
+                    <span className="result-important">{readingSessionProgress.pagesTotal - readingSessionProgress.lastReadPage}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-estimated-pages-left-label')}
+                </div>
+                <div>
+                    <span className="result-important">{readingSessionProgress.estimatedReadDaysLeft}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-estimated-read-days-left-label')}
+                    &nbsp;
+                    /
+                    &nbsp;
+                    <span className="result-important">{readingSessionProgress.estimatedDaysLeft}</span>
+                    &nbsp;
+                    {localizer.localize('reading-session-progress-estimated-days-left-label')}
+                </div>
+                <div>
+                    {localizer.localize('reading-session-progress-estimated-finish-date-label')}
+                    &nbsp;
+                    <span className="result-important ">{readingSessionProgress.estimatedFinishDate}</span>
+                </div>
+                {readingSessionProgress.deadline ? (
+                <div>
+                    {localizer.localize('reading-session-progress-deadline-label')}
+                    &nbsp;
+                    <span className="result-important ">{readingSessionProgress.deadline}</span>
+                </div>
+                ) : null}
+            </React.Fragment>
+            )}
         </article>
     );
 }
