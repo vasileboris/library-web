@@ -8,7 +8,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "babel-polyfill": "^6.26.0",
-    "i18next": "^19.0.3",
+    "i18next": "^21.8.9",
     "i18next-fetch-backend": "^2.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
