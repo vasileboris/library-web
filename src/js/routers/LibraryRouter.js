@@ -3,7 +3,8 @@ import {
     Router,
     Route,
     Redirect,
-    Switch
+    Switch,
+    useParams
 } from 'react-router-dom';
 import {
     createStore,
@@ -24,6 +25,15 @@ const LibraryRouter = function() {
     const store = createStore(library, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(rootSaga);
 
+    const CurrentReadingSessionComponentRoute = function() {
+        const { uuid } = useParams()
+        return (
+            <Provider store={store}>
+                <CurrentReadingSessionComponent bookUuid={uuid}/>
+            </Provider>
+        );
+    }
+
     return (
         <Router history={history}>
             <React.Fragment>
@@ -37,11 +47,9 @@ const LibraryRouter = function() {
                                 <BooksManagementComponent/>
                             </Provider>
                         )}/>
-                        <Route path="/books/:uuid" component={({match}) => (
-                            <Provider store={store}>
-                                <CurrentReadingSessionComponent bookUuid={match.params.uuid}/>
-                            </Provider>
-                        )}/>
+                        <Route path="/books/:uuid">
+                            <CurrentReadingSessionComponentRoute/>
+                        </Route>
                         {/*
                         Without Switch I saw the following warning in console:
                         Warning: You tried to redirect to the same route you're currently on: "/books"
