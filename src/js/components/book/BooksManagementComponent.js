@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MessageComponent from 'components/message/MessageComponent';
 import SearchBooksComponent from './SearchBooksComponent';
@@ -196,4 +195,4 @@ const mapDispatchToProps = {
     updateBookAction
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BooksManagementComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(BooksManagementComponent);

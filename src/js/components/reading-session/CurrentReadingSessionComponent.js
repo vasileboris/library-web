@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import ReadonlyBookComponent from 'components/book/ReadonlyBookComponent';
 import ReadingSessionProgressComponent from './ReadingSessionProgressComponent'
 import MessageComponent from 'components/message/MessageComponent';
@@ -181,4 +180,4 @@ const mapDispatchToProps = {
     changeDateReadingSessionOperationAction
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CurrentReadingSessionComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentReadingSessionComponent);
