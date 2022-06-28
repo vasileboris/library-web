@@ -25,6 +25,14 @@ const LibraryRouter = function() {
     const store = createStore(library, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(rootSaga);
 
+    const BooksManagementComponentRoute = function () {
+        return(
+            <Provider store={store}>
+                <BooksManagementComponent/>
+            </Provider>
+        )
+    };
+
     const CurrentReadingSessionComponentRoute = function() {
         const { uuid } = useParams()
         return (
@@ -32,7 +40,7 @@ const LibraryRouter = function() {
                 <CurrentReadingSessionComponent bookUuid={uuid}/>
             </Provider>
         );
-    }
+    };
 
     return (
         <Router history={history}>
@@ -42,11 +50,9 @@ const LibraryRouter = function() {
                 </div>
                 <div className="page-content">
                     <Switch>
-                        <Route exact path="/books" component={() => (
-                            <Provider store={store}>
-                                <BooksManagementComponent/>
-                            </Provider>
-                        )}/>
+                        <Route exact path="/books">
+                            <BooksManagementComponentRoute/>
+                        </Route>
                         <Route path="/books/:uuid">
                             <CurrentReadingSessionComponentRoute/>
                         </Route>
