@@ -1,8 +1,9 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import LibraryRouter from 'routers/LibraryRouter';
 import localizer from 'utils/Localizer';
 
 localizer.init(() => {
-    render(<LibraryRouter/>, document.getElementById('app-div'));
+    const appDiv = ReactDOM.createRoot(document.getElementById('app-div'));
+    appDiv.render(<LibraryRouter/>);
 });
