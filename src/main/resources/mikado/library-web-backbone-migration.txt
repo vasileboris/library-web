@@ -1,0 +1,4 @@
+_ Migrate all components to react
+    _ Migrate BooksView to react
+        X Display components only when bookUuid is matching book.uuid in CurrentReadingSessionComponent
+        _ Migrate BookView to react

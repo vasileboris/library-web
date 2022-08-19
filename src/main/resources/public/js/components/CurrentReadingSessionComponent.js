@@ -29,10 +29,11 @@ class CurrentReadingSessionComponent extends React.Component {
     }
 
     render() {
-        const book = this.props.book;
-        const readingSessionProgress = this.props.readingSessionProgress;
         const message = this.props.message;
-        const currentReadingSession = this.props.currentReadingSession;
+
+        const book = this.isCurrentBook() ? this.props.book : null;
+        const readingSessionProgress = this.isCurrentBook() ? this.props.readingSessionProgress : null;
+        const currentReadingSession = this.isCurrentBook() ? this.props.currentReadingSession : null;
         const dateReadingSessions = currentReadingSession ? currentReadingSession.dateReadingSessions : [];
 
         return (
@@ -62,6 +63,10 @@ class CurrentReadingSessionComponent extends React.Component {
                 </section>
             </div>
         );
+    }
+
+    isCurrentBook() {
+        return !!this.props.book && this.props.bookUuid === this.props.book.uuid;
     }
 
     componentDidMount() {
